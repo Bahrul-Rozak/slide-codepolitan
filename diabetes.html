@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diabetes Mellitus Prediction - Machine Learning Masterclass</title>
+    <title>Diabetes Prediction - Medical ML Masterclass</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -23,9 +23,6 @@
         :root {
             --bg: #ffffff;
             --text: #000000;
-            --accent: #000000;
-            --muted: #525252;
-            --border: #e5e5e5;
         }
 
         * { box-sizing: border-box; }
@@ -37,6 +34,71 @@
             overflow: hidden;
         }
 
+        /* Loading Screen */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            color: #fff;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-bar {
+            width: 200px;
+            height: 2px;
+            background: #333;
+            margin-top: 20px;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+
+        .loader-progress {
+            width: 0%;
+            height: 100%;
+            background: #fff;
+            animation: load 2.5s ease-out forwards;
+        }
+
+        @keyframes load {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        /* ECG Animation for Cover */
+        .ecg-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+            opacity: 0.1;
+        }
+
+        .ecg-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: dash 3s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /* Slide Transitions */
         .slide {
             display: none;
             opacity: 0;
@@ -50,56 +112,17 @@
             transform: translateY(0);
         }
 
+        /* Code Block */
         .code-block {
-            background: #000;
-            color: #fff;
-            font-family: 'Fira Code', monospace;
-            border-radius: 8px;
+            background: #f5f5f5;
+            border: 1px solid #000;
+            border-radius: 0;
             padding: 16px;
-            font-size: 14px;
-            overflow-x: auto;
+            font-size: 13px;
+            font-family: 'Fira Code', monospace;
         }
 
-        .keyword { color: #ff79c6; }
-        .string { color: #f1fa8c; }
-        .comment { color: #6272a4; }
-        .function { color: #50fa7b; }
-
-        .outline-line {
-            position: relative;
-            padding-left: 24px;
-        }
-
-        .outline-line::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 12px;
-            width: 8px;
-            height: 8px;
-            background: #000;
-            border-radius: 50%;
-        }
-
-        .outline-line::after {
-            content: '';
-            position: absolute;
-            left: 3px;
-            top: 24px;
-            width: 2px;
-            height: calc(100% + 8px);
-            background: #e5e5e5;
-        }
-
-        .outline-line:last-child::after {
-            display: none;
-        }
-
-        .progress-bar {
-            transition: width 0.4s ease;
-            background: #000;
-        }
-
+        /* Interactive Cards */
         .card-hover {
             transition: all 0.3s ease;
             border: 1px solid #e5e5e5;
@@ -107,10 +130,65 @@
 
         .card-hover:hover {
             border-color: #000;
-            box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
-            transform: translate(-4px, -4px);
+            box-shadow: 6px 6px 0 rgba(0,0,0,0.1);
+            transform: translate(-3px, -3px);
         }
 
+        /* Timeline Agenda */
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid #000;
+            margin-left: 10px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            border: 2px solid #000;
+            border-radius: 50%;
+        }
+
+        /* Insight Reveal */
+        .insight-box {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background: #f5f5f5;
+            border-left: 4px solid #000;
+        }
+
+        .insight-box.open {
+            max-height: 300px;
+            padding: 16px;
+        }
+
+        .btn-reveal {
+            background: transparent;
+            border: 1px solid #000;
+            padding: 8px 16px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-reveal:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            transition: width 0.4s ease;
+            background: #000;
+        }
+
+        /* Animations */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -123,20 +201,26 @@
         .delay-1 { animation-delay: 0.1s; opacity: 0; }
         .delay-2 { animation-delay: 0.2s; opacity: 0; }
         .delay-3 { animation-delay: 0.3s; opacity: 0; }
-        .delay-4 { animation-delay: 0.4s; opacity: 0; }
-        .delay-5 { animation-delay: 0.5s; opacity: 0; }
 
         @media (prefers-reduced-motion: reduce) {
-            .slide { transition: none; }
+            .slide, .insight-box, .card-hover { transition: none; }
             .animate-in { animation: none; opacity: 1; }
+            .ecg-line { animation: none; }
         }
-
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #f5f5f5; }
-        ::-webkit-scrollbar-thumb { background: #000; }
     </style>
 </head>
 <body class="bg-white text-black min-h-screen">
+
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="text-center">
+            <h1 class="font-display text-2xl tracking-widest uppercase font-bold">Initializing System</h1>
+            <p class="text-sm text-gray-500 mt-2 font-mono">Loading Medical ML Protocol...</p>
+            <div class="loader-bar mt-6">
+                <div class="loader-progress"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- Progress Bar -->
     <div class="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
@@ -144,421 +228,163 @@
     </div>
 
     <!-- Slide Counter -->
-    <div class="fixed top-6 right-6 z-50 bg-black text-white px-4 py-2 text-sm font-medium">
-        <span id="slideCounter">01 / 20</span>
+    <div class="fixed top-6 right-6 z-50 bg-black text-white px-4 py-2 text-sm font-medium font-mono">
+        <span id="slideCounter">01 / 24</span>
     </div>
 
     <!-- Main Container -->
     <div id="slidesContainer" class="relative w-full h-screen overflow-hidden">
 
-        <!-- Slide 1: Cover -->
-        <section class="slide active flex-col items-center justify-between h-full py-16 md:py-24 px-6 relative" data-slide="1">
-            <div class="absolute inset-0">
-                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1920&q=80" alt="Medical Background" class="w-full h-full object-cover opacity-10" style="filter: grayscale(100%);">
-                <div class="absolute inset-0 bg-white/90"></div>
+        <!-- Slide 1: Cover (Interactive ECG) -->
+        <section class="slide active flex-col items-center justify-between h-full py-16 md:py-20 px-6 relative" data-slide="1">
+            
+            <!-- ECG Background Animation -->
+            <div class="ecg-container">
+                <svg height="150" width="100%" class="ecg-line">
+                    <path d="M0,75 L50,75 L60,75 L70,20 L80,130 L90,50 L100,75 L150,75 L200,75 L210,75 L220,20 L230,130 L240,50 L250,75 L300,75 L350,75 L360,75 L370,20 L380,130 L390,50 L400,75 L450,75 L500,75" stroke="black" stroke-width="2" fill="none" />
+                </svg>
             </div>
 
-            <!-- Header Area -->
-            <div class="relative z-10 text-center w-full pt-8 md:pt-16 animate-in delay-1">
-                <span class="inline-block border-2 border-black px-6 py-2 text-xs md:text-sm font-medium tracking-widest uppercase">Machine Learning Masterclass</span>
+            <div class="relative z-10 text-center w-full pt-8 animate-in delay-1">
+                <span class="inline-block border-2 border-black px-6 py-2 text-xs md:text-sm font-medium tracking-widest uppercase">Medical Machine Learning Series</span>
             </div>
 
-            <!-- Main Content Area -->
-            <div class="relative z-10 text-center max-w-5xl mx-auto px-4">
-                <h1 class="font-display text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8 animate-in delay-2">
+            <div class="relative z-10 text-center max-w-4xl mx-auto px-4">
+                <h1 class="font-display text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 animate-in delay-2">
                     DIABETES MELLITUS<br>
-                    <span class="bg-black text-white px-4 py-1 inline-block mt-2">PREDICTION</span><br>
-                    USING MACHINE LEARNING
+                    <span class="bg-black text-white px-4 py-1 inline-block mt-2">PREDICTION SYSTEM</span>
                 </h1>
-
-                <p class="text-base md:text-xl text-gray-600 max-w-2xl mx-auto mb-4 animate-in delay-3">
-                    Membangun Aplikasi Machine Learning End-to-End<br>untuk Prediksi Risiko Diabetes Tahap Awal
+                <p class="text-base md:text-xl text-gray-600 max-w-2xl mx-auto mb-8 animate-in delay-3">
+                    Membangun Sistem Pendukung Keputusan Klinis (Decision Support System) berbasis Machine Learning untuk Deteksi Dini Diabetes.
                 </p>
             </div>
 
-            <!-- Footer Area -->
             <div class="relative z-10 text-center w-full pb-8 animate-in delay-4">
-                <div class="inline-block pt-8 border-t border-gray-200 px-8">
-                    <p class="text-xs text-gray-400 uppercase tracking-wider mb-2">Presented by</p>
+                <div class="inline-block pt-6 border-t border-gray-200 px-8">
+                    <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Clinical Instructor</p>
                     <p class="text-xl md:text-2xl font-bold">Bahrul Rozak</p>
                     <p class="text-gray-500 text-sm md:text-base">Mentor at KELASFULLSTACK.id</p>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 2: Why ML Over LLM -->
+        <!-- Slide 2: The Context -->
         <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="2">
             <div class="max-w-5xl mx-auto w-full">
-                <div class="mb-12">
-                    <span class="text-sm font-medium text-gray-500 uppercase tracking-wider">Fundamental Question</span>
-                    <h2 class="font-display text-4xl md:text-5xl font-bold mt-2">Pernahkah Terpikir?</h2>
-                </div>
-
-                <div class="mb-8 p-6 bg-gray-50 border-l-4 border-black">
-                    <p class="text-xl md:text-2xl font-medium leading-relaxed text-gray-800">
-                        "Mengapa kita harus membayar mahal untuk token AI (LLM), ketika ada mesin pembelajaran (Machine Learning) klasik yang <strong>gratis, cepat, dan akurat</strong> untuk kasus spesifik seperti diagnosa medis?"
-                    </p>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="border-2 border-black p-8 bg-white">
-                        <h3 class="font-display text-2xl font-bold mb-6 flex items-center gap-3">
-                            <i class="fas fa-times-circle text-gray-400"></i>
-                            Tantangan LLM / AI Token
-                        </h3>
-                        <ul class="space-y-4 text-gray-700">
-                            <li class="flex items-start gap-3">
-                                <span class="text-gray-400 mt-1 font-mono">01</span>
-                                <div>
-                                    <strong>Biaya Tak Terduga</strong>
-                                    <p class="text-sm text-gray-500">Setiap prediksi memakan token. Semakin banyak pasien, semakin besar biaya yang harus dikeluarkan.</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <span class="text-gray-400 mt-1 font-mono">02</span>
-                                <div>
-                                    <strong>Latency & Koneksi</strong>
-                                    <p class="text-sm text-gray-500">Membutuhkan internet stabil. Bagaimana jika rumah sakit sedang offline?</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <span class="text-gray-400 mt-1 font-mono">03</span>
-                                <div>
-                                    <strong>Privasi Data</strong>
-                                    <p class="text-sm text-gray-500">Data pasien dikirim ke server pihak ketiga. Apakah ini sesuai standar etika medis?</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="border-2 border-black p-8 bg-black text-white">
-                        <h3 class="font-display text-2xl font-bold mb-6 flex items-center gap-3">
-                            <i class="fas fa-check-circle"></i>
-                            Solusi: Pure Machine Learning
-                        </h3>
-                        <ul class="space-y-4 text-gray-300">
-                            <li class="flex items-start gap-3">
-                                <span class="text-white font-bold mt-1 font-mono">01</span>
-                                <div>
-                                    <strong>Investasi Sekali, Untung Selamanya</strong>
-                                    <p class="text-sm text-gray-400">Tanpa biaya berlangganan token. Model milik kita sepenuhnya.</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <span class="text-white font-bold mt-1 font-mono">02</span>
-                                <div>
-                                    <strong>Kecepatan Milidetik</strong>
-                                    <p class="text-sm text-gray-400">Prediksi instan di perangkat lokal. Tidak ada lag, tidak ada tunggu.</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <span class="text-white font-bold mt-1 font-mono">03</span>
-                                <div>
-                                    <strong>Keamanan Maksimal</strong>
-                                    <p class="text-sm text-gray-400">Data pasien tidak keluar dari server rumah sakit. Privasi terjaga 100%.</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 3: Outline -->
-        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="3">
-            <div class="max-w-4xl mx-auto w-full">
-                <div class="mb-12 text-center">
-                    <span class="text-sm font-medium text-gray-500 uppercase tracking-wider">Roadmap</span>
-                    <h2 class="font-display text-4xl md:text-5xl font-bold mt-2">Mau Dibawa Kemana Kita?</h2>
-                    <p class="text-gray-600 mt-4">Perjalanan dari "Zero" menjadi "Hero" dalam membangun sistem prediksi medis.</p>
-                </div>
-
-                <div class="space-y-6">
-                    <div class="outline-line pb-6">
-                        <h4 class="font-bold text-lg">Foundation Building</h4>
-                        <p class="text-gray-600">Memahami "Why" sebelum "How". Setup environment hingga penguasaan dasar Python.</p>
-                    </div>
-                    <div class="outline-line pb-6">
-                        <h4 class="font-bold text-lg">Data Mastery</h4>
-                        <p class="text-gray-600">Mengenal data sebagai "Emas" baru. Cara membaca, membersihkan, dan menemukan permata tersembunyi.</p>
-                    </div>
-                    <div class="outline-line pb-6">
-                        <h4 class="font-bold text-lg">Engineering Excellence</h4>
-                        <p class="text-gray-600">Seni Feature Engineering. Mengubah data mentah menjadi sinyal yang bisa dipahami mesin.</p>
-                    </div>
-                    <div class="outline-line pb-6">
-                        <h4 class="font-bold text-lg">Model Wizardry</h4>
-                        <p class="text-gray-600">Melatih, mengevaluasi, dan mengoptimasi "otak" digital hingga mencapai akurasi tinggi.</p>
-                    </div>
-                    <div class="outline-line pb-6">
-                        <h4 class="font-bold text-lg">Deployment & Impact</h4>
-                        <p class="text-gray-600">Membawa model keluar dari laboratorium. Siap digunakan oleh tenaga medis secara nyata.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 4: Objectives -->
-        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="4">
-            <div class="max-w-5xl mx-auto w-full">
-                <div class="mb-12">
-                    <span class="text-sm font-medium text-gray-500 uppercase tracking-wider">The Goal</span>
-                    <h2 class="font-display text-4xl md:text-5xl font-bold mt-2">Apa Misi Utama Kita?</h2>
-                </div>
-
-                <div class="border-2 border-black p-8 md:p-12 mb-8">
-                    <p class="text-xl md:text-2xl leading-relaxed mb-4">
-                        Kita tidak sekadar belajar teori. Kita akan membangun sebuah <strong>sistem prediksi risiko diabetes</strong> yang berfungsi secara utuh (end-to-end).
-                    </p>
-                    <p class="text-gray-600 text-lg">
-                        Bayangkan: Sebuah aplikasi yang bisa membantu tenaga medis mendeteksi risiko diabetes lebih awal, hanya dari gejala-gejala sederhana. Itulah yang akan kita ciptakan bersama.
-                    </p>
-                </div>
-
-                <div class="grid md:grid-cols-3 gap-6">
-                    <div class="card-hover p-6 bg-white">
-                        <div class="text-3xl font-bold mb-2 text-gray-300">01</div>
-                        <h4 class="font-bold text-lg mb-2">Data Literacy</h4>
-                        <p class="text-gray-600 text-sm">Kemampuan untuk "berbicara" dengan data. Memahami apa yang data katakan dan apa yang ia sembunyikan.</p>
-                    </div>
-                    <div class="card-hover p-6 bg-white">
-                        <div class="text-3xl font-bold mb-2 text-gray-300">02</div>
-                        <h4 class="font-bold text-lg mb-2">Model Architect</h4>
-                        <p class="text-gray-600 text-sm">Keahlian merancang dan melatih "otak" buatan yang bisa mengambil keputusan medis dengan presisi.</p>
-                    </div>
-                    <div class="card-hover p-6 bg-white">
-                        <div class="text-3xl font-bold mb-2 text-gray-300">03</div>
-                        <h4 class="font-bold text-lg mb-2">Solution Deployer</h4>
-                        <p class="text-gray-600 text-sm">Skill langka: Mengubah kode yang ada di laptop menjadi aplikasi yang bisa diakses siapa saja.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 5: Module 1 -->
-        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="5">
-            <div class="max-w-5xl mx-auto w-full">
-                <div class="flex items-center gap-6 mb-10">
-                    <span class="text-6xl font-bold text-gray-200">01</span>
-                    <div>
-                        <h2 class="font-display text-3xl md:text-4xl font-bold">Introduction to AI & ML</h2>
-                        <p class="text-gray-500">Demystifying The Hype</p>
-                    </div>
-                </div>
-
-                <div class="mb-8 p-4 bg-black text-white text-center text-lg font-medium">
-                    "AI itu tidak seseram yang dibayangkan, tapi juga tidak sesederhana yang diiklankan."
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="font-bold text-lg mb-4 pb-2 border-b border-black">Deep Dive: Memahami Lanskap</h3>
-                        <ul class="space-y-3 text-gray-700">
-                            <li class="flex items-start gap-3">
-                                <i class="fas fa-brain text-black mt-1"></i>
-                                <div>
-                                    <strong>AI vs ML vs DL</strong>
-                                    <p class="text-sm text-gray-600">Bayangkan boneka matryoshka. AI adalah boneka terluar, ML di dalamnya, dan Deep Learning adalah inti terdalam. Kita akan fokus di lapisan ML yang paling praktis.</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <i class="fas fa-graduation-cap text-black mt-1"></i>
-                                <div>
-                                    <strong>Supervised Learning</strong>
-                                    <p class="text-sm text-gray-600">Konsep "belajar dengan guru". Model diberi soal dan kunci jawaban, lalu dilatih untuk menemukan polanya sendiri.</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <i class="fas fa-user-md text-black mt-1"></i>
-                                <div>
-                                    <strong>Konteks Medis</strong>
-                                    <p class="text-sm text-gray-600">Mengapa deteksi dini diabetes krusial? Karena pencegahan selalu lebih murah daripada pengobatan.</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h3 class="font-bold text-lg mb-4 pb-2 border-b border-black">Praktik: Membangun Markas</h3>
-                        <p class="text-sm text-gray-600 mb-4">Sebelum perang, kita siapkan senjata. Setup environment adalah langkah paling krusial yang sering diremehkan.</p>
-                        <div class="space-y-3">
-                            <div class="flex items-center justify-between p-4 bg-gray-50 border-l-4 border-black">
-                                <span class="font-medium">Python & Anaconda</span>
-                                <i class="fab fa-python text-xl"></i>
-                            </div>
-                            <div class="flex items-center justify-between p-4 bg-gray-50 border-l-4 border-black">
-                                <span class="font-medium">VS Code / Jupyter</span>
-                                <i class="fas fa-code text-xl"></i>
-                            </div>
-                            <div class="flex items-center justify-between p-4 bg-gray-50 border-l-4 border-black">
-                                <span class="font-medium">Git & GitHub</span>
-                                <i class="fab fa-github text-xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 6: Module 2 -->
-        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="6">
-            <div class="max-w-5xl mx-auto w-full">
-                <div class="flex items-center gap-6 mb-10">
-                    <span class="text-6xl font-bold text-gray-200">02</span>
-                    <div>
-                        <h2 class="font-display text-3xl md:text-4xl font-bold">Basic Python for Data Science</h2>
-                        <p class="text-gray-500">The Swiss Army Knife: Pandas</p>
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="font-bold text-lg mb-4">Mengapa Pandas Itu Wajib?</h3>
-                        <p class="text-gray-700 mb-6">
-                            Jika Python adalah bahasa, maka <strong>Pandas adalah tata bahasanya</strong>. Hampir 90% waktu seorang Data Scientist dihabiskan di sini—membersihkan, memanipulasi, dan memahami data.
-                        </p>
-                        <p class="text-gray-700 mb-4 italic border-l-4 border-gray-300 pl-4 text-sm">
-                            "Data di dunia nyata itu kacau. Pandas adalah sapu yang merapikannya."
-                        </p>
-                        <h4 class="font-bold mb-3">Operasi Kunci:</h4>
-                        <ul class="space-y-2 text-gray-700 text-sm">
-                            <li><i class="fas fa-check text-black mr-2"></i> <strong>Read/Write:</strong> Membaca CSV, Excel, SQL.</li>
-                            <li><i class="fas fa-check text-black mr-2"></i> <strong>Slicing:</strong> Memilih data spesifik yang dibutuhkan.</li>
-                            <li><i class="fas fa-check text-black mr-2"></i> <strong>Cleaning:</strong> Menghapus data kosong atau duplikat.</li>
-                            <li><i class="fas fa-check text-black mr-2"></i> <strong>Aggregation:</strong> Menghitung rata-rata, total, atau kelompok data.</li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h3 class="font-bold text-lg mb-4">Contoh Praktis Nyata</h3>
-                        <div class="code-block text-sm">
-                            <span class="keyword">import</span> pandas <span class="keyword">as</span> pd<br><br>
-
-                            <span class="comment"># 1. Load data (Langkah pertama)</span><br>
-                            df = pd.<span class="function">read_csv</span>(<span class="string">'diabetes.csv'</span>)<br><br>
-
-                            <span class="comment"># 2. Cek kesehatan data</span><br>
-                            df.<span class="function">info</span>()  <span class="comment"># Apakah ada data kosong?</span><br>
-                            df.<span class="function">describe</span>() <span class="comment"># Bagaimana statistiknya?</span><br><br>
-
-                            <span class="comment"># 3. Filter data spesifik</span><br>
-                            high_risk = df[df[<span class="string">'Age'</span>] > <span class="function">50</span>]
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-8 p-4 bg-black text-white text-sm">
-                    <strong>Insight:</strong> Menguasai Pandas berarti menguasai 50% pekerjaan Data Science. Tanpa ini, model tidak akan pernah bisa dibangun.
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 7: Module 3 -->
-        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="7">
-            <div class="max-w-5xl mx-auto w-full">
-                <div class="flex items-center gap-6 mb-10">
-                    <span class="text-6xl font-bold text-gray-200">03</span>
-                    <div>
-                        <h2 class="font-display text-3xl md:text-4xl font-bold">Dataset Understanding</h2>
-                        <p class="text-gray-500">Know Your Enemy, Know Your Data</p>
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-3 gap-6 mb-8">
-                    <div class="border border-black p-6 hover:shadow-lg transition-shadow">
-                        <div class="text-4xl font-bold">520</div>
-                        <p class="text-gray-600 text-sm">Rekam Medis Pasien</p>
-                        <p class="text-xs text-gray-400 mt-2">Sampel yang cukup untuk belajar</p>
-                    </div>
-                    <div class="border border-black p-6 hover:shadow-lg transition-shadow">
-                        <div class="text-4xl font-bold">16</div>
-                        <p class="text-gray-600 text-sm">Variabel Gejala</p>
-                        <p class="text-xs text-gray-400 mt-2">Fitur yang akan dipelajari model</p>
-                    </div>
-                    <div class="border border-black p-6 hover:shadow-lg transition-shadow">
-                        <div class="text-4xl font-bold">1</div>
-                        <p class="text-gray-600 text-sm">Target Klasifikasi</p>
-                        <p class="text-xs text-gray-400 mt-2">Positif atau Negatif Diabetes</p>
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="font-bold text-lg mb-4">Pertanyaan Penting</h3>
-                        <p class="text-gray-700 mb-4 text-sm">
-                            Sebelum coding, kita harus bertanya: Apakah data ini seimbang? Apakah ada bias? Dari mana asal muasal datanya?
-                        </p>
-                        <div class="bg-gray-50 p-4 border-l-4 border-black mb-4">
-                            <strong>Sumber Data:</strong> UCI Machine Learning Repository<br>
-                            <span class="text-xs text-gray-500">Hospital Diabetes Screening Data</span>
-                        </div>
-                        <a href="https://archive.ics.uci.edu/dataset/529/early+stage+diabetes+risk+prediction+dataset" target="_blank" class="inline-block text-sm underline hover:no-underline font-medium">
-                            Akses Dataset Sumber <i class="fas fa-external-link-alt ml-1"></i>
-                        </a>
-                    </div>
-
-                    <div>
-                        <h3 class="font-bold text-lg mb-4">Variabel Target</h3>
-                        <div class="border-2 border-black p-6">
-                            <p class="text-sm mb-4">Ini adalah "jawaban" yang ingin kita prediksi:</p>
-                            <div class="flex gap-4">
-                                <div class="flex-1 bg-black text-white p-4 text-center">
-                                    <strong>Positive</strong><br>
-                                    <span class="text-xs opacity-75">Risiko Diabetes</span>
-                                </div>
-                                <div class="flex-1 border border-black p-4 text-center">
-                                    <strong>Negative</strong><br>
-                                    <span class="text-xs opacity-75">Aman</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 8: Module 4 -->
-        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="8">
-            <div class="max-w-5xl mx-auto w-full">
-                <div class="flex items-center gap-6 mb-10">
-                    <span class="text-6xl font-bold text-gray-200">04</span>
-                    <div>
-                        <h2 class="font-display text-3xl md:text-4xl font-bold">Problem Statement</h2>
-                        <p class="text-gray-500">The Art of Asking The Right Question</p>
-                    </div>
-                </div>
-
-                <div class="mb-8 bg-gray-50 p-6 border border-black">
-                    <p class="text-lg font-medium">
-                        "Sebuah masalah yang didefinisikan dengan baik, adalah setengah dari solusi."
-                    </p>
+                <div class="mb-10">
+                    <span class="text-sm font-medium text-gray-500 uppercase tracking-wider">Preliminary Assessment</span>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mt-2">Tantangan Klinis Saat Ini</h2>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="border-l-4 border-black pl-6">
-                        <h3 class="font-bold text-xl mb-4">Context: The Real Problem</h3>
+                        <h3 class="font-bold text-xl mb-4">Masalah di Lapangan</h3>
                         <p class="text-gray-700 leading-relaxed mb-4">
-                            Banyak pasien diabetes tidak menyadari kondisinya hingga komplikasi terjadi. Skrining manual membutuhkan waktu dan biaya.
+                            Diabetes sering kali tidak bergejala jelas pada tahap awal (<em>silent killer</em>). Banyak pasien datang sudah dalam kondisi komplikasi.
                         </p>
                         <p class="text-gray-700 leading-relaxed">
-                            <strong>Pertanyaannya:</strong> Bagaimana jika kita bisa mendeteksi risiko lebih awal, hanya berdasarkan jawaban kuesioner sederhana?
+                            Keterbatasan waktu konsultasi dan jumlah tenaga medis membuat skrining massal menjadi tantangan besar.
                         </p>
                     </div>
 
+                    <div class="bg-gray-50 p-6 border border-black">
+                        <h3 class="font-bold text-xl mb-4">Data yang Tidak Terpakai</h3>
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            Kita memiliki data rekam medis (gejala, riwayat keluarga) yang sangat berharga, namun sering hanya "tersimpan" tanpa dianalisis polanya.
+                        </p>
+                        <div class="mt-4 p-3 bg-black text-white text-sm">
+                            Pertanyaan Kunci: Bisakah kita memanfaatkan data historis ini untuk memprediksi risiko pasien baru?
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: The Solution -->
+        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="3">
+            <div class="max-w-5xl mx-auto w-full">
+                <div class="mb-10">
+                    <span class="text-sm font-medium text-gray-500 uppercase tracking-wider">Proposed Solution</span>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mt-2">Machine Learning sebagai "Asisten Diagnosa"</h2>
+                </div>
+
+                <div class="border-2 border-black p-8 md:p-12 mb-8 relative">
+                    <div class="absolute -top-4 left-4 bg-white px-2 text-sm font-bold text-gray-500">KONSEP</div>
+                    <p class="text-xl md:text-2xl leading-relaxed mb-4">
+                        Kita tidak menggantikan dokter. Kita membangun <strong>alat bantu (tools)</strong> yang mampu menganalisis 16 variabel gejala dalam hitungan milidetik untuk memberikan "Second Opinion" berbasis data.
+                    </p>
+                    <p class="text-gray-600 text-lg">
+                        Model ini akan belajar dari 520 riwayat kasus pasien sebelumnya, mencari pola yang mungkin terlewat oleh mata manusia.
+                    </p>
+                </div>
+
+                <button onclick="toggleInsight('insight_sol')" class="btn-reveal">Mengapa Ini Berbeda dengan Aplikasi Biasa?</button>
+                <div id="insight_sol" class="insight-box mt-2 text-sm">
+                    Aplikasi biasa hanya menampilkan data. Aplikasi ML ini <strong>belajar dari data</strong>. Semakin banyak data masuk, semakin pintar ia dalam mengenali pola risiko.
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Agenda Overview -->
+        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="4">
+            <div class="max-w-5xl mx-auto w-full">
+                <div class="mb-10 text-center">
+                    <span class="text-sm font-medium text-gray-500 uppercase tracking-wider">Treatment Plan</span>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mt-2">Roadmap 2 Minggu Intensif</h2>
+                    <p class="text-gray-600 mt-4">Dari Anamnesis Data hingga Deployment Sistem</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12">
                     <div>
-                        <h3 class="font-bold text-xl mb-4">Translating Business to Math</h3>
-                        <div class="space-y-4">
-                            <div class="p-4 bg-black text-white">
-                                <strong>Objective</strong>
-                                <p class="text-sm text-gray-300 mt-1">Memprediksi probabilitas diabetes berdasarkan 16 gejala input.</p>
+                        <h3 class="font-bold text-lg mb-6 pb-2 border-b border-black">Minggu 01: Data & Diagnosis</h3>
+                        <div class="space-y-4 text-sm">
+                            <div class="flex gap-3">
+                                <span class="font-bold w-16 text-gray-400">Hari 1-2</span>
+                                <div>
+                                    <strong>Fundamental & Setup</strong>
+                                    <p class="text-gray-600">Persiapan lingkungan kerja (Environment) dan dasar Python untuk pengolahan data medis.</p>
+                                </div>
                             </div>
-                            <div class="p-4 border border-black">
-                                <strong>ML Approach</strong>
-                                <p class="text-sm text-gray-600 mt-1">Binary Classification. Input: Gejala. Output: Risiko (0 atau 1).</p>
+                            <div class="flex gap-3">
+                                <span class="font-bold w-16 text-gray-400">Hari 3-4</span>
+                                <div>
+                                    <strong>Data Anamnesis (EDA)</strong>
+                                    <p class="text-gray-600">Mengumpulkan dan memahami "riwayat penyakit" dari dataset (Exploratory Data Analysis).</p>
+                                </div>
                             </div>
-                            <div class="p-4 border border-black">
-                                <strong>Success Metric</strong>
-                                <p class="text-sm text-gray-600 mt-1">Recall tinggi. Lebih baik false alarm daripada missed detection.</p>
+                            <div class="flex gap-3">
+                                <span class="font-bold w-16 text-gray-400">Hari 5-7</span>
+                                <div>
+                                    <strong>Preprocessing & Cleaning</strong>
+                                    <p class="text-gray-600">Membersihkan data "kotor" (missing values, outliers) agar siap dianalisis.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-lg mb-6 pb-2 border-b border-black">Minggu 02: Modeling & Deployment</h3>
+                        <div class="space-y-4 text-sm">
+                            <div class="flex gap-3">
+                                <span class="font-bold w-16 text-gray-400">Hari 8-9</span>
+                                <div>
+                                    <strong>Feature Engineering</strong>
+                                    <p class="text-gray-600">Menyeleksi gejala (fitur) mana yang paling signifikan mempengaruhi hasil diagnosa.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <span class="font-bold w-16 text-gray-400">Hari 10-11</span>
+                                <div>
+                                    <strong>Model Training</strong>
+                                    <p class="text-gray-600">Melatih algoritma (Random Forest, XGBoost) menggunakan data riwayat pasien.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <span class="font-bold w-16 text-gray-400">Hari 12-14</span>
+                                <div>
+                                    <strong>Evaluation & Deployment</strong>
+                                    <p class="text-gray-600">Menguji akurasi model dan mengubahnya menjadi Aplikasi Web Streamlit yang siap pakai.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -566,58 +392,204 @@
             </div>
         </section>
 
-        <!-- Slide 9: Module 5 -->
-        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="9">
+        <!-- Slide 5: Minggu 1 Detail -->
+        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="5">
+            <div class="max-w-5xl mx-auto w-full">
+                <div class="mb-8">
+                    <h2 class="font-display text-3xl md:text-4xl font-bold">Minggu 01: Tahap Anamnesis Data</h2>
+                    <p class="text-gray-500">Fokus pada pemahaman mendalam terhadap kondisi data.</p>
+                </div>
+
+                <div class="space-y-8 border-l-2 border-gray-200 ml-4 pl-8">
+                    <div class="timeline-item">
+                        <div class="flex justify-between items-baseline">
+                            <h4 class="font-bold">Hari 1: Adiministrasi & Setup</h4>
+                            <span class="text-xs text-gray-400 font-mono">PYTHON / GIT</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mt-1">Mempersiapkan "ruang praktik" digital. Install Python, VS Code, dan membuat Repository GitHub sebagai folder rekam medis digital.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="flex justify-between items-baseline">
+                            <h4 class="font-bold">Hari 2: Pengenalan Alat (Pandas)</h4>
+                            <span class="text-xs text-gray-400 font-mono">PANDAS</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mt-1">Pandas adalah stetoskop kita. Kita belajar membaca file CSV (rekam medis), melihat struktur data, dan statistik dasar.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="flex justify-between items-baseline">
+                            <h4 class="font-bold">Hari 3-4: Analisis Riwayat (EDA)</h4>
+                            <span class="text-xs text-gray-400 font-mono">MATPLOTLIB / SEABORN</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mt-1">Memvisualisasikan data. Apakah usia mempengaruhi risiko? Bagaimana distribusi gula darah? Kita cari polanya sebelum mengobati.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="flex justify-between items-baseline">
+                            <h4 class="font-bold">Hari 5-7: Triage Data (Cleaning)</h4>
+                            <span class="text-xs text-gray-400 font-mono">PREPROCESSING</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mt-1">Menangani data yang hilang atau anomali. Layaknya triage di UGD, kita tentukan data mana yang "layak olah" dan mana yang harus dibersihkan.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Minggu 2 Detail -->
+        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="6">
+            <div class="max-w-5xl mx-auto w-full">
+                <div class="mb-8">
+                    <h2 class="font-display text-3xl md:text-4xl font-bold">Minggu 02: Tahap Intervensi & Evaluasi</h2>
+                    <p class="text-gray-500">Dari teori menjadi alat diagnosa yang fungsional.</p>
+                </div>
+
+                <div class="space-y-8 border-l-2 border-gray-200 ml-4 pl-8">
+                    <div class="timeline-item">
+                        <div class="flex justify-between items-baseline">
+                            <h4 class="font-bold">Hari 8-9: Seleksi Gejala (Feature Eng.)</h4>
+                            <span class="text-xs text-gray-400 font-mono">FEATURE SELECTION</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mt-1">Tidak semua gejala relevan. Kita gunakan teknik statistik untuk menemukan 5-6 gejala utama (Main Symptom) yang paling berkorelasi dengan diabetes.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="flex justify-between items-baseline">
+                            <h4 class="font-bold">Hari 10-11: Pelatihan Model</h4>
+                            <span class="text-xs text-gray-400 font-mono">SCIKIT-LEARN</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mt-1">Menggunakan algoritma Random Forest dan XGBoost. Kita "melatih" mesin dengan 80% data pasien lama untuk mengenali pola baru.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="flex justify-between items-baseline">
+                            <h4 class="font-bold">Hari 12: Uji Efikasi (Evaluation)</h4>
+                            <span class="text-xs text-gray-400 font-mono">METRICS</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mt-1">Menguji model dengan 20% data yang belum pernah dilihat (Test Set). Ukur akurasi, presisi, dan recall. Apakah model layak digunakan?</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="flex justify-between items-baseline">
+                            <h4 class="font-bold">Hari 13-14: Praktik & Deployment</h4>
+                            <span class="text-xs text-gray-400 font-mono">STREAMLIT</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mt-1">Membungkus model menjadi Aplikasi Web Streamlit. Hasil akhirnya adalah link website yang bisa dibagikan ke siapa saja.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Tools -->
+        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="7">
+            <div class="max-w-5xl mx-auto w-full">
+                <div class="mb-10 text-center">
+                    <span class="text-sm font-medium text-gray-500 uppercase tracking-wider">Medical Equipment</span>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mt-2">Alat Medis Digital Kita</h2>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div class="p-6 border border-black card-hover">
+                        <i class="fab fa-python text-3xl mb-3 block"></i>
+                        <strong>Python</strong>
+                        <p class="text-xs text-gray-500 mt-1">Bahasa Dasar</p>
+                    </div>
+                    <div class="p-6 border border-black card-hover">
+                        <i class="fas fa-table text-3xl mb-3 block"></i>
+                        <strong>Pandas</strong>
+                        <p class="text-xs text-gray-500 mt-1">Pengolah Data</p>
+                    </div>
+                    <div class="p-6 border border-black card-hover">
+                        <i class="fas fa-brain text-3xl mb-3 block"></i>
+                        <strong>Scikit-Learn</strong>
+                        <p class="text-xs text-gray-500 mt-1">Mesin Diagnosa</p>
+                    </div>
+                    <div class="p-6 border border-black card-hover">
+                        <i class="fas fa-desktop text-3xl mb-3 block"></i>
+                        <strong>Streamlit</strong>
+                        <p class="text-xs text-gray-500 mt-1">Antarmuka</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Dataset (Anamnesis) -->
+        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="8">
             <div class="max-w-5xl mx-auto w-full">
                 <div class="flex items-center gap-6 mb-10">
-                    <span class="text-6xl font-bold text-gray-200">05</span>
+                    <span class="text-6xl font-bold text-gray-200">01</span>
                     <div>
-                        <h2 class="font-display text-3xl md:text-4xl font-bold">Data Preprocessing</h2>
-                        <p class="text-gray-500">Garbage In, Garbage Out</p>
+                        <h2 class="font-display text-3xl md:text-4xl font-bold">Anamnesis: Mengenal Data Pasien</h2>
+                        <p class="text-gray-500">Dataset UCI Diabetes Early Stage</p>
                     </div>
                 </div>
 
-                <div class="mb-8 p-4 bg-black text-white text-center">
-                    "Model sehebat apapun akan gagal jika diberi data kotor. preprocessing adalah 80% pekerjaan."
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="border border-black p-6 text-center card-hover">
+                        <div class="text-4xl font-bold">520</div>
+                        <p class="text-gray-600 text-sm">Rekam Medis Pasien</p>
+                    </div>
+                    <div class="border border-black p-6 text-center card-hover">
+                        <div class="text-4xl font-bold">16</div>
+                        <p class="text-gray-600 text-sm">Parameter Gejala</p>
+                    </div>
+                    <div class="border border-black p-6 text-center card-hover">
+                        <div class="text-4xl font-bold">1</div>
+                        <p class="text-gray-600 text-sm">Diagnosa (Target)</p>
+                    </div>
+                </div>
+
+                <div class="p-6 bg-gray-50 border-l-4 border-black">
+                    <p class="font-bold mb-2">Gejala-gejala yang terekam:</p>
+                    <div class="grid grid-cols-3 gap-2 text-sm text-gray-600">
+                        <div><i class="fas fa-check text-black mr-1"></i> Polyuria</div>
+                        <div><i class="fas fa-check text-black mr-1"></i> Polydipsia</div>
+                        <div><i class="fas fa-check text-black mr-1"></i> Sudden Weight Loss</div>
+                        <div><i class="fas fa-check text-black mr-1"></i> Weakness</div>
+                        <div><i class="fas fa-check text-black mr-1"></i> Polyphagia</div>
+                        <div><i class="fas fa-check text-black mr-1"></i> Visual Blurring</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Preprocessing -->
+        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="9">
+            <div class="max-w-5xl mx-auto w-full">
+                <div class="flex items-center gap-6 mb-10">
+                    <span class="text-6xl font-bold text-gray-200">02</span>
+                    <div>
+                        <h2 class="font-display text-3xl md:text-4xl font-bold">Triage Data: Pembersihan</h2>
+                        <p class="text-gray-500">Menyiapkan Data Sebelum Analisis</p>
+                    </div>
+                </div>
+
+                <div class="mb-8 p-4 bg-black text-white text-center text-lg font-medium">
+                    "Data yang bersih adalah separuh dari diagnosa yang benar."
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div>
-                        <h3 class="font-bold text-lg mb-4">Filosofi Pembersihan</h3>
+                        <h3 class="font-bold text-lg mb-4">Proses Cleaning</h3>
+                        <p class="text-sm text-gray-600 mb-4">Data medis sering tidak lengkap. Ada pasien yang lupa mengisi riwayat, atau ada kesalahan input.</p>
                         <div class="space-y-3">
                             <div class="flex gap-4 items-start p-3 border-b border-gray-200">
                                 <span class="bg-black text-white w-6 h-6 flex items-center justify-center text-sm flex-shrink-0">1</span>
                                 <div>
-                                    <strong>Missing Values Handling</strong>
-                                    <p class="text-sm text-gray-600">Hapus? Isi dengan rata-rata? Atau isi dengan nilai paling sering? Setiap keputusan punya konsekuensi.</p>
+                                    <strong>Handling Missing Values</strong>
+                                    <p class="text-sm text-gray-600">Mengisi data kosong dengan rata-rata (mean) atau modus, agar analisis tidak bias.</p>
                                 </div>
                             </div>
                             <div class="flex gap-4 items-start p-3 border-b border-gray-200">
                                 <span class="bg-black text-white w-6 h-6 flex items-center justify-center text-sm flex-shrink-0">2</span>
                                 <div>
-                                    <strong>Duplicate Removal</strong>
-                                    <p class="text-sm text-gray-600">Data ganda menciptakan bias. Model akan "menghafal" bukan "belajar".</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-4 items-start p-3 border-b border-gray-200">
-                                <span class="bg-black text-white w-6 h-6 flex items-center justify-center text-sm flex-shrink-0">3</span>
-                                <div>
-                                    <strong>Consistency Check</strong>
-                                    <p class="text-sm text-gray-600">"Yes", "yes", "YES" — Mesin melihat ini sebagai 3 hal berbeda. Kita rapikan.</p>
+                                    <strong>Encoding</strong>
+                                    <p class="text-sm text-gray-600">Mengubah jawaban "Ya/Tidak" menjadi angka "1/0" agar mesin bisa membaca.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div>
-                        <h3 class="font-bold text-lg mb-4">Encoding: Menerjemahkan Bahasa Manusia</h3>
-                        <p class="text-sm text-gray-600 mb-4">Mesin hanya paham angka. Tugas kita adalah menerjemahkan kata-kata menjadi sinyal digital.</p>
                         <div class="code-block text-sm">
-                            <span class="comment"># Dictionary Mapping</span><br><br>
+                            <span class="comment"># Contoh Encoding</span><br>
                             mapping = {<br>
                             &nbsp;&nbsp;<span class="string">"Yes"</span>: <span class="function">1</span>, <span class="string">"No"</span>: <span class="function">0</span>,<br>
-                            &nbsp;&nbsp;<span class="string">"Male"</span>: <span class="function">1</span>, <span class="string">"Female"</span>: <span class="function">0</span>,<br>
-                            &nbsp;&nbsp;<span class="string">"Positive"</span>: <span class="function">1</span>, <span class="string">"Negative"</span>: <span class="function">0</span><br>
+                            &nbsp;&nbsp;<span class="string">"Male"</span>: <span class="function">1</span>, <span class="string">"Female"</span>: <span class="function">0</span><br>
                             }<br><br>
                             df = df.<span class="function">replace</span>(mapping)
                         </div>
@@ -626,451 +598,349 @@
             </div>
         </section>
 
-        <!-- Slide 10: Module 6 -->
+        <!-- Slide 10: Feature Engineering -->
         <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="10">
             <div class="max-w-5xl mx-auto w-full">
                 <div class="flex items-center gap-6 mb-10">
-                    <span class="text-6xl font-bold text-gray-200">06</span>
+                    <span class="text-6xl font-bold text-gray-200">03</span>
                     <div>
-                        <h2 class="font-display text-3xl md:text-4xl font-bold">Feature Engineering</h2>
-                        <p class="text-gray-500">Finding The Hidden Gems</p>
+                        <h2 class="font-display text-3xl md:text-4xl font-bold">Diagnosis Banding: Seleksi Fitur</h2>
+                        <p class="text-gray-500">Mencari Gejala Paling Signifikan</p>
                     </div>
-                </div>
-
-                <div class="mb-8 border-l-4 border-black p-4 bg-gray-50">
-                    <p class="font-medium">"Feature Engineering adalah seni mengubah data mentah menjadi insight yang bisa 'dilihat' oleh model."</p>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div>
-                        <h3 class="font-bold text-lg mb-4">Teknik Mendalam</h3>
-                        <div class="space-y-4">
-                            <div class="card-hover p-4 bg-white">
-                                <strong>Correlation Analysis</strong>
-                                <p class="text-sm text-gray-600">Mencari variabel yang bergerak bersamaan. Jika Polyuria muncul, seberapa sering Polydipsia menyertainya?</p>
-                            </div>
-                            <div class="card-hover p-4 bg-white">
-                                <strong>Feature Importance</strong>
-                                <p class="text-sm text-gray-600">Memilih variabel yang paling "berbicara". Tidak semua gejala diciptakan sama.</p>
-                            </div>
-                            <div class="card-hover p-4 bg-white">
-                                <strong>Data Scaling</strong>
-                                <p class="text-sm text-gray-600">Menyamakan skala. Usia (10-100) dan Gender (0-1) harus seimbang agar model adil.</p>
-                            </div>
+                        <p class="text-gray-700 mb-4">
+                            Dari 16 gejala, tidak semuanya memiliki dampak sama terhadap diabetes. Kita harus menemukan "Key Symptom" untuk mempermudah diagnosa.
+                        </p>
+                        <button onclick="toggleInsight('insight_feat')" class="btn-reveal mt-4">Lihat Insight Medis</button>
+                        <div id="insight_feat" class="insight-box mt-2 text-sm">
+                            Penelitian menunjukkan Polyuria (sering buang air kecil) dan Polydipsia (sering haus) adalah dua gejala dengan korelasi tertinggi. Jika dua ini muncul bersamaan, risiko diabetes meningkat signifikan.
                         </div>
                     </div>
 
                     <div>
-                        <h3 class="font-bold text-lg mb-4">Temuan Kunci: Gejala Paling Berpengaruh</h3>
+                        <h3 class="font-bold text-lg mb-4">Tingkat Pengaruh Gejala</h3>
                         <div class="space-y-3">
                             <div>
                                 <div class="flex justify-between text-sm mb-1">
-                                    <span>Polyuria (Sering Buang Air)</span>
+                                    <span>Polyuria</span>
                                     <span class="font-bold">92%</span>
                                 </div>
-                                <div class="w-full bg-gray-200 h-3"><div class="bg-black h-3" style="width: 92%"></div></div>
+                                <div class="w-full bg-gray-200 h-2"><div class="bg-black h-2" style="width: 92%"></div></div>
                             </div>
                             <div>
                                 <div class="flex justify-between text-sm mb-1">
-                                    <span>Polydipsia (Seger Haus)</span>
+                                    <span>Polydipsia</span>
                                     <span class="font-bold">88%</span>
                                 </div>
-                                <div class="w-full bg-gray-200 h-3"><div class="bg-black h-3" style="width: 88%"></div></div>
+                                <div class="w-full bg-gray-200 h-2"><div class="bg-black h-2" style="width: 88%"></div></div>
                             </div>
                             <div>
                                 <div class="flex justify-between text-sm mb-1">
                                     <span>Sudden Weight Loss</span>
                                     <span class="font-bold">75%</span>
                                 </div>
-                                <div class="w-full bg-gray-200 h-3"><div class="bg-black h-3" style="width: 75%"></div></div>
+                                <div class="w-full bg-gray-200 h-2"><div class="bg-black h-2" style="width: 75%"></div></div>
                             </div>
                         </div>
-                        <p class="text-xs text-gray-500 mt-4">*Berdasarkan analisis feature importance model Random Forest</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 11: Module 7 -->
+        <!-- Slide 11: Modeling Intro -->
         <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="11">
             <div class="max-w-5xl mx-auto w-full">
                 <div class="flex items-center gap-6 mb-10">
-                    <span class="text-6xl font-bold text-gray-200">07</span>
+                    <span class="text-6xl font-bold text-gray-200">04</span>
                     <div>
-                        <h2 class="font-display text-3xl md:text-4xl font-bold">Exploratory Data Analysis</h2>
-                        <p class="text-gray-500">Visual Storytelling</p>
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-3 gap-6 mb-8">
-                    <div class="card-hover p-6 bg-white text-center">
-                        <div class="text-3xl mb-4"><i class="fas fa-chart-bar"></i></div>
-                        <h4 class="font-bold mb-2">Univariate</h4>
-                        <p class="text-sm text-gray-600">Fokus pada satu variabel. Bagaimana sebaran usia pasien?</p>
-                    </div>
-                    <div class="card-hover p-6 bg-white text-center">
-                        <div class="text-3xl mb-4"><i class="fas fa-project-diagram"></i></div>
-                        <h4 class="font-bold mb-2">Bivariate</h4>
-                        <p class="text-sm text-gray-600">Hubungan dua variabel. Apakah usia mempengaruhi risiko?</p>
-                    </div>
-                    <div class="card-hover p-6 bg-white text-center">
-                        <div class="text-3xl mb-4"><i class="fas fa-fire"></i></div>
-                        <h4 class="font-bold mb-2">Multivariate</h4>
-                        <p class="text-sm text-gray-600">Heatmap korelasi. Melihat "big picture" sekaligus.</p>
-                    </div>
-                </div>
-
-                <div class="mt-8 p-6 bg-gray-50 border border-black">
-                    <h4 class="font-bold mb-3">Tools of The Trade: Seaborn & Matplotlib</h4>
-                    <div class="code-block text-sm">
-                        <span class="keyword">import</span> seaborn <span class="keyword">as</span> sns<br>
-                        <span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt<br><br>
-                        <span class="comment"># Visualisasi Korelasi</span><br>
-                        plt.<span class="function">figure</span>(figsize=(<span class="function">12</span>,<span class="function">8</span>))<br>
-                        sns.<span class="function">heatmap</span>(df.<span class="function">corr</span>(), annot=<span class="keyword">True</span>, cmap=<span class="string">'Greys'</span>)<br>
-                        plt.<span class="function">show</span>()
-                    </div>
-                    <p class="text-xs text-gray-500 mt-2">Visualisasi membantu kita menemukan pola yang tidak terlihat oleh statistik mentah.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 12: Module 8 -->
-        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="12">
-            <div class="max-w-5xl mx-auto w-full">
-                <div class="flex items-center gap-6 mb-10">
-                    <span class="text-6xl font-bold text-gray-200">08</span>
-                    <div>
-                        <h2 class="font-display text-3xl md:text-4xl font-bold">Model Development</h2>
-                        <p class="text-gray-500">Choosing The Right Brain</p>
+                        <h2 class="font-display text-3xl md:text-4xl font-bold">Protokol Pengobatan: Modeling</h2>
+                        <p class="text-gray-500">Memilih Algoritma Terbaik</p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div>
-                        <h3 class="font-bold text-lg mb-4">Pertanyaan Kritis</h3>
-                        <div class="p-4 bg-black text-white mb-6">
-                            "Algoritma mana yang harus dipilih? Apakah kompleksitas selalu lebih baik?"
-                        </div>
-                        <p class="text-sm text-gray-700 mb-4">
-                            Dalam dunia medis, <strong>interpretabilitas</strong> adalah raja. Kita harus bisa menjelaskan mengapa model memprediksi "Positif". Oleh karena itu, kita akan eksplorasi:
+                        <p class="text-gray-700 mb-6">
+                            Kita akan membandingkan dua pendekatan "diagnosa" oleh mesin:
                         </p>
-                        <ul class="space-y-2 text-sm">
-                            <li class="flex items-center gap-2"><i class="fas fa-circle text-xs"></i> <strong>Logistic Regression:</strong> Baseline yang mudah dijelaskan.</li>
-                            <li class="flex items-center gap-2"><i class="fas fa-circle text-xs"></i> <strong>Decision Tree:</strong> Logika seperti flowchart.</li>
-                            <li class="flex items-center gap-2"><i class="fas fa-circle text-xs"></i> <strong>Random Forest:</strong> Kekuatan banyak pohon.</li>
-                            <li class="flex items-center gap-2"><i class="fas fa-circle text-xs"></i> <strong>XGBoost:</strong> The state-of-the-art champion.</li>
-                        </ul>
+                        <div class="space-y-4">
+                            <div class="p-4 border border-black">
+                                <strong>Logistic Regression</strong>
+                                <p class="text-sm text-gray-600">Cocok untuk baseline. Mudah dijelaskan ke pasien karena mirip sistem skor risiko.</p>
+                            </div>
+                            <div class="p-4 border border-black bg-black text-white">
+                                <strong>Random Forest / XGBoost</strong>
+                                <p class="text-sm text-gray-400">"Tim Dokter Spesialis". Menggunakan banyak pohon keputusan (second opinion) untuk hasil yang lebih akurat.</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div>
-                        <h3 class="font-bold text-lg mb-4">The Training Ritual</h3>
-                        <div class="code-block text-sm">
-                            <span class="comment"># 1. Pisahkan data belajar dan ujian</span><br>
-                            X_train, X_test, y_train, y_test = <span class="function">train_test_split</span>(X, y)<br><br>
-                            
-                            <span class="comment"># 2. Latih model</span><br>
-                            model = <span class="function">RandomForestClassifier</span>()<br>
-                            model.<span class="function">fit</span>(X_train, y_train)<br><br>
-                            
-                            <span class="comment"># 3. Uji hasilnya</span><br>
-                            predictions = model.<span class="function">predict</span>(X_test)
-                        </div>
+                    <div class="p-6 bg-gray-50 text-center">
+                        <p class="text-sm text-gray-500 mb-4 font-mono">TRAINING PHASE</p>
+                        <p class="text-2xl font-bold mb-2">80% Data Latih</p>
+                        <p class="text-sm text-gray-600">Model mempelajari pola dari 416 pasien.</p>
+                        <div class="my-4 border-t border-gray-300"></div>
+                        <p class="text-2xl font-bold mb-2">20% Data Uji</p>
+                        <p class="text-sm text-gray-600">Model diuji dengan 104 pasien baru yang belum pernah dilihat.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 13: Module 9 -->
-        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="13">
+        <!-- Slide 12: Evaluation -->
+        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="12">
             <div class="max-w-5xl mx-auto w-full">
                 <div class="flex items-center gap-6 mb-10">
-                    <span class="text-6xl font-bold text-gray-200">09</span>
+                    <span class="text-6xl font-bold text-gray-200">05</span>
                     <div>
-                        <h2 class="font-display text-3xl md:text-4xl font-bold">Model Evaluation</h2>
-                        <p class="text-gray-500">Beyond Accuracy</p>
+                        <h2 class="font-display text-3xl md:text-4xl font-bold">Efikasi Pengobatan: Evaluation</h2>
+                        <p class="text-gray-500">Mengukur Keberhasilan Model</p>
                     </div>
                 </div>
 
                 <div class="mb-8 p-4 bg-gray-50 border border-black">
-                    <p class="text-lg"><strong>Scenario:</strong> Model memiliki akurasi 90%. Tapi... itu berarti 10% pasien salah diagnosa. Dalam konteks medis, apakah itu bisa diterima?</p>
+                    <p class="font-medium">"Akurasi tinggi tidak cukup. Dalam medis, kita tak boleh melewatkan pasien yang benar-benar sakit."</p>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div>
-                        <h3 class="font-bold text-lg mb-4">Metrik yang Benar-Benar Penting</h3>
-                        <div class="space-y-4">
-                            <div class="border-b border-gray-200 pb-3">
-                                <strong>Recall (Sensitivity)</strong>
-                                <p class="text-sm text-gray-600">Dari semua orang yang SAKIT, berapa persen yang berhasil kita deteksi? <em>(Ini paling penting!)</em></p>
-                            </div>
-                            <div class="border-b border-gray-200 pb-3">
-                                <strong>Precision</strong>
-                                <p class="text-sm text-gray-600">Dari semua prediksi "Positif", berapa yang benar-benar sakit?</p>
-                            </div>
-                            <div class="border-b border-gray-200 pb-3">
-                                <strong>F1-Score</strong>
-                                <p class="text-sm text-gray-600">Keseimbangan antara Precision dan Recall.</p>
-                            </div>
+                        <h3 class="font-bold text-lg mb-4">Metrik Utama: RECALL</h3>
+                        <p class="text-gray-700 mb-4">
+                            Recall menjawab: <em>"Dari semua pasien yang benar-benar sakit, berapa persen yang berhasil kita deteksi?"</em>
+                        </p>
+                        <button onclick="toggleInsight('insight_recall')" class="btn-reveal">Mengapa Recall Penting?</button>
+                        <div id="insight_recall" class="insight-box mt-2 text-sm">
+                            Lebih baik model kita salah prediksi "Sakit" (pasien cemas tapi akhirnya sehat), daripada salah prediksi "Sehat" (pasien terlewatkan dan tidak dapat pengobatan). Ini disebut meminimalkan <strong>False Negative</strong>.
                         </div>
                     </div>
 
-                    <div>
-                        <h3 class="font-bold text-lg mb-4">Confusion Matrix: The Truth Teller</h3>
-                        <div class="p-6 bg-black text-white">
-                            <div class="grid grid-cols-2 gap-2 text-center text-sm mb-4">
-                                <div class="bg-white text-black p-3"><strong>TP</strong><br><span class="text-xs">Pasien positif, diprediksi positif</span></div>
-                                <div class="bg-gray-600 p-3"><strong>FP</strong><br><span class="text-xs">Pasien sehat, diprediksi positif (False Alarm)</span></div>
-                                <div class="bg-gray-800 p-3"><strong>FN</strong><br><span class="text-xs">Pasien positif, diprediksi sehat (BERBAHAYA!)</span></div>
-                                <div class="bg-white text-black p-3"><strong>TN</strong><br><span class="text-xs">Pasien sehat, diprediksi sehat</span></div>
-                            </div>
-                            <p class="text-xs text-center text-gray-400">Tujuan kita: Minimalisir False Negative (FN) sekecil mungkin.</p>
+                    <div class="p-6 bg-black text-white">
+                        <h4 class="font-bold mb-4 text-center">Confusion Matrix</h4>
+                        <div class="grid grid-cols-2 gap-2 text-center text-xs">
+                            <div class="bg-white text-black p-3"><strong>TP</strong><br>Deteksi Benar</div>
+                            <div class="bg-gray-600 p-3"><strong>FP</strong><br>False Alarm</div>
+                            <div class="bg-gray-800 p-3 border border-red-500"><strong>FN</strong><br>MISSED (Bahaya!)</div>
+                            <div class="bg-white text-black p-3"><strong>TN</strong><br>Sehat Benar</div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 14: Module 10 -->
-        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="14">
+        <!-- Slide 13: Optimization -->
+        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="13">
             <div class="max-w-5xl mx-auto w-full">
                 <div class="flex items-center gap-6 mb-10">
-                    <span class="text-6xl font-bold text-gray-200">10</span>
+                    <span class="text-6xl font-bold text-gray-200">06</span>
                     <div>
-                        <h2 class="font-display text-3xl md:text-4xl font-bold">Model Optimization</h2>
-                        <p class="text-gray-500">Fine-Tuning The Engine</p>
+                        <h2 class="font-display text-3xl md:text-4xl font-bold">Penyesuaian Dosis: Tuning</h2>
+                        <p class="text-gray-500">Optimasi Hyperparameter</p>
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-8">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
                     <div>
-                        <h3 class="font-bold text-lg mb-4">Dari "Cukup" ke "Sempurna"</h3>
                         <p class="text-gray-700 mb-4">
-                            Parameter default adalah titik awal, bukan tujuan akhir. Seperti mesin mobil, perlu disetel presisi untuk performa maksimal.
+                            Seperti menyesuaikan dosis obat, kita perlu mengatur parameter model (Hyperparameter) agar efektif maksimal. Kita tidak bisa pakai dosis standar untuk semua kasus.
                         </p>
-                        <div class="space-y-3">
-                            <div class="p-4 border border-black bg-gray-50">
-                                <strong>GridSearchCV</strong>
-                                <p class="text-sm text-gray-600">Mencoba setiap kombinasi secara sistematis. Teliti tapi lambat.</p>
-                            </div>
-                            <div class="p-4 border border-black bg-gray-50">
-                                <strong>RandomSearchCV</strong>
-                                <p class="text-sm text-gray-600">Coba kombinasi acak. Cepat dan seringkali cukup efektif.</p>
-                            </div>
-                        </div>
+                        <ul class="space-y-2 text-sm">
+                            <li><i class="fas fa-check text-black mr-2"></i> <strong>Grid Search:</strong> Mencoba semua kombinasi dosis.</li>
+                            <li><i class="fas fa-check text-black mr-2"></i> <strong>Cross Validation:</strong> Menguji efek obat ke berbagai kelompok pasien (fold).</li>
+                        </ul>
                     </div>
-
-                    <div>
-                        <h3 class="font-bold text-lg mb-4">Implementation Code</h3>
-                        <div class="code-block text-sm">
-                            <span class="comment"># Definisikan "ruang" pencarian</span><br>
-                            params = {<br>
-                            &nbsp;&nbsp;<span class="string">'n_estimators'</span>: [<span class="function">50</span>, <span class="function">100</span>, <span class="function">200</span>],<br>
-                            &nbsp;&nbsp;<span class="string">'max_depth'</span>: [<span class="function">10</span>, <span class="function">20</span>, <span class="function">None</span>]<br>
-                            }<br><br>
-                            <span class="comment"># Mulai pencarian</span><br>
-                            grid = <span class="function">GridSearchCV</span>(model, params, cv=<span class="function">5</span>)<br>
-                            grid.<span class="function">fit</span>(X_train, y_train)<br><br>
-                            <span class="keyword">print</span>(<span class="string">"Best Params:"</span>, grid.<span class="function">best_params_</span>)
-                        </div>
+                    <div class="code-block text-xs">
+                        <span class="comment"># Contoh Tuning</span><br>
+                        params = {<br>
+                        &nbsp;&nbsp;<span class="string">'n_estimators'</span>: [<span class="function">50</span>, <span class="function">100</span>, <span class="function">200</span>],<br>
+                        &nbsp;&nbsp;<span class="string">'max_depth'</span>: [<span class="function">5</span>, <span class="function">10</span>, <span class="function">20</span>]<br>
+                        }<br><br>
+                        grid = <span class="function">GridSearchCV</span>(model, params, cv=<span class="function">5</span>)
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 15: Module 11 -->
+        <!-- Slide 14: Deployment Intro -->
+        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="14">
+            <div class="max-w-5xl mx-auto w-full">
+                <div class="mb-10 text-center">
+                    <span class="text-sm font-medium text-gray-500 uppercase tracking-wider">Phase 5</span>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mt-2">Pelayanan Medis: Deployment</h2>
+                    <p class="text-gray-600 mt-4">Membawa Model dari Laboratorium ke Meja Dokter</p>
+                </div>
+
+                <div class="border-2 border-black p-8 md:p-12 mb-8 relative">
+                    <div class="absolute -top-4 left-4 bg-white px-2 text-sm font-bold text-gray-500">TOOL</div>
+                    <p class="text-xl md:text-2xl leading-relaxed mb-4 text-center">
+                        Kita akan menggunakan <strong>Streamlit</strong>.
+                    </p>
+                    <p class="text-gray-600 text-lg text-center">
+                        Framework yang memungkinkan kita mengubah kode Python menjadi Aplikasi Web Interaktif dalam hitungan menit. Tanpa perlu keahlian web design.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 15: Streamlit Process -->
         <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="15">
             <div class="max-w-5xl mx-auto w-full">
                 <div class="flex items-center gap-6 mb-10">
-                    <span class="text-6xl font-bold text-gray-200">11</span>
+                    <span class="text-6xl font-bold text-gray-200">07</span>
                     <div>
-                        <h2 class="font-display text-3xl md:text-4xl font-bold">Prediction & Analysis</h2>
-                        <p class="text-gray-500">Interpreting The Black Box</p>
+                        <h2 class="font-display text-3xl md:text-4xl font-bold">Membangun Antarmuka Klinis</h2>
+                        <p class="text-gray-500">Input Gejala, Output Risiko</p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div>
-                        <h3 class="font-bold text-lg mb-4">Dari Angka ke Tindakan</h3>
-                        <p class="text-gray-700 mb-4">
-                            Model mengeluarkan angka probabilitas. Tugas kita adalah menerjemahkannya menjadi bahasa yang bisa dipahami dokter dan pasien.
-                        </p>
-                        <ul class="space-y-2 text-gray-700">
-                            <li><i class="fas fa-arrow-right text-black mr-2"></i> <strong>Probability Score:</strong> Seberapa yakin model?</li>
-                            <li><i class="fas fa-arrow-right text-black mr-2"></i> <strong>Risk Category:</strong> Low, Medium, atau High?</li>
-                            <li><i class="fas fa-arrow-right text-black mr-2"></i> <strong>Actionable Insight:</strong> Apa langkah selanjutnya?</li>
-                        </ul>
-                    </div>
-
-                    <div class="border-2 border-black p-6 text-center bg-gray-50">
-                        <p class="text-sm text-gray-500 uppercase tracking-wider mb-2">Hasil Prediksi</p>
-                        <div class="text-6xl font-bold mb-2">92%</div>
-                        <p class="text-gray-600 mb-4">Risk Probability</p>
-                        <div class="inline-block bg-black text-white px-6 py-2 font-bold mb-4">
-                            <i class="fas fa-exclamation-triangle mr-2"></i> HIGH RISK
-                        </div>
-                        <p class="text-sm text-gray-500 mt-4 border-t pt-4">
-                            Rekomendasi: Segera lakukan pemeriksaan glukosa darah dan konsultasi dengan dokter spesialis.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 16: Module 12-13 -->
-        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="16">
-            <div class="max-w-5xl mx-auto w-full">
-                <div class="flex items-center gap-6 mb-10">
-                    <span class="text-6xl font-bold text-gray-200">12-13</span>
-                    <div>
-                        <h2 class="font-display text-3xl md:text-4xl font-bold">Deployment</h2>
-                        <p class="text-gray-500">From Laptop to The World</p>
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="font-bold text-lg mb-4">Kenapa Streamlit?</h3>
-                        <p class="text-gray-700 mb-4">
-                            Kita tidak ingin model mati di Jupyter Notebook. Dengan Streamlit, kita bisa mengubahnya menjadi aplikasi web interaktif dalam hitungan menit, tanpa perlu belajar HTML atau CSS.
-                        </p>
-                        <div class="bg-gray-50 p-4 border-l-4 border-black mb-4">
-                            <strong>The Promise:</strong><br>
-                            Script Python biasa → Aplikasi Web Profesional.
-                        </div>
-                        <div class="code-block text-sm">
-                            <span class="keyword">import</span> streamlit <span class="keyword">as</span> st<br>
-                            st.title(<span class="string">'Diabetes Predictor'</span>)<br>
-                            age = st.slider(<span class="string">'Age'</span>, <span class="function">0</span>, <span class="function">100</span>)<br>
-                            <span class="keyword">if</span> st.button(<span class="string">'Predict'</span>):<br>
-                            &nbsp;&nbsp;st.write(<span class="string">'Result...'</span>)
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="font-bold text-lg mb-4">Deployment Path</h3>
+                        <h3 class="font-bold text-lg mb-4">Alur Kerja Aplikasi</h3>
                         <div class="space-y-4">
                             <div class="flex gap-4 items-center">
                                 <div class="w-10 h-10 bg-black text-white flex items-center justify-center font-bold">1</div>
                                 <div>
-                                    <strong>Save Model</strong>
-                                    <p class="text-xs text-gray-500">joblib.dump(model, 'model.pkl')</p>
+                                    <strong>Input Form</strong>
+                                    <p class="text-xs text-gray-500">Pasien/Dokter mengisi checklist gejala.</p>
                                 </div>
                             </div>
                             <div class="flex gap-4 items-center">
                                 <div class="w-10 h-10 bg-black text-white flex items-center justify-center font-bold">2</div>
                                 <div>
-                                    <strong>Push to GitHub</strong>
-                                    <p class="text-xs text-gray-500">Version control & hosting code</p>
+                                    <strong>Processing</strong>
+                                    <p class="text-xs text-gray-500">Model memproses data secara background.</p>
                                 </div>
                             </div>
                             <div class="flex gap-4 items-center">
                                 <div class="w-10 h-10 bg-black text-white flex items-center justify-center font-bold">3</div>
                                 <div>
-                                    <strong>Streamlit Cloud</strong>
-                                    <p class="text-xs text-gray-500">Connect repo → Auto Deploy → Live!</p>
+                                    <strong>Output</strong>
+                                    <p class="text-xs text-gray-500">Menampilkan persentase risiko diabetes.</p>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="code-block text-sm">
+                            <span class="keyword">import</span> streamlit <span class="keyword">as</span> st<br><br>
+                            st.title(<span class="string">'Diabetes Risk Prediction'</span>)<br>
+                            age = st.slider(<span class="string">'Usia'</span>, <span class="function">0</span>, <span class="function">100</span>)<br>
+                            polyuria = st.checkbox(<span class="string">'Sering Buang Air?'</span>)<br><br>
+                            <span class="keyword">if</span> st.button(<span class="string">'Cek Risiko'</span>):<br>
+                            &nbsp;&nbsp;prediction = model.<span class="function">predict</span>([[age, polyuria]])
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 17: Module 14 -->
+        <!-- Slide 16: Deployment to Cloud -->
+        <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="16">
+            <div class="max-w-5xl mx-auto w-full">
+                <div class="flex items-center gap-6 mb-10">
+                    <span class="text-6xl font-bold text-gray-200">08</span>
+                    <div>
+                        <h2 class="font-display text-3xl md:text-4xl font-bold">Go Live: Streamlit Cloud</h2>
+                        <p class="text-gray-500">Mengonlinekan Aplikasi</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-4 text-sm">
+                    <div class="border border-black p-4 card-hover bg-white text-center">
+                        <i class="fab fa-github text-2xl mb-2 block"></i>
+                        <strong>GitHub</strong>
+                        <p class="text-xs text-gray-500 mt-1">Menyimpan kode sumber.</p>
+                    </div>
+                    <div class="border border-black p-4 card-hover bg-white text-center">
+                        <i class="fas fa-link text-2xl mb-2 block"></i>
+                        <strong>Streamlit Cloud</strong>
+                        <p class="text-xs text-gray-500 mt-1">Menjalankan aplikasi 24/7.</p>
+                    </div>
+                    <div class="border border-black p-4 card-hover bg-white text-center">
+                        <i class="fas fa-globe text-2xl mb-2 block"></i>
+                        <strong>Share Link</strong>
+                        <p class="text-xs text-gray-500 mt-1">Dibagikan ke pasien/dokter.</p>
+                    </div>
+                </div>
+
+                <div class="mt-8 p-4 bg-gray-50 text-center">
+                    <p class="text-sm text-gray-600">Hasil akhir: Sebuah link website (contoh: <span class="font-mono text-black">share.streamlit.io/user/app</span>) yang bisa diakses siapa saja tanpa install apapun.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 17: Documentation -->
         <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="17">
             <div class="max-w-5xl mx-auto w-full">
                 <div class="flex items-center gap-6 mb-10">
-                    <span class="text-6xl font-bold text-gray-200">14</span>
+                    <span class="text-6xl font-bold text-gray-200">09</span>
                     <div>
-                        <h2 class="font-display text-3xl md:text-4xl font-bold">Documentation</h2>
-                        <p class="text-gray-500">Your Professional Legacy</p>
+                        <h2 class="font-display text-3xl md:text-4xl font-bold">Rekam Medis: Dokumentasi</h2>
+                        <p class="text-gray-500">Melaporkan Hasil Kerja</p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div>
-                        <h3 class="font-bold text-lg mb-4">The Unsung Hero</h3>
-                        <p class="text-gray-700 mb-4">
-                            Kode yang tidak didokumentasikan adalah kode yang terlupakan. Laporan yang kita buat bukan sekadar formalitas, tapi <strong>warisan intelektual</strong> yang bisa dipakai orang lain.
-                        </p>
+                        <h3 class="font-bold text-lg mb-4">Isi Laporan Ilmiah</h3>
                         <div class="space-y-1 text-sm font-mono">
-                            <div class="p-2 bg-gray-50">1. Executive Summary</div>
-                            <div class="p-2 bg-gray-50">2. Methodology</div>
-                            <div class="p-2 bg-gray-50">3. Results & Evaluation</div>
-                            <div class="p-2 bg-gray-50">4. Business Recommendation</div>
-                            <div class="p-2 bg-gray-50">5. Technical Appendix</div>
+                            <div class="p-2 bg-white border-b">1. Pendahuluan & Latar Belakang</div>
+                            <div class="p-2 bg-white border-b">2. Metodologi (CRISP-DM)</div>
+                            <div class="p-2 bg-white border-b">3. Hasil Eksperimen</div>
+                            <div class="p-2 bg-white border-b">4. Pembahasan & Kesimpulan</div>
+                            <div class="p-2 bg-white">5. Daftar Pustaka</div>
                         </div>
                     </div>
 
-                    <div>
-                        <h3 class="font-bold text-lg mb-4">Manfaat Nyata</h3>
-                        <div class="space-y-3">
-                            <div class="flex gap-3 items-center p-3 border-l-4 border-black bg-gray-50">
-                                <i class="fas fa-graduation-cap text-xl"></i>
-                                <div>
-                                    <strong>Skripsi/Tesis</strong>
-                                    <p class="text-xs text-gray-600">Bahan publikasi ilmiah yang solid</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-3 items-center p-3 border-l-4 border-black bg-gray-50">
-                                <i class="fas fa-briefcase text-xl"></i>
-                                <div>
-                                    <strong>Job Portfolio</strong>
-                                    <p class="text-xs text-gray-600">Bukti kompetensi nyata kepada recruiter</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-3 items-center p-3 border-l-4 border-black bg-gray-50">
-                                <i class="fas fa-users text-xl"></i>
-                                <div>
-                                    <strong>Open Source Contribution</strong>
-                                    <p class="text-xs text-gray-600">Kontribusi untuk komunitas global</p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="p-6 bg-gray-50 border-l-4 border-black">
+                        <p class="font-bold mb-2">Tujuan Dokumentasi</p>
+                        <p class="text-sm text-gray-700">Menjadi bukti nyata (portfolio) yang bisa ditunjukkan ke recruiter atau dosen pembimbing. Kode tanpa laporan adalah pekerjaan yang belum selesai.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 18: Final Project -->
+        <!-- Slide 18: Final Output -->
         <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="18">
             <div class="max-w-5xl mx-auto w-full">
                 <div class="text-center mb-12">
-                    <span class="inline-block border-2 border-black px-4 py-2 text-sm font-medium tracking-wider uppercase mb-4">Final Output</span>
-                    <h2 class="font-display text-4xl md:text-5xl font-bold">What Will We Build?</h2>
+                    <span class="inline-block border-2 border-black px-4 py-2 text-sm font-medium tracking-wider uppercase mb-4">Final Deliverables</span>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold">Apa yang Akan Kita Bawa Pulang?</h2>
                 </div>
 
-                <div class="grid md:grid-cols-3 gap-4">
-                    <div class="border border-black p-6 card-hover bg-white">
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="border border-black p-6 card-hover bg-white text-center">
                         <i class="fas fa-file-code text-3xl mb-4 text-gray-400"></i>
                         <h4 class="font-bold">Source Code</h4>
-                        <p class="text-sm text-gray-600">Clean, documented Python scripts yang siap dipelajari ulang.</p>
+                        <p class="text-sm text-gray-600">Kode Python yang bersih dan terdokumentasi.</p>
                     </div>
-                    <div class="border border-black p-6 card-hover bg-white">
-                        <i class="fas fa-book-open text-3xl mb-4 text-gray-400"></i>
-                        <h4 class="font-bold">Jupyter Notebook</h4>
-                        <p class="text-sm text-gray-600">Analisis step-by-step yang bisa direproduksi.</p>
-                    </div>
-                    <div class="border border-black p-6 card-hover bg-white">
+                    <div class="border border-black p-6 card-hover bg-white text-center">
                         <i class="fas fa-brain text-3xl mb-4 text-gray-400"></i>
                         <h4 class="font-bold">Trained Model</h4>
-                        <p class="text-sm text-gray-600">File .pkl yang sudah "pintar" dan siap dipakai.</p>
+                        <p class="text-sm text-gray-600">File "otak" AI yang sudah pintar (.pkl).</p>
                     </div>
-                    <div class="border border-black p-6 card-hover bg-white">
+                    <div class="border border-black p-6 card-hover bg-white text-center">
                         <i class="fas fa-globe text-3xl mb-4 text-gray-400"></i>
-                        <h4 class="font-bold">Web Application</h4>
-                        <p class="text-sm text-gray-600">Aplikasi Streamlit yang bisa dibuka di browser.</p>
+                        <h4 class="font-bold">Live Web App</h4>
+                        <p class="text-sm text-gray-600">Link aplikasi yang bisa diakses publik.</p>
                     </div>
-                    <div class="border border-black p-6 card-hover bg-white">
+                    <div class="border border-black p-6 card-hover bg-white text-center">
+                        <i class="fas fa-book text-3xl mb-4 text-gray-400"></i>
+                        <h4 class="font-bold">Notebook</h4>
+                        <p class="text-sm text-gray-600">Jupyter Notebook analisis lengkap.</p>
+                    </div>
+                    <div class="border border-black p-6 card-hover bg-white text-center">
                         <i class="fab fa-github text-3xl mb-4 text-gray-400"></i>
-                        <h4 class="font-bold">GitHub Repository</h4>
-                        <p class="text-sm text-gray-600">Portfolio online yang bisa di-share ke siapa saja.</p>
+                        <h4 class="font-bold">Repository</h4>
+                        <p class="text-sm text-gray-600">Proyek GitHub profesional.</p>
                     </div>
-                    <div class="border border-black p-6 card-hover bg-white">
+                    <div class="border border-black p-6 card-hover bg-white text-center">
                         <i class="fas fa-file-alt text-3xl mb-4 text-gray-400"></i>
-                        <h4 class="font-bold">Full Report</h4>
-                        <p class="text-sm text-gray-600">Dokumentasi lengkap untuk keperluan akademik.</p>
+                        <h4 class="font-bold">Report</h4>
+                        <p class="text-sm text-gray-600">Laporan ilmiah siap publikasi.</p>
                     </div>
                 </div>
             </div>
@@ -1080,72 +950,38 @@
         <section class="slide flex-col items-center justify-center h-full px-6 py-16" data-slide="19">
             <div class="max-w-5xl mx-auto w-full">
                 <div class="text-center mb-12">
-                    <span class="text-sm font-medium text-gray-500 uppercase tracking-wider">Transformation</span>
-                    <h2 class="font-display text-4xl md:text-5xl font-bold mt-2">Skills Transformation</h2>
-                    <p class="text-gray-600 mt-4">Dari nol menjadi seorang Machine Learning Engineer pemula.</p>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold">Skill Set Baru</h2>
+                    <p class="text-gray-600 mt-2">Transformasi dari Pemula menjadi Machine Learning Engineer</p>
                 </div>
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="p-4 text-center border border-black card-hover">
-                        <i class="fab fa-python text-2xl mb-2 block"></i>
-                        <span class="font-medium">Python</span>
-                    </div>
-                    <div class="p-4 text-center border border-black card-hover">
-                        <i class="fas fa-table text-2xl mb-2 block"></i>
-                        <span class="font-medium">Pandas</span>
-                    </div>
-                    <div class="p-4 text-center border border-black card-hover">
-                        <i class="fas fa-chart-bar text-2xl mb-2 block"></i>
-                        <span class="font-medium">Visualization</span>
-                    </div>
-                    <div class="p-4 text-center border border-black card-hover">
-                        <i class="fas fa-brain text-2xl mb-2 block"></i>
-                        <span class="font-medium">ML Models</span>
-                    </div>
-                    <div class="p-4 text-center border border-black card-hover">
-                        <i class="fas fa-filter text-2xl mb-2 block"></i>
-                        <span class="font-medium">Feature Eng.</span>
-                    </div>
-                    <div class="p-4 text-center border border-black card-hover">
-                        <i class="fas fa-bullseye text-2xl mb-2 block"></i>
-                        <span class="font-medium">Evaluation</span>
-                    </div>
-                    <div class="p-4 text-center border border-black card-hover">
-                        <i class="fas fa-rocket text-2xl mb-2 block"></i>
-                        <span class="font-medium">Deployment</span>
-                    </div>
-                    <div class="p-4 text-center border border-black card-hover">
-                        <i class="fab fa-github text-2xl mb-2 block"></i>
-                        <span class="font-medium">Git/GitHub</span>
-                    </div>
-                </div>
-
-                <div class="mt-8 p-6 bg-black text-white text-center">
-                    <p class="text-lg">
-                        "Ilmu yang didapatkan di sini bukan hanya tentang satu project. Ini adalah <strong>kerangka berpikir</strong> yang bisa diterapkan ke segala masalah data di masa depan."
-                    </p>
+                    <div class="p-4 text-center border border-black card-hover font-mono text-sm">Python</div>
+                    <div class="p-4 text-center border border-black card-hover font-mono text-sm">Pandas</div>
+                    <div class="p-4 text-center border border-black card-hover font-mono text-sm">Scikit-Learn</div>
+                    <div class="p-4 text-center border border-black card-hover font-mono text-sm">Data Cleaning</div>
+                    <div class="p-4 text-center border border-black card-hover font-mono text-sm">EDA</div>
+                    <div class="p-4 text-center border border-black card-hover font-mono text-sm">Feature Eng.</div>
+                    <div class="p-4 text-center border border-black card-hover font-mono text-sm">Model Tuning</div>
+                    <div class="p-4 text-center border border-black card-hover font-mono text-sm">Deployment</div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 20: Closing -->
+        <!-- Slide 20: The End -->
         <section class="slide flex-col items-center justify-center h-full px-6 py-16 relative" data-slide="20">
-            <div class="absolute inset-0">
-                <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1920&q=80" alt="Abstract" class="w-full h-full object-cover opacity-10" style="filter: grayscale(100%);">
-            </div>
+            <div class="absolute inset-0 bg-gradient-to-b from-white via-gray-50 to-white"></div>
 
             <div class="relative z-10 text-center max-w-3xl mx-auto">
-                <h2 class="font-display text-5xl md:text-6xl font-bold mb-6">Let's Build Impact.</h2>
-                <p class="text-xl text-gray-600 mb-12">Teknologi tidak harus mahal. Solusi tidak harus rumit. Yang dibutuhkan adalah niat untuk memulai.</p>
+                <h2 class="font-display text-5xl md:text-6xl font-bold mb-6">Let's Save Lives.</h2>
+                <p class="text-xl text-gray-600 mb-12">Dengan data dan kode, kita bisa memberikan diagnosa lebih cepat, lebih akurat, dan lebih merata.</p>
 
                 <div class="inline-block border-2 border-black p-8">
-                    <p class="text-sm text-gray-500 uppercase tracking-wider mb-2">Instructor</p>
+                    <p class="text-sm text-gray-500 uppercase tracking-wider mb-1">Clinical Instructor</p>
                     <p class="text-2xl font-bold">Bahrul Rozak</p>
                     <p class="text-gray-600">Mentor at KELASFULLSTACK.id</p>
                     <div class="flex justify-center gap-4 mt-4">
                         <a href="#" class="text-gray-600 hover:text-black"><i class="fab fa-github text-xl"></i></a>
                         <a href="#" class="text-gray-600 hover:text-black"><i class="fab fa-linkedin text-xl"></i></a>
-                        <a href="#" class="text-gray-600 hover:text-black"><i class="fas fa-globe text-xl"></i></a>
                     </div>
                 </div>
             </div>
@@ -1165,27 +1001,29 @@
     </div>
 
     <script>
-        // Initialize variables
+        // Variables
         let currentSlide = 1;
         const totalSlides = 20;
+        let loader, slides, progressBar, slideCounter, prevBtn, nextBtn;
 
-        // DOM Elements
-        let slides = null;
-        let progressBar = null;
-        let slideCounter = null;
-        let prevBtn = null;
-        let nextBtn = null;
-
-        document.addEventListener('DOMContentLoaded', function() {
+        window.onload = function() {
+            // Initialize DOM elements
+            loader = document.getElementById('loader');
             slides = document.querySelectorAll('.slide');
             progressBar = document.getElementById('progressBar');
             slideCounter = document.getElementById('slideCounter');
             prevBtn = document.getElementById('prevBtn');
             nextBtn = document.getElementById('nextBtn');
 
+            // Hide loader after animation
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 3000); // 3 seconds loading
+
+            // Init slide
             updateSlide();
 
-            // Keyboard navigation
+            // Keyboard nav
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'ArrowRight' || e.key === ' ') {
                     e.preventDefault();
@@ -1195,12 +1033,19 @@
                     prevSlide();
                 }
             });
-        });
+        };
+
+        function toggleInsight(id) {
+            const box = document.getElementById(id);
+            if (box) {
+                box.classList.toggle('open');
+            }
+        }
 
         function updateSlide() {
-            if (!slides || !progressBar || !slideCounter || !prevBtn || !nextBtn) return;
+            if (!slides) return;
 
-            slides.forEach(function(slide, index) {
+            slides.forEach((slide, index) => {
                 if (index + 1 === currentSlide) {
                     slide.classList.add('active');
                 } else {
@@ -1231,31 +1076,13 @@
             }
         }
 
-        // Touch/swipe support
+        // Touch support
         let touchStartX = 0;
-        let touchEndX = 0;
-
-        document.addEventListener('touchstart', function(e) {
-            touchStartX = e.changedTouches[0].screenX;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX, { passive: true });
+        document.addEventListener('touchend', e => {
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
         }, { passive: true });
-
-        document.addEventListener('touchend', function(e) {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        }, { passive: true });
-
-        function handleSwipe() {
-            const threshold = 50;
-            const diff = touchStartX - touchEndX;
-
-            if (Math.abs(diff) > threshold) {
-                if (diff > 0) {
-                    nextSlide();
-                } else {
-                    prevSlide();
-                }
-            }
-        }
     </script>
 </body>
 </html>
