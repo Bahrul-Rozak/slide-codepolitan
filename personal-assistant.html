@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project JARVIS - Executive Personal Assistant</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            mono: {
+              50: '#fafafa',
+              100: '#f5f5f5',
+              200: '#e5e5e5',
+              300: '#d4d4d4',
+              400: '#a3a3a3',
+              500: '#737373',
+              600: '#525252',
+              700: '#404040',
+              800: '#262626',
+              900: '#171717',
+              950: '#0a0a0a',
+            }
+          },
+          fontFamily: {
+            display: ['Space Grotesk', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --bg: #fafafa;
+      --text: #171717;
+      --muted: #737373;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+    }
+    
+    .font-display { font-family: 'Space Grotesk', sans-serif; }
+
+    .bg-journey {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      transition: opacity 1.5s ease;
+    }
+    
+    .bg-journey img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.06;
+      filter: grayscale(100%);
+      transition: opacity 1.5s ease;
+    }
+
+    .slide-insight {
+      background: #0a0a0a;
+      color: #fafafa;
+    }
+    
+    .slide-insight .connector {
+      background: rgba(255,255,255,0.1);
+      color: #fafafa;
+    }
+
+    .slide {
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+      position: absolute;
+      inset: 0;
+      display: none;
+      overflow-y: auto;
+      z-index: 10;
+    }
+    
+    .slide.active {
+      opacity: 1;
+      transform: translateY(0);
+      display: block;
+    }
+
+    .progress-bar { transition: width 0.4s ease; }
+
+    .tech-placeholder {
+      background: linear-gradient(135deg, #e5e5e5 0%, #d4d4d4 100%);
+      border: 1px dashed #a3a3a3;
+    }
+    
+    .slide-insight .tech-placeholder {
+      background: linear-gradient(135deg, #262626 0%, #171717 100%);
+      border-color: #404040;
+    }
+
+    .stagger-item {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    
+    .slide.active .stagger-item {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    
+    .slide.active .stagger-item:nth-child(1) { animation-delay: 0.05s; }
+    .slide.active .stagger-item:nth-child(2) { animation-delay: 0.1s; }
+    .slide.active .stagger-item:nth-child(3) { animation-delay: 0.15s; }
+    .slide.active .stagger-item:nth-child(4) { animation-delay: 0.2s; }
+    .slide.active .stagger-item:nth-child(5) { animation-delay: 0.25s; }
+    .slide.active .stagger-item:nth-child(6) { animation-delay: 0.3s; }
+    .slide.active .stagger-item:nth-child(7) { animation-delay: 0.35s; }
+    .slide.active .stagger-item:nth-child(8) { animation-delay: 0.4s; }
+
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+      border-color: #a3a3a3;
+    }
+    
+    .slide-insight .card-hover:hover {
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+      border-color: #525252;
+    }
+
+    .nav-dot { transition: all 0.3s ease; }
+    .nav-dot.active { transform: scale(1.5); }
+
+    .connector {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.3rem 0.8rem;
+      background: #171717;
+      color: #fafafa;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      border-radius: 9999px;
+      margin-bottom: 1rem;
+    }
+
+    .term-card { border-left: 2px solid #171717; padding-left: 1rem; }
+    .slide-insight .term-card { border-left-color: #fafafa; }
+
+    .number-accent {
+      font-size: 5rem;
+      line-height: 1;
+      font-weight: 700;
+      color: #f5f5f5;
+      position: absolute;
+      top: 0;
+      right: 1rem;
+      z-index: 0;
+      user-select: none;
+      opacity: 0.4;
+    }
+    
+    .slide-insight .number-accent {
+      color: #262626;
+      opacity: 0.2;
+    }
+
+    .question-highlight {
+      position: relative;
+      display: inline;
+    }
+    
+    .question-highlight::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: rgba(255,255,255,0.2);
+      z-index: -1;
+    }
+
+    .slide::-webkit-scrollbar { width: 2px; }
+    .slide::-webkit-scrollbar-track { background: transparent; }
+    .slide::-webkit-scrollbar-thumb { background: #d4d4d4; border-radius: 2px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .slide { transition: opacity 0.3s ease; }
+      .stagger-item { animation: none !important; opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body class="bg-mono-50 text-mono-900 min-h-screen">
+  
+  <div class="bg-journey">
+    <img id="bgImage" src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1920&q=80" alt="Background">
+  </div>
+
+  <div class="fixed inset-0 bg-gradient-to-b from-mono-50/95 via-mono-50/90 to-mono-50/95 z-[1] pointer-events-none"></div>
+
+  <div class="fixed top-0 left-0 right-0 h-0.5 bg-mono-200 z-50">
+    <div id="progressBar" class="progress-bar h-full bg-mono-900" style="width: 5%"></div>
+  </div>
+
+  <nav class="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-1.5" aria-label="Slide navigation" id="navDotsContainer"></nav>
+
+  <main id="slidesContainer" class="relative w-full h-screen z-10">
+    
+    <!-- Slide 1: Cover -->
+    <section class="slide active p-8 md:p-16 lg:p-20" data-index="0">
+      <div class="max-w-5xl mx-auto h-full flex flex-col justify-center">
+        <div class="grid lg:grid-cols-5 gap-12 items-center">
+          <div class="lg:col-span-3">
+            <div class="connector stagger-item"><span>01</span><span>INTRODUCTION</span></div>
+            <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-6 stagger-item tracking-tight">
+              Project JARVIS
+            </h1>
+            <p class="text-mono-500 text-lg md:text-xl mb-4 stagger-item leading-relaxed">
+              Membangun Executive Personal Assistant Berbasis Autonomous Agent
+            </p>
+            <p class="text-mono-400 text-base mb-8 stagger-item">
+              Bagaimana jika ada sistem yang bekerja 24/7 tanpa lelah?
+            </p>
+            <div class="flex items-center gap-6 stagger-item">
+              <div class="w-12 h-12 rounded-full bg-mono-900 flex items-center justify-center">
+                <span class="font-display font-bold text-mono-50 text-sm">BR</span>
+              </div>
+              <div>
+                <p class="font-semibold text-sm">Bahrul Rozak</p>
+                <p class="text-xs text-mono-500">Mentor CODEPOLITAN</p>
+              </div>
+            </div>
+          </div>
+          <div class="lg:col-span-2 stagger-item">
+            <div class="aspect-[4/5] rounded-2xl overflow-hidden border border-mono-200">
+              <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&q=80" alt="AI visualization" class="w-full h-full object-cover filter grayscale">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 2: Insight - Evolution -->
+    <section class="slide slide-insight p-8 md:p-16 lg:p-20" data-index="1">
+      <div class="max-w-5xl mx-auto h-full flex flex-col justify-center">
+        <div class="connector stagger-item"><span>02</span><span>INSIGHT: EVOLUSI</span></div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-3 stagger-item tracking-tight">Sudahkah kita menyadari?</h2>
+        <p class="text-mono-400 text-lg mb-12 stagger-item max-w-2xl">AI telah berevolusi dari sekadar menjawab menjadi sesuatu yang bisa bertindak.</p>
+        
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="border border-mono-800 rounded-2xl p-6 card-hover stagger-item relative">
+            <span class="number-accent">01</span>
+            <div class="relative">
+              <p class="font-display text-xs text-mono-500 mb-2 tracking-widest">ERA PERTAMA</p>
+              <h3 class="font-display text-xl font-bold mb-3">Rule-Based</h3>
+              <p class="text-mono-400 text-sm leading-relaxed">Jawaban sudah ditentukan. Jika pertanyaan di luar aturan, sistem kebingungan. Bisakah ini disebut "pintar"?</p>
+            </div>
+          </div>
+
+          <div class="border border-mono-800 rounded-2xl p-6 card-hover stagger-item relative">
+            <span class="number-accent">02</span>
+            <div class="relative">
+              <p class="font-display text-xs text-mono-500 mb-2 tracking-widest">ERA KEDUA</p>
+              <h3 class="font-display text-xl font-bold mb-3">LLM Chatbot</h3>
+              <p class="text-mono-400 text-sm leading-relaxed">Memahami bahasa natural. Tapi tetap pasif. Lalu bagaimana jika butuh tindakan berkelanjutan?</p>
+            </div>
+          </div>
+
+          <div class="border border-mono-50 rounded-2xl p-6 card-hover stagger-item relative bg-mono-50 text-mono-950">
+            <span class="number-accent text-mono-200">03</span>
+            <div class="relative">
+              <p class="font-display text-xs text-mono-500 mb-2 tracking-widest">ERA KETIGA</p>
+              <h3 class="font-display text-xl font-bold mb-3">Autonomous Agent</h3>
+              <p class="text-mono-600 text-sm leading-relaxed">Memori persisten, akses tools, eksekusi mandiri. Apa yang terjadi jika asisten bisa berpikir sendiri?</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 3: Insight - LLM Fundamentals -->
+    <section class="slide slide-insight p-8 md:p-16 lg:p-20" data-index="2">
+      <div class="max-w-5xl mx-auto h-full flex flex-col justify-center">
+        <div class="connector stagger-item"><span>03</span><span>INSIGHT: FUNDAMENTAL</span></div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-3 stagger-item tracking-tight">Apa sebenarnya LLM?</h2>
+        <p class="text-mono-400 text-lg mb-10 stagger-item max-w-2xl">Large Language Model. Tiga kata yang mengubah segalanya. Tapi apakah kita benar-benar memahaminya?</p>
+        
+        <div class="grid lg:grid-cols-2 gap-8">
+          <div class="space-y-6">
+            <div class="border border-mono-800 rounded-2xl p-6 card-hover stagger-item">
+              <h3 class="font-display text-xl font-bold mb-3">Definisi Sederhana</h3>
+              <p class="text-mono-400 text-sm leading-relaxed">Model AI yang dilatih dengan trilyunan kata untuk memahami pola bahasa. GPT-4, Claude, DeepSeek, semuanya LLM.</p>
+            </div>
+
+            <div class="border border-mono-800 rounded-2xl p-6 card-hover stagger-item">
+              <h3 class="font-display text-xl font-bold mb-3">Bagaimana Cara Kerjanya?</h3>
+              <p class="text-mono-400 text-sm leading-relaxed">Prediksi kata berikutnya berdasarkan konteks. Seperti autocomplete yang sangat canggih. Tapi apakah prediksi sama dengan pemahaman?</p>
+            </div>
+          </div>
+
+          <div class="border border-mono-800 rounded-2xl p-8 stagger-item flex flex-col justify-center">
+            <p class="text-xs text-mono-600 uppercase tracking-widest mb-4">Pertanyaan Kritis</p>
+            <p class="text-mono-300 leading-relaxed text-lg">Jika LLM hanya memprediksi kata berikutnya, bagaimana bisa "berpikir" dan "menalar"?</p>
+            <p class="text-mono-500 text-sm mt-6">Jawabannya ada di bagaimana kita menggunakannya, bukan di modelnya sendiri.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 4: Insight - Context Window -->
+    <section class="slide slide-insight p-8 md:p-16 lg:p-20" data-index="3">
+      <div class="max-w-5xl mx-auto h-full flex flex-col justify-center">
+        <div class="connector stagger-item"><span>04</span><span>INSIGHT: MEMORY</span></div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-3 stagger-item tracking-tight">Context Window: RAM Sementara</h2>
+        <p class="text-mono-400 text-lg mb-10 stagger-item max-w-2xl">Pernahkah chat dengan AI tiba-tiba "lupa" percakapan sebelumnya? Ini alasannya.</p>
+        
+        <div class="grid md:grid-cols-4 gap-4 mb-8">
+          <div class="border border-mono-800 rounded-xl p-5 text-center card-hover stagger-item">
+            <p class="font-display text-3xl font-bold mb-1">8K</p>
+            <p class="text-xs text-mono-500">Model lama</p>
+            <p class="text-xs text-mono-600 mt-1">~6.000 kata</p>
+          </div>
+          <div class="border border-mono-800 rounded-xl p-5 text-center card-hover stagger-item">
+            <p class="font-display text-3xl font-bold mb-1">32K</p>
+            <p class="text-xs text-mono-500">Standar kini</p>
+            <p class="text-xs text-mono-600 mt-1">~24.000 kata</p>
+          </div>
+          <div class="border border-mono-800 rounded-xl p-5 text-center card-hover stagger-item">
+            <p class="font-display text-3xl font-bold mb-1">128K</p>
+            <p class="text-xs text-mono-500">GPT-4 Turbo</p>
+            <p class="text-xs text-mono-600 mt-1">~300 halaman</p>
+          </div>
+          <div class="border border-mono-50 rounded-xl p-5 text-center card-hover stagger-item bg-mono-50 text-mono-950">
+            <p class="font-display text-3xl font-bold mb-1">1M+</p>
+            <p class="text-xs text-mono-500">Context caching</p>
+            <p class="text-xs text-mono-600 mt-1">Efficient storage</p>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-6">
+          <div class="border border-mono-800 rounded-2xl p-6 stagger-item">
+            <p class="font-display text-xs text-mono-500 mb-3 tracking-widest">MASALAHNYA</p>
+            <p class="text-mono-300 text-sm leading-relaxed">Context window itu seperti RAM. Setiap kali sesi baru dimulai, semua harus dikirim ulang. Bayangkan harus menjelaskan ulang setiap kali bertanya?</p>
+          </div>
+          <div class="border border-mono-800 rounded-2xl p-6 stagger-item">
+            <p class="font-display text-xs text-mono-500 mb-3 tracking-widest">SOLUSINYA</p>
+            <p class="text-mono-300 text-sm leading-relaxed">External memory. Simpan informasi penting di luar context window, panggil hanya saat dibutuhkan. Inilah yang dilakukan OpenClaw.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 5: Insight - Token Economics -->
+    <section class="slide slide-insight p-8 md:p-16 lg:p-20" data-index="4">
+      <div class="max-w-5xl mx-auto h-full flex flex-col justify-center">
+        <div class="connector stagger-item"><span>05</span><span>INSIGHT: EKONOMI</span></div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-3 stagger-item tracking-tight">Token: Mata Uang AI</h2>
+        <p class="text-mono-400 text-lg mb-10 stagger-item max-w-2xl">Apakah kita pernah bertanya: kenapa AI berbayar? Dan bagaimana cara menghitungnya?</p>
+        
+        <div class="grid md:grid-cols-3 gap-4 mb-8">
+          <div class="border border-mono-800 rounded-xl p-6 text-center card-hover stagger-item">
+            <p class="font-display text-4xl font-bold mb-2">1 Token</p>
+            <p class="text-xs text-mono-500">≈ 4 karakter</p>
+            <p class="text-xs text-mono-600 mt-1">~¾ kata bahasa Inggris</p>
+          </div>
+          <div class="border border-mono-800 rounded-xl p-6 text-center card-hover stagger-item">
+            <p class="font-display text-4xl font-bold mb-2">1.000 Token</p>
+            <p class="text-xs text-mono-500">≈ 750 kata</p>
+            <p class="text-xs text-mono-600 mt-1">~1 halaman buku</p>
+          </div>
+          <div class="border border-mono-800 rounded-xl p-6 text-center card-hover stagger-item">
+            <p class="font-display text-4xl font-bold mb-2">1 Juta</p>
+            <p class="text-xs text-mono-500">≈ 750.000 kata</p>
+            <p class="text-xs text-mono-600 mt-1">~10 novel</p>
+          </div>
+        </div>
+
+        <div class="border border-mono-800 rounded-2xl p-8 stagger-item">
+          <p class="font-display text-xs text-mono-500 mb-4 tracking-widest">RUMUS YANG PERLU DIINGAT</p>
+          <div class="grid md:grid-cols-3 gap-6">
+            <div>
+              <p class="text-mono-300 font-semibold mb-1">Input Token</p>
+              <p class="text-mono-500 text-sm">Prompt + instruksi + konteks yang dikirim. Semakin panjang, semakin mahal.</p>
+            </div>
+            <div>
+              <p class="text-mono-300 font-semibold mb-1">Output Token</p>
+              <p class="text-mono-500 text-sm">Respons yang dihasilkan AI. Biasanya lebih mahal dari input.</p>
+            </div>
+            <div>
+              <p class="text-mono-300 font-semibold mb-1">Cached Token</p>
+              <p class="text-mono-500 text-sm">Instruksi berulang yang disimpan. Diskon hingga 90%, inilah kunci efisiensi.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 6: Insight - Reasoning vs Chat -->
+    <section class="slide slide-insight p-8 md:p-16 lg:p-20" data-index="5">
+      <div class="max-w-5xl mx-auto h-full flex flex-col justify-center">
+        <div class="connector stagger-item"><span>06</span><span>INSIGHT: MODEL TYPE</span></div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-3 stagger-item tracking-tight">Chat vs Reasoning</h2>
+        <p class="text-mono-400 text-lg mb-10 stagger-item max-w-2xl">Tidak semua LLM dibuat sama. Mana yang tepat untuk kebutuhan kita?</p>
+        
+        <div class="grid lg:grid-cols-2 gap-6">
+          <div class="border border-mono-800 rounded-2xl p-8 card-hover stagger-item">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="tech-placeholder w-14 h-14 rounded-xl flex items-center justify-center">
+                <span class="text-mono-500 text-xs">
+                    <i class="fa-regular fa-message"></i>
+                </span>
+              </div>
+              <div>
+                <p class="text-xs text-mono-500 uppercase tracking-wider">Model Type</p>
+                <h3 class="font-display text-2xl font-bold">Chat Model</h3>
+              </div>
+            </div>
+            <p class="text-mono-400 text-sm leading-relaxed mb-4">Dioptimasi untuk percakapan natural. Respons cepat, cocok untuk tugas rutin seperti menjawab pertanyaan atau menulis draft.</p>
+            <div class="flex gap-2 flex-wrap">
+              <span class="px-2 py-1 bg-mono-800 text-xs rounded text-mono-400">GPT-4o-mini</span>
+              <span class="px-2 py-1 bg-mono-800 text-xs rounded text-mono-400">DeepSeek Flash</span>
+            </div>
+          </div>
+
+          <div class="border border-mono-50 rounded-2xl p-8 card-hover stagger-item bg-mono-50 text-mono-950">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="tech-placeholder w-14 h-14 rounded-xl flex items-center justify-center">
+                <span class="text-mono-400 text-xs">
+                    <i class="fa-solid fa-gears"></i>
+                </span>
+              </div>
+              <div>
+                <p class="text-xs text-mono-500 uppercase tracking-wider">Model Type</p>
+                <h3 class="font-display text-2xl font-bold">Reasoning Model</h3>
+              </div>
+            </div>
+            <p class="text-mono-600 text-sm leading-relaxed mb-4">Dilatih untuk berpikir bertahap. Lebih lambat, tapi bisa menyelesaikan masalah kompleks yang butuh logika berantai.</p>
+            <div class="flex gap-2 flex-wrap">
+              <span class="px-2 py-1 bg-mono-200 text-xs rounded text-mono-600">o1-preview</span>
+              <span class="px-2 py-1 bg-mono-200 text-xs rounded text-mono-600">DeepSeek Reasoner</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 border border-mono-800 rounded-xl p-5 stagger-item">
+          <p class="text-mono-300 text-sm">Pertanyaannya: kapan menggunakan yang mana? Untuk tugas sederhana, chat model lebih efisien. Untuk perencanaan kompleks? Reasoning model memberikan hasil lebih baik.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 7: Insight - API Communication -->
+    <section class="slide slide-insight p-8 md:p-16 lg:p-20" data-index="6">
+      <div class="max-w-5xl mx-auto h-full flex flex-col justify-center">
+        <div class="connector stagger-item"><span>07</span><span>INSIGHT: KONEKSI</span></div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-3 stagger-item tracking-tight">Bagaimana AI Bisa "Dihubungi"?</h2>
+        <p class="text-mono-400 text-lg mb-10 stagger-item max-w-2xl">API adalah jembatan komunikasi. Tapi apakah kita tahu apa yang terjadi di balik layar?</p>
+        
+        <div class="border border-mono-800 rounded-2xl p-8 stagger-item mb-6">
+          <p class="text-xs text-mono-600 uppercase tracking-widest mb-6">ALUR KOMUNIKASI</p>
+          <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-center flex-1">
+              <div class="w-14 h-14 rounded-xl border border-mono-700 flex items-center justify-center mx-auto mb-2">
+                <span class="font-display font-bold">1</span>
+              </div>
+              <p class="text-sm font-medium">Request</p>
+              <p class="text-xs text-mono-500">Kirim prompt + API key</p>
+            </div>
+            <svg class="w-5 h-5 text-mono-700 rotate-90 md:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5l7 7-7 7"/></svg>
+            <div class="text-center flex-1">
+              <div class="w-14 h-14 rounded-xl border border-mono-700 flex items-center justify-center mx-auto mb-2">
+                <span class="font-display font-bold">2</span>
+              </div>
+              <p class="text-sm font-medium">Processing</p>
+              <p class="text-xs text-mono-500">Model memproses di cloud</p>
+            </div>
+            <svg class="w-5 h-5 text-mono-700 rotate-90 md:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5l7 7-7 7"/></svg>
+            <div class="text-center flex-1">
+              <div class="w-14 h-14 rounded-xl border border-mono-700 flex items-center justify-center mx-auto mb-2">
+                <span class="font-display font-bold">3</span>
+              </div>
+              <p class="text-sm font-medium">Response</p>
+              <p class="text-xs text-mono-500">Terima hasil + token count</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="border border-mono-800 rounded-2xl p-6 stagger-item">
+            <h3 class="font-display text-lg font-bold mb-3">Kenapa Tidak Jalankan Sendiri?</h3>
+            <p class="text-mono-400 text-sm leading-relaxed">Hardware mahal. Maintenance rumit. Listrik besar. API menyederhanakan semua itu, bayar per pakai, tanpa repot.</p>
+          </div>
+          <div class="border border-mono-800 rounded-2xl p-6 stagger-item">
+            <h3 class="font-display text-lg font-bold mb-3">Apa Risikonya?</h3>
+            <p class="text-mono-400 text-sm leading-relaxed">Ketergantungan pada provider. Data lewat internet. Rate limit saat traffic tinggi. Tapi dengan setup benar, risiko bisa diminimalisir.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 8: Insight - Agent Architecture -->
+    <section class="slide slide-insight p-8 md:p-16 lg:p-20" data-index="7">
+      <div class="max-w-5xl mx-auto h-full flex flex-col justify-center">
+        <div class="connector stagger-item"><span>08</span><span>INSIGHT: ARSITEKTUR</span></div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-3 stagger-item tracking-tight">Agent: LLM yang Bisa "Bertindak"</h2>
+        <p class="text-mono-400 text-lg mb-10 stagger-item max-w-2xl">Apa yang membedakan agent dari chatbot biasa? Jawabannya: loop otonom.</p>
+        
+        <div class="border border-mono-800 rounded-2xl p-8 stagger-item mb-6">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-center flex-1">
+              <div class="w-16 h-16 rounded-full border border-mono-700 flex items-center justify-center mx-auto mb-3">
+                <span class="font-display font-bold text-xl">1</span>
+              </div>
+              <p class="font-display font-semibold">OBSERVE</p>
+              <p class="text-xs text-mono-500 mt-1">Terima input & konteks</p>
+            </div>
+            <svg class="w-5 h-5 text-mono-700 rotate-90 md:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5l7 7-7 7"/></svg>
+            <div class="text-center flex-1">
+              <div class="w-16 h-16 rounded-full border border-mono-700 flex items-center justify-center mx-auto mb-3">
+                <span class="font-display font-bold text-xl">2</span>
+              </div>
+              <p class="font-display font-semibold">THINK</p>
+              <p class="text-xs text-mono-500 mt-1">Nalar & rencanakan aksi</p>
+            </div>
+            <svg class="w-5 h-5 text-mono-700 rotate-90 md:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5l7 7-7 7"/></svg>
+            <div class="text-center flex-1">
+              <div class="w-16 h-16 rounded-full border border-mono-700 flex items-center justify-center mx-auto mb-3">
+                <span class="font-display font-bold text-xl">3</span>
+              </div>
+              <p class="font-display font-semibold">ACT</p>
+              <p class="text-xs text-mono-500 mt-1">Eksekusi via tools</p>
+            </div>
+            <svg class="w-5 h-5 text-mono-700 rotate-90 md:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5l7 7-7 7"/></svg>
+            <div class="text-center flex-1">
+              <div class="w-16 h-16 rounded-full border border-mono-50 bg-mono-50 flex items-center justify-center mx-auto mb-3 text-mono-950">
+                <span class="font-display font-bold text-xl">4</span>
+              </div>
+              <p class="font-display font-semibold">ITERATE</p>
+              <p class="text-xs text-mono-500 mt-1">Ulangi sampai selesai</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="border border-mono-800 rounded-xl p-5 stagger-item">
+            <p class="font-display text-sm font-semibold mb-2">Chatbot Biasa</p>
+            <p class="text-mono-500 text-xs">Pertanyaan → Jawaban → SELESAI. Butuh intervensi untuk tugas berikutnya.</p>
+          </div>
+          <div class="border border-mono-50 rounded-xl p-5 stagger-item bg-mono-50 text-mono-950">
+            <p class="font-display text-sm font-semibold mb-2">Autonomous Agent</p>
+            <p class="text-mono-600 text-xs">Evaluasi hasil → Jika belum selesai, ambil langkah selanjutnya → Ulangi. Tanpa campur tangan.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 9: Insight - Agentic Loop -->
+    <section class="slide slide-insight p-8 md:p-16 lg:p-20" data-index="8">
+      <div class="max-w-5xl mx-auto h-full flex flex-col justify-center">
+        <div class="connector stagger-item"><span>09</span><span>INSIGHT: DEEP DIVE</span></div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-3 stagger-item tracking-tight">Apa yang Terjadi di Dalam Loop?</h2>
+        <p class="text-mono-400 text-lg mb-10 stagger-item max-w-2xl">Ibarat seseorang yang bekerja tanpa henti. Tapi apakah ini aman?</p>
+        
+        <div class="grid lg:grid-cols-3 gap-6">
+          <div class="border border-mono-800 rounded-2xl p-6 card-hover stagger-item">
+            <h3 class="font-display text-lg font-bold mb-3">Goal Decomposition</h3>
+            <p class="text-mono-400 text-sm leading-relaxed">"Atur meeting" dipecah jadi: cek jadwal → pilih waktu → kirim undangan → konfirmasi. Agent melakukan ini sendiri.</p>
+          </div>
+
+          <div class="border border-mono-800 rounded-2xl p-6 card-hover stagger-item">
+            <h3 class="font-display text-lg font-bold mb-3">Tool Selection</h3>
+            <p class="text-mono-400 text-sm leading-relaxed">Agent tahu kapan harus pakai Calendar API, kapan butuh Gmail, kapan perlu web search. Pemilihan otomatis berdasarkan konteks.</p>
+          </div>
+
+          <div class="border border-mono-800 rounded-2xl p-6 card-hover stagger-item">
+            <h3 class="font-display text-lg font-bold mb-3">Error Recovery</h3>
+            <p class="text-mono-400 text-sm leading-relaxed">Jika API gagal? Agent mencoba alternatif. Tidak perlu intervensi manual. Seperti karyawan yang mandiri.</p>
+          </div>
+        </div>
+
+        <div class="mt-6 border border-mono-800 rounded-2xl p-6 stagger-item">
+          <p class="text-xs text-mono-600 uppercase tracking-widest mb-3">PERTANYAAN PENTING</p>
+          <p class="text-mono-300 leading-relaxed">Bagaimana mencegah agent berulang tanpa henti? Jawabannya: termination condition. Agent harus tahu kapan harus berhenti, baik karena tugas selesai, atau karena mentok.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 10: Insight - Memory Persistence -->
+    <section class="slide slide-insight p-8 md:p-16 lg:p-20" data-index="9">
+      <div class="max-w-5xl mx-auto h-full flex flex-col justify-center">
+        <div class="connector stagger-item"><span>10</span><span>INSIGHT: MEMORI</span></div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-3 stagger-item tracking-tight">Kenapa AI Sering "Lupa"?</h2>
+        <p class="text-mono-400 text-lg mb-10 stagger-item max-w-2xl">LLM tidak punya memori permanen. Setiap sesi dimulai dari nol. Lalu bagaimana membuat asisten yang bisa mengingat?</p>
+        
+        <div class="grid lg:grid-cols-2 gap-8">
+          <div class="space-y-4">
+            <div class="border border-mono-800 rounded-xl p-5 stagger-item">
+              <p class="font-display text-sm font-semibold mb-2">Context Window</p>
+              <p class="text-mono-500 text-xs">Memori jangka pendek. Terbatas, mahal, di-reset setiap percakapan baru.</p>
+            </div>
+            <div class="border border-mono-800 rounded-xl p-5 stagger-item">
+              <p class="font-display text-sm font-semibold mb-2">Vector Database</p>
+              <p class="text-mono-500 text-xs">Simpan informasi sebagai embedding. Bisa dicari berdasarkan kemiripan semantik.</p>
+            </div>
+            <div class="border border-mono-800 rounded-xl p-5 stagger-item">
+              <p class="font-display text-sm font-semibold mb-2">Structured Memory</p>
+              <p class="text-mono-500 text-xs">File terstruktur yang berisi fakta penting. Bisa dibaca dan di-update oleh agent.</p>
+            </div>
+          </div>
+
+          <div class="border border-mono-800 rounded-2xl p-6 stagger-item">
+            <p class="font-display text-xs text-mono-500 mb-4 tracking-widest">SOLUSI OPENCLAW</p>
+            <p class="text-mono-300 text-sm leading-relaxed mb-4">Kombinasi ketiganya. Context window untuk percakapan aktif, vector DB untuk retrieval, structured memory untuk fakta persisten.</p>
+            <p class="text-mono-500 text-xs">Hasilnya? Agent yang bisa mengingat preferensi, hubungan bisnis, dan konteks proyek, bahkan setelah berbulan-bulan.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 11: Insight - OpenClaw -->
+    <section class="slide slide-insight p-8 md:p-16 lg:p-20" data-index="10">
+      <div class="max-w-5xl mx-auto h-full flex flex-col justify-center">
+        <div class="connector stagger-item"><span>11</span><span>INSIGHT: ENGINE</span></div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-3 stagger-item tracking-tight">OpenClaw: The Orchestrator</h2>
+        <p class="text-mono-400 text-lg mb-10 stagger-item max-w-2xl">Banyak yang bertanya: kenapa tidak pakai LangChain atau framework populer lain? Apa kelebihan OpenClaw?</p>
+        
+        <div class="grid lg:grid-cols-3 gap-6">
+          <div class="border border-mono-800 rounded-2xl p-6 card-hover stagger-item">
+            <div class="tech-placeholder w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <span class="text-mono-500 text-xs">
+                <i class="fa-solid fa-floppy-disk"></i>
+              </span>
+            </div>
+            <h3 class="font-display text-lg font-bold mb-2">Memory Native</h3>
+            <p class="text-mono-500 text-sm leading-relaxed">Dibangun dengan memori sebagai fondasi, bukan addon. Setiap interaksi bisa disimpan dan di-retrieve.</p>
+          </div>
+
+          <div class="border border-mono-800 rounded-2xl p-6 card-hover stagger-item">
+            <div class="tech-placeholder w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <span class="text-mono-500 text-xs">
+                <i class="fa-solid fa-spaghetti-monster-flying"></i>
+              </span>
+            </div>
+            <h3 class="font-display text-lg font-bold mb-2">Tool Agnostic</h3>
+            <p class="text-mono-500 text-sm leading-relaxed">Tidak terkunci ke provider tertentu. Ganti LLM? Ganti API? Tinggal plug and play.</p>
+          </div>
+
+          <div class="border border-mono-800 rounded-2xl p-6 card-hover stagger-item">
+            <div class="tech-placeholder w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <span class="text-mono-500 text-xs">
+                <i class="fa-solid fa-server"></i>
+              </span>
+            </div>
+            <h3 class="font-display text-lg font-bold mb-2">Self-Hosted</h3>
+            <p class="text-mono-500 text-sm leading-relaxed">Jalankan di infrastruktur sendiri. Data tidak keluar dari kontrol. Privacy by design.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Slide 12: The Problem -->
+    <section class="slide p-8 md:p-16 lg:p-20" data-index="11">
+      <div class="max-w-5xl mx-auto h-full flex flex-col justify-center">
+        <div class="connector stagger-item"><span>12</span><span>THE PROBLEM</span></div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-3 stagger-item tracking-tight">Lalu, Apa Masalahnya?</h2>
+        <p class="text-mono-500 text-lg mb-10 stagger-item max-w-2xl">Semua teori bagus. Tapi kenyataan di lapangan sering berbeda. Apa yang menghalangi?</p>
+        
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-white border border-mono-200 rounded-2xl p-6 card-hover stagger-item relative">
+            <span class="number-accent">01</span>
+            <div class="relative">
+              <h3 class="font-display text-xl font-semibold mb-3">Resource Intensive</h3>
+              <p class="text-mono-500 text-sm leading-relaxed">Model lokal butuh GPU powerful. VRAM tersedot, laptop panas, respons lambat. Bisakah hardware biasa menjalankannya?</p>
+            </div>
+          </div>
+
+          <div class="bg-white border border-mono-200 rounded-2xl p-6 card-hover stagger-item relative">
+            <span class="number-accent">02</span>
+            <div class="relative">
+              <h3 class="font-display text-xl font-semibold mb-3">Availability 24/7</h3>
+              <p class="text-mono-500 text-sm leading-relaxed">Agent butuh machine yang selalu on. Laptop tidak bisa menyala terus. Siapa yang mau menanggung biaya server?</p>
+            </div>
+          </div>
+
+          <div class="bg-white border border-mono-200 rounded-2xl p-6 card-hover stagger-item relative">
+            <span class="number-accent">03</span>
+            <div class="relative">
+              <h3 class="font-display text-xl font-semibold mb-3">Model Limitation</h3>
+              <p class="text-mono-500 text-sm leading-relaxed">Hardware lokal membatasi pilihan model. Mungkinkah mendapat performa tinggi tanpa investasi mahal?</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 13: Solution -->
+    <section class="slide p-8 md:p-16 lg:p-20" data-index="12">
+      <div class="max-w-5xl mx-auto h-full flex flex-col justify-center">
+        <div class="connector stagger-item"><span>13</span><span>THE SOLUTION</span></div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-3 stagger-item tracking-tight">Jawabannya: Cloud + Efisiensi</h2>
+        <p class="text-mono-500 text-lg mb-10 stagger-item max-w-2xl">Bukan sekadar pindah ke cloud, tapi memilih kombinasi yang tepat.</p>
+        
+        <div class="grid lg:grid-cols-3 gap-6">
+          <div class="bg-white border border-mono-200 rounded-2xl p-6 card-hover stagger-item">
+            <div class="tech-placeholder w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <span class="text-mono-400 text-xs">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Deepseek-logo-icon.svg/3840px-Deepseek-logo-icon.svg.png" alt="">
+              </span>
+            </div>
+            <p class="text-xs text-mono-400 uppercase tracking-wider mb-2">LLM Provider</p>
+            <h3 class="font-display text-xl font-bold mb-2">DeepSeek API</h3>
+            <p class="text-mono-500 text-sm leading-relaxed mb-3">Performa setara model komersial, dengan harga jauh lebih rendah. Context caching bawaan untuk efisiensi maksimal.</p>
+          </div>
+
+          <div class="bg-white border border-mono-200 rounded-2xl p-6 card-hover stagger-item">
+            <div class="tech-placeholder w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <span class="text-mono-400 text-xs">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvkkoVPj5Y9ClpmA4bAbItLV-FYO9vA-cCyw&s" alt="">
+              </span>
+            </div>
+            <p class="text-xs text-mono-400 uppercase tracking-wider mb-2">Framework</p>
+            <h3 class="font-display text-xl font-bold mb-2">OpenClaw</h3>
+            <p class="text-mono-500 text-sm leading-relaxed mb-3">Orkestrasi memori, tools, dan agentic loop. Self-hosted, berjalan di PC atau VPS sederhana.</p>
+          </div>
+
+          <div class="bg-white border border-mono-200 rounded-2xl p-6 card-hover stagger-item">
+            <div class="tech-placeholder w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <span class="text-mono-400 text-xs">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Telegram_2019_Logo.svg/3840px-Telegram_2019_Logo.svg.png?utm_source=id.wiktionary.org&utm_campaign=index&utm_content=thumbnail" alt="">
+              </span>
+            </div>
+            <p class="text-xs text-mono-400 uppercase tracking-wider mb-2">Interface</p>
+            <h3 class="font-display text-xl font-bold mb-2">Telegram Bot</h3>
+            <p class="text-mono-500 text-sm leading-relaxed mb-3">Akses dari mana saja. Tidak perlu aplikasi khusus. Chat seperti biasa, tapi sistem yang bekerja di belakang.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 14: Cost Analysis -->
+    <section class="slide p-8 md:p-16 lg:p-20" data-index="13">
+      <div class="max-w-5xl mx-auto h-full flex flex-col justify-center">
+        <div class="connector stagger-item"><span>14</span><span>COST ANALYSIS</span></div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-3 stagger-item tracking-tight">Berapa Biaya Sebenarnya?</h2>
+        <p class="text-mono-500 text-lg mb-10 stagger-item max-w-2xl">Teori bagus. Tapi bisakah angka membuktikannya?</p>
+        
+        <div class="grid lg:grid-cols-2 gap-8">
+          <div class="space-y-4">
+            <div class="bg-white border border-mono-200 rounded-2xl p-6 card-hover stagger-item">
+              <p class="text-mono-400 text-xs uppercase tracking-wider mb-2">Modal Awal</p>
+              <p class="font-display text-5xl font-bold mb-1">$5</p>
+              <p class="text-mono-500 text-sm">Kuota ~23.8 juta token. Cukup untuk berapa lama? Tergantung intensitas penggunaan.</p>
+            </div>
+
+            <div class="bg-white border border-mono-200 rounded-2xl p-6 card-hover stagger-item">
+              <p class="text-mono-400 text-xs uppercase tracking-wider mb-2">Penggunaan Riil (126K token)</p>
+              <p class="font-display text-5xl font-bold mb-1">&lt;$0.01</p>
+              <p class="text-mono-500 text-sm">Di bawah harga kopi. Tapi sudah bisa mengerjakan tugas berulang berkali-kali.</p>
+            </div>
+
+            <div class="bg-mono-900 text-white rounded-2xl p-6 stagger-item">
+              <p class="text-mono-400 text-xs uppercase tracking-wider mb-2">Context Caching</p>
+              <p class="font-display text-5xl font-bold mb-1">90%</p>
+              <p class="text-mono-400 text-sm">Diskon untuk instruksi berulang. Kunci efisiensi jangka panjang.</p>
+            </div>
+          </div>
+
+          <div class="relative stagger-item">
+            <div class="aspect-square rounded-2xl overflow-hidden border border-mono-200">
+              <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&q=80" alt="Cost visualization" class="w-full h-full object-cover filter grayscale">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 15: Memory System -->
+    <section class="slide p-8 md:p-16 lg:p-20" data-index="14">
+      <div class="max-w-5xl mx-auto h-full flex flex-col justify-center">
+        <div class="connector stagger-item"><span>15</span><span>MEMORY</span></div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-3 stagger-item tracking-tight">Dua File yang Mengubah Segalanya</h2>
+        <p class="text-mono-500 text-lg mb-10 stagger-item max-w-2xl">Kepribadian dan memori. Dua komponen yang membuat agent terasa "hidup".</p>
+        
+        <div class="grid lg:grid-cols-2 gap-6">
+          <div class="bg-white border border-mono-200 rounded-2xl overflow-hidden card-hover stagger-item">
+            <div class="bg-mono-50 px-5 py-3 border-b border-mono-200 flex items-center gap-2">
+              <div class="flex gap-1">
+                <div class="w-2 h-2 rounded-full bg-mono-300"></div>
+                <div class="w-2 h-2 rounded-full bg-mono-300"></div>
+                <div class="w-2 h-2 rounded-full bg-mono-300"></div>
+              </div>
+              <span class="font-mono text-xs text-mono-500">soul.md</span>
+            </div>
+            <div class="p-6">
+              <h3 class="font-display text-xl font-bold mb-3">Kepribadian yang Dikunci</h3>
+              <p class="text-mono-500 text-sm leading-relaxed mb-4">Gaya komunikasi, prioritas, batasan. Semua didefinisikan di satu file. Tidak ada jawaban template, setiap respons disesuaikan dengan preferensi.</p>
+              <p class="text-xs text-mono-400">Pertanyaan: bagaimana mendefinisikan kepribadian yang tepat?</p>
+            </div>
+          </div>
+
+          <div class="bg-white border border-mono-200 rounded-2xl overflow-hidden card-hover stagger-item">
+            <div class="bg-mono-50 px-5 py-3 border-b border-mono-200 flex items-center gap-2">
+              <div class="flex gap-1">
+                <div class="w-2 h-2 rounded-full bg-mono-300"></div>
+                <div class="w-2 h-2 rounded-full bg-mono-300"></div>
+                <div class="w-2 h-2 rounded-full bg-mono-300"></div>
+              </div>
+              <span class="font-mono text-xs text-mono-500">memory.md</span>
+            </div>
+            <div class="p-6">
+              <h3 class="font-display text-xl font-bold mb-3">Memori yang Tumbuh</h3>
+              <p class="text-mono-500 text-sm leading-relaxed mb-4">Informasi bisnis, nama klien, proyek aktif. Update otomatis via chat. Semakin sering digunakan, semakin "pintar", seperti asisten yang benar-benar mengenal.</p>
+              <p class="text-xs text-mono-400">Pertanyaan: apa yang terjadi jika memori keliru?</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 16: Integration -->
+    <section class="slide p-8 md:p-16 lg:p-20" data-index="15">
+      <div class="max-w-5xl mx-auto h-full flex flex-col justify-center">
+        <div class="connector stagger-item"><span>16</span><span>INTEGRATION</span></div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-3 stagger-item tracking-tight">Dari Chat Menjadi Aksi Nyata</h2>
+        <p class="text-mono-500 text-lg mb-10 stagger-item max-w-2xl">Integrasi dengan Google Workspace. Gratis, aman, dan langsung terhubung ke workflow sehari-hari.</p>
+        
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-white border border-mono-200 rounded-2xl p-6 card-hover stagger-item">
+            <div class="tech-placeholder w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <span class="text-mono-400 text-xs">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Calendar_icon_%282020%29.svg/960px-Google_Calendar_icon_%282020%29.svg.png" alt="">
+              </span>
+            </div>
+            <h3 class="font-display text-lg font-bold mb-2">Google Calendar</h3>
+            <p class="text-mono-500 text-sm leading-relaxed">Jadwalkan meeting dengan satu pesan. Sinkronisasi otomatis. Tidak perlu buka aplikasi kalender.</p>
+          </div>
+
+          <div class="bg-white border border-mono-200 rounded-2xl p-6 card-hover stagger-item">
+            <div class="tech-placeholder w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <span class="text-mono-400 text-xs">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/1280px-Gmail_icon_%282020%29.svg.png" alt="">
+              </span>
+            </div>
+            <h3 class="font-display text-lg font-bold mb-2">Gmail API</h3>
+            <p class="text-mono-500 text-sm leading-relaxed">Pantau inbox, filter email penting, buat draft balasan. Asisten email yang bekerja di background.</p>
+          </div>
+
+          <div class="bg-white border border-mono-200 rounded-2xl p-6 card-hover stagger-item">
+            <div class="tech-placeholder w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <span class="text-mono-400 text-xs">
+                <img src="https://images.seeklogo.com/logo-png/33/1/google-cloud-logo-png_seeklogo-336116.png" alt="">
+              </span>
+            </div>
+            <h3 class="font-display text-lg font-bold mb-2">Google Cloud</h3>
+            <p class="text-mono-500 text-sm leading-relaxed">OAuth yang aman. Kredensial terenkripsi. Data tetap dalam kendali penuh.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 17: Security -->
+    <section class="slide p-8 md:p-16 lg:p-20" data-index="16">
+      <div class="max-w-5xl mx-auto h-full flex flex-col justify-center">
+        <div class="connector stagger-item"><span>17</span><span>SECURITY</span></div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-3 stagger-item tracking-tight">Apakah Ini Aman?</h2>
+        <p class="text-mono-500 text-lg mb-10 stagger-item max-w-2xl">Pertanyaan yang sering muncul ketika membahas AI dan data bisnis. Apa risikonya?</p>
+        
+        <div class="grid lg:grid-cols-2 gap-6">
+          <div class="bg-white border border-mono-200 rounded-2xl p-6 stagger-item">
+            <h3 class="font-display text-lg font-bold mb-4">Risiko yang Perlu Dipahami</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <span class="text-mono-400 mt-1">—</span>
+                <span class="text-mono-500 text-sm">Data lewat ke LLM provider (tidak disimpan permanen oleh DeepSeek)</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-mono-400 mt-1">—</span>
+                <span class="text-mono-500 text-sm">API key harus dijaga kerahasiaannya</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-mono-400 mt-1">—</span>
+                <span class="text-mono-500 text-sm">Memori disimpan di lokal (self-hosted = kontrol penuh)</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-white border border-mono-200 rounded-2xl p-6 stagger-item">
+            <h3 class="font-display text-lg font-bold mb-4">Langkah Mitigasi</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <span class="text-mono-900 mt-1">+</span>
+                <span class="text-mono-500 text-sm">Jangan simpan informasi sensitif di memori agent</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-mono-900 mt-1">+</span>
+                <span class="text-mono-500 text-sm">Gunakan environment variable untuk API key</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-mono-900 mt-1">+</span>
+                <span class="text-mono-500 text-sm">Review memori secara berkala</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-6 bg-mono-900 text-white rounded-2xl p-6 stagger-item">
+          <p class="text-mono-300 text-sm">Kesimpulan: tidak ada sistem yang 100% aman. Tapi dengan praktik yang benar, risiko bisa diminimalisir. Pertanyaannya: apakah manfaat sebanding dengan risikonya?</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 18: Roadmap -->
+    <section class="slide p-8 md:p-16 lg:p-20" data-index="17">
+      <div class="max-w-5xl mx-auto h-full flex flex-col justify-center">
+        <div class="connector stagger-item"><span>18</span><span>NEXT STEPS</span></div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-3 stagger-item tracking-tight">Bagaimana Memulai?</h2>
+        <p class="text-mono-500 text-lg mb-10 stagger-item max-w-2xl">Tiga langkah praktis dari teori ke implementasi.</p>
+        
+        <div class="space-y-4">
+          <div class="bg-white border border-mono-200 rounded-2xl p-6 card-hover stagger-item flex gap-5">
+            <div class="flex-shrink-0">
+              <div class="w-10 h-10 rounded-lg bg-mono-900 text-white flex items-center justify-center">
+                <span class="font-display font-bold">1</span>
+              </div>
+            </div>
+            <div>
+              <h3 class="font-display text-lg font-semibold mb-1">Deploy Gateway</h3>
+              <p class="text-mono-500 text-sm leading-relaxed">Jalankan OpenClaw di PC atau VPS. Setup API key, konfigurasi tools, uji koneksi. Berapa lama? Biasanya 1-2 jam untuk setup pertama.</p>
+            </div>
+          </div>
+
+          <div class="bg-white border border-mono-200 rounded-2xl p-6 card-hover stagger-item flex gap-5">
+            <div class="flex-shrink-0">
+              <div class="w-10 h-10 rounded-lg bg-mono-900 text-white flex items-center justify-center">
+                <span class="font-display font-bold">2</span>
+              </div>
+            </div>
+            <div>
+              <h3 class="font-display text-lg font-semibold mb-1">Uji Coba Terbatas</h3>
+              <p class="text-mono-500 text-sm leading-relaxed">Mulai dengan tugas sederhana: jadwalkan meeting, buat draft email. Evaluasi hasil, sesuaikan instruksi. Loop improvement.</p>
+            </div>
+          </div>
+
+          <div class="bg-white border border-mono-200 rounded-2xl p-6 card-hover stagger-item flex gap-5">
+            <div class="flex-shrink-0">
+              <div class="w-10 h-10 rounded-lg bg-mono-900 text-white flex items-center justify-center">
+                <span class="font-display font-bold">3</span>
+              </div>
+            </div>
+            <div>
+              <h3 class="font-display text-lg font-semibold mb-1">Ekspansi Bertahap</h3>
+              <p class="text-mono-500 text-sm leading-relaxed">Integrasi Web Search untuk riset. Tambah tools sesuai kebutuhan. Scaling seiring pertumbuhan kebutuhan bisnis.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 19: Quote 1 -->
+    <section class="slide slide-insight p-8 md:p-16 lg:p-20" data-index="18">
+      <div class="max-w-4xl mx-auto h-full flex flex-col justify-center items-center text-center">
+        <div class="stagger-item">
+          <svg class="w-10 h-10 text-mono-700 mb-8 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+          </svg>
+          <p class="font-display text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-8">
+            The best way to predict<br>the future is to build it.
+          </p>
+          <p class="text-mono-500 text-lg">Alan Kay</p>
+          <p class="text-mono-600 text-sm mt-1">Computer Scientist, Turing Award Winner</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 20: Quote 2 + Closing -->
+    <section class="slide slide-insight p-8 md:p-16 lg:p-20" data-index="19">
+      <div class="max-w-4xl mx-auto h-full flex flex-col justify-center items-center text-center">
+        <div class="stagger-item">
+          <svg class="w-10 h-10 text-mono-700 mb-8 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+          </svg>
+          <p class="font-display text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-8">
+            Sometimes you gotta run<br>before you can walk.
+          </p>
+          <p class="text-mono-500 text-lg">Tony Stark</p>
+          <p class="text-mono-600 text-sm mt-1">Iron Man (2008)</p>
+        </div>
+        
+        <div class="mt-16 pt-8 border-t border-mono-800 stagger-item">
+          <p class="text-mono-600 text-sm mb-4">Dibuat oleh</p>
+          <div class="flex items-center justify-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-mono-50 flex items-center justify-center">
+              <span class="font-display font-bold text-mono-900 text-xs">BR</span>
+            </div>
+            <div class="text-left">
+              <p class="font-semibold text-sm">Bahrul Rozak</p>
+              <p class="text-xs text-mono-500">Mentor CODEPOLITAN</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Navigation -->
+  <div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-6">
+    <button id="prevBtn" class="w-11 h-11 rounded-full bg-white border border-mono-200 flex items-center justify-center hover:border-mono-400 transition-colors disabled:opacity-30 disabled:cursor-not-allowed shadow-sm" disabled aria-label="Previous">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+    <span id="slideCounter" class="font-display text-xs text-mono-500 w-12 text-center">1 / 20</span>
+    <button id="nextBtn" class="w-11 h-11 rounded-full bg-mono-900 text-white flex items-center justify-center hover:bg-mono-800 transition-colors shadow-sm" aria-label="Next">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/>
+      </svg>
+    </button>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const totalSlides = 20;
+    
+    const backgrounds = [
+      'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1920&q=80',
+      'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1920&q=80',
+      'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1920&q=80',
+      'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=1920&q=80',
+      'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&q=80',
+      'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80',
+      'https://images.unsplash.com/photo-1499346030926-9a72daac6c63?w=1920&q=80',
+      'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=1920&q=80',
+      'https://images.unsplash.com/photo-1507400492013-162706c8c05e?w=1920&q=80',
+      'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1920&q=80',
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1920&q=80',
+      'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1920&q=80',
+      'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1920&q=80',
+      'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1920&q=80',
+      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1920&q=80',
+      'https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=1920&q=80',
+      'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1920&q=80',
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1920&q=80',
+      'https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=1920&q=80',
+      'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&q=80'
+    ];
+    
+    const slides = document.querySelectorAll('.slide');
+    const navDotsContainer = document.getElementById('navDotsContainer');
+    const progressBar = document.getElementById('progressBar');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideCounter = document.getElementById('slideCounter');
+    const bgImage = document.getElementById('bgImage');
+
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('button');
+      dot.className = `nav-dot w-1 h-1 rounded-full bg-mono-300 ${i === 0 ? 'active bg-mono-900' : ''}`;
+      dot.setAttribute('data-slide', i);
+      dot.setAttribute('aria-label', `Slide ${i + 1}`);
+      navDotsContainer.appendChild(dot);
+    }
+    
+    const navDots = document.querySelectorAll('.nav-dot');
+
+    function goToSlide(index) {
+      if (index < 0 || index >= totalSlides) return;
+      currentSlide = index;
+      
+      bgImage.style.opacity = '0';
+      setTimeout(() => {
+        bgImage.src = backgrounds[currentSlide];
+        bgImage.style.opacity = '0.06';
+      }, 500);
+      
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === currentSlide);
+      });
+      
+      navDots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSlide);
+        if (i === currentSlide) {
+          dot.classList.remove('bg-mono-300');
+          dot.classList.add('bg-mono-900');
+        } else {
+          dot.classList.remove('bg-mono-900');
+          dot.classList.add('bg-mono-300');
+        }
+      });
+      
+      const progress = ((currentSlide + 1) / totalSlides) * 100;
+      progressBar.style.width = progress + '%';
+      
+      slideCounter.textContent = (currentSlide + 1) + ' / ' + totalSlides;
+      
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === totalSlides - 1;
+      
+      if (currentSlide === totalSlides - 1) {
+        nextBtn.classList.remove('bg-mono-900', 'text-white');
+        nextBtn.classList.add('bg-white', 'border', 'border-mono-200');
+        nextBtn.disabled = true;
+      } else {
+        nextBtn.classList.add('bg-mono-900', 'text-white');
+        nextBtn.classList.remove('bg-white', 'border', 'border-mono-200');
+      }
+    }
+
+    prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
+    nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
+
+    navDots.forEach((dot, index) => {
+      dot.addEventListener('click', () => goToSlide(index));
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+        e.preventDefault();
+        goToSlide(currentSlide + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        goToSlide(currentSlide - 1);
+      }
+    });
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) goToSlide(currentSlide + 1);
+        else goToSlide(currentSlide - 1);
+      }
+    }
+
+    backgrounds.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+
+    goToSlide(0);
+  </script>
+</body>
+</html>
