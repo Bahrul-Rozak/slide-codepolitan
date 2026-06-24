@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EdgeOne Makers — Presentation</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script>
+tailwind.config={theme:{extend:{fontFamily:{inter:['Inter','sans-serif']},colors:{eo:{50:'#EFF6FF',100:'#DBEAFE',200:'#BFDBFE',300:'#93C5FD',400:'#60A5FA',500:'#3B82F6',600:'#2563EB',700:'#1D4ED8',800:'#1E40AF',900:'#1E3A8A',950:'#172554'}}}}}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{font-family:'Inter',sans-serif;overflow:hidden;height:100%;background:#fff}
+.slide{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.slide.active{opacity:1;pointer-events:auto}
+.slide-body{flex:1;overflow-y:auto;overflow-x:hidden;padding:32px 48px 24px}
+.slide-body::-webkit-scrollbar{width:4px}
+.slide-body::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:4px}
+.slide-body::-webkit-scrollbar-track{background:transparent}
+.code{background:#0F172A;color:#E2E8F0;font-family:'Courier New',monospace;border-radius:8px;padding:14px 16px;font-size:11px;line-height:1.75;overflow-x:auto;white-space:pre}
+.kw{color:#93C5FD}.str{color:#86EFAC}.fn{color:#FDE68A}.cm{color:#64748B}.num{color:#FCA5A5}
+table{border-collapse:collapse;width:100%}
+table th,table td{padding:7px 10px;text-align:left;border-bottom:1px solid #F1F5F9}
+table th{font-weight:600;color:#1E3A8A;font-size:10px;text-transform:uppercase;letter-spacing:.06em;background:#F8FAFC}
+table td{font-size:11.5px;color:#334155;vertical-align:top}
+table tr:last-child td{border-bottom:none}
+table tr:hover td{background:#F8FAFC}
+.dot{width:7px;height:7px;border-radius:50%;background:#CBD5E1;cursor:pointer;transition:all .25s}
+.dot.active{background:#2563EB;width:22px;border-radius:3.5px}
+.dot:hover:not(.active){background:#94A3B8}
+.nav-btn{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;border:1px solid #E2E8F0;background:#fff;color:#64748B;cursor:pointer;transition:all .2s;font-size:11px}
+.nav-btn:hover{background:#EFF6FF;color:#2563EB;border-color:#BFDBFE}
+.ch{transition:all .25s ease}
+.ch:hover{transform:translateY(-1px);box-shadow:0 4px 16px -4px rgba(37,99,235,.12)}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px}
+@keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.slide.active .fu{animation:fu .5s ease forwards}
+.slide.active .d1{animation-delay:.08s;opacity:0}
+.slide.active .d2{animation-delay:.16s;opacity:0}
+.slide.active .d3{animation-delay:.24s;opacity:0}
+.slide.active .d4{animation-delay:.32s;opacity:0}
+.slide.active .d5{animation-delay:.4s;opacity:0}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.fl{animation:fl 5s ease-in-out infinite}
+</style>
+</head>
+<body>
+
+<div id="app" class="relative w-full h-full overflow-hidden">
+
+<!-- Progress -->
+<div class="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-eo-500 to-eo-700 z-[100] transition-all duration-500" id="pb" style="width:7.14%"></div>
+
+<!-- Header -->
+<header class="fixed top-[3px] left-0 right-0 z-50 flex items-center justify-between px-6 py-2.5 bg-white/90 backdrop-blur-md border-b border-slate-100">
+  <div class="flex items-center gap-2.5">
+    <img src="https://avatars.githubusercontent.com/u/176978739?s=200&v=4" alt="EO" class="w-6 h-6 rounded-md">
+    <span class="text-[13px] font-bold text-eo-900 tracking-tight">EdgeOne Makers</span>
+  </div>
+  <div class="flex items-center gap-2.5">
+    <span class="text-[11px] text-slate-400 font-medium tabular-nums" id="sc">01 / 14</span>
+    <button class="nav-btn" onclick="go(cur-1)"><i class="fas fa-chevron-left"></i></button>
+    <button class="nav-btn" onclick="go(cur+1)"><i class="fas fa-chevron-right"></i></button>
+  </div>
+</header>
+
+<!-- Slides Container -->
+<div class="relative w-full h-full pt-[44px] pb-[40px]">
+
+<!-- ========== SLIDE 1 ========== -->
+<div class="slide active" id="s1" style="background:linear-gradient(135deg,#EFF6FF 0%,#fff 45%,#F0F7FF 100%)">
+  <div class="slide-body flex items-center justify-center relative">
+    <div class="absolute top-16 right-24 w-64 h-64 bg-eo-200/25 rounded-full blur-[90px]"></div>
+    <div class="absolute bottom-16 left-16 w-48 h-48 bg-eo-300/15 rounded-full blur-[70px]"></div>
+    <div class="absolute top-1/4 right-[30%] fl opacity-[0.07]"><i class="fas fa-robot text-eo-600 text-[80px]"></i></div>
+    <div class="absolute bottom-1/4 left-[28%] fl opacity-[0.05]" style="animation-delay:2s"><i class="fas fa-globe text-eo-500 text-[56px]"></i></div>
+    <div class="text-center max-w-2xl relative z-10">
+      <div class="fu flex justify-center mb-7"><img src="https://avatars.githubusercontent.com/u/176978739?s=200&v=4" alt="EdgeOne" class="w-14 h-14 rounded-2xl shadow-lg shadow-eo-200/60"></div>
+      <h1 class="fu d1 text-[48px] lg:text-[56px] font-extrabold text-eo-950 tracking-tight leading-[1.08] mb-3">EdgeOne Makers</h1>
+      <p class="fu d2 text-lg lg:text-xl font-medium text-eo-700 mb-2">Platform AI Agent & Web dari Tencent Cloud</p>
+      <div class="fu d3 mb-8"><span class="tag bg-eo-100 text-eo-700"><i class="fas fa-microscope text-[9px]"></i> Research & Analysis</span></div>
+      <div class="fu d4 flex items-center justify-center gap-2 text-slate-500 text-sm"><i class="fas fa-user text-[10px]"></i><span class="font-medium">BAHRUL ROZAK</span></div>
+      <div class="fu d5 mt-8"><button onclick="go(2)" class="inline-flex items-center gap-2 bg-eo-600 hover:bg-eo-700 text-white text-[13px] font-semibold px-5 py-2.5 rounded-lg transition-colors shadow-lg shadow-eo-600/20">Mulai Presentasi <i class="fas fa-arrow-right text-[10px]"></i></button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 2 ========== -->
+<div class="slide bg-white" id="s2">
+  <div class="slide-body">
+    <div class="max-w-[1100px] mx-auto">
+      <p class="fu text-[11px] text-eo-500 font-medium mb-1.5"><i class="fas fa-arrow-right mr-1"></i>Mari kita pahami mengapa platform ini hadir</p>
+      <h2 class="fu d1 text-[28px] font-extrabold text-eo-950 tracking-tight mb-7">Latar Belakang</h2>
+      <div class="grid lg:grid-cols-5 gap-8">
+        <div class="lg:col-span-3 space-y-7">
+          <div class="fu d2">
+            <div class="flex items-center gap-2 mb-3"><div class="w-7 h-7 rounded-md bg-red-50 flex items-center justify-center"><i class="fas fa-triangle-exclamation text-red-500 text-[11px]"></i></div><h3 class="text-[13px] font-bold text-slate-800">Masalah di Industri</h3></div>
+            <ul class="space-y-2.5 ml-9">
+              <li class="flex gap-2.5 text-[12px] text-slate-600 leading-relaxed"><i class="fas fa-xmark text-red-400 mt-[3px] text-[10px] flex-shrink-0"></i><span>Developer AI Agent harus setup sendiri: LLM hosting, sandbox, memory, tracing, storage — wiring yang fragmentasi</span></li>
+              <li class="flex gap-2.5 text-[12px] text-slate-600 leading-relaxed"><i class="fas fa-xmark text-red-400 mt-[3px] text-[10px] flex-shrink-0"></i><span>Web & Agent biasanya beda platform — management, domain, dan observability terpisah</span></li>
+              <li class="flex gap-2.5 text-[12px] text-slate-600 leading-relaxed"><i class="fas fa-xmark text-red-400 mt-[3px] text-[10px] flex-shrink-0"></i><span>Agent framework berkembang cepat, tapi infrastruktur untuk production masih manual</span></li>
+            </ul>
+          </div>
+          <div class="fu d3">
+            <div class="flex items-center gap-2 mb-3"><div class="w-7 h-7 rounded-md bg-eo-50 flex items-center justify-center"><i class="fas fa-lightbulb text-eo-600 text-[11px]"></i></div><h3 class="text-[13px] font-bold text-slate-800">Kenapa Tencent Cloud Membuat Ini?</h3></div>
+            <ul class="space-y-2.5 ml-9">
+              <li class="flex gap-2.5 text-[12px] text-slate-600 leading-relaxed"><i class="fas fa-check text-eo-500 mt-[3px] text-[10px] flex-shrink-0"></i><span>EdgeOne punya 3.200+ PoP global, 2.500+ di Asia</span></li>
+              <li class="flex gap-2.5 text-[12px] text-slate-600 leading-relaxed"><i class="fas fa-check text-eo-500 mt-[3px] text-[10px] flex-shrink-0"></i><span>Expand dari infrastruktur pasif (CDN) ke platform developer aktif</span></li>
+              <li class="flex gap-2.5 text-[12px] text-slate-600 leading-relaxed"><i class="fas fa-check text-eo-500 mt-[3px] text-[10px] flex-shrink-0"></i><span>Makers = all-in-one: hosting web + AI Agent + edge functions + storage</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="lg:col-span-2 space-y-5 fu d4">
+          <div class="rounded-xl overflow-hidden shadow-md"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=280&fit=crop&auto=format&q=80" alt="Server" class="w-full h-36 object-cover"></div>
+          <div class="bg-gradient-to-br from-eo-600 to-eo-800 rounded-xl p-5 text-white shadow-lg shadow-eo-600/15">
+            <div class="flex items-center gap-2 mb-3"><i class="fas fa-clock text-eo-200 text-[11px]"></i><h3 class="font-bold text-[13px]">Timing yang Tepat</h3></div>
+            <ul class="space-y-2 text-[11.5px] text-eo-100">
+              <li class="flex gap-2"><i class="fas fa-circle-check text-eo-200 mt-[3px] text-[9px]"></i>Produk masih fase free / pre-commercial</li>
+              <li class="flex gap-2"><i class="fas fa-circle-check text-eo-200 mt-[3px] text-[9px]"></i>Tencent aggressively building adoption</li>
+              <li class="flex gap-2"><i class="fas fa-gift text-yellow-300 mt-[3px] text-[9px]"></i><span class="text-yellow-200 font-semibold">Launch rewards 3M token</span></li>
+              <li class="flex gap-2"><i class="fas fa-gift text-yellow-300 mt-[3px] text-[9px]"></i><span class="text-yellow-200 font-semibold">Creator rewards 50M token</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 3 ========== -->
+<div class="slide bg-white" id="s3">
+  <div class="slide-body">
+    <div class="max-w-[1100px] mx-auto">
+      <p class="fu text-[11px] text-eo-500 font-medium mb-1.5"><i class="fas fa-arrow-right mr-1"></i>Lalu bagaimana dibandingkan alternatif yang sudah ada?</p>
+      <h2 class="fu d1 text-[28px] font-extrabold text-eo-950 tracking-tight mb-6">Perbandingan & Kelebihan</h2>
+      <div class="fu d2 rounded-lg border border-slate-200 overflow-hidden shadow-sm mb-6">
+        <div class="overflow-x-auto">
+          <table class="min-w-[620px]">
+            <thead><tr><th style="width:28%">Aspek</th><th style="width:28%">EdgeOne Makers</th><th style="width:22%">Vercel + AI SDK</th><th style="width:22%">CF Workers AI</th></tr></thead>
+            <tbody>
+              <tr><td class="font-medium">Agent Runtime</td><td><i class="fas fa-check text-green-500 text-[10px]"></i> Ya</td><td><i class="fas fa-xmark text-red-400 text-[10px]"></i> Setup sendiri</td><td><i class="fas fa-xmark text-red-400 text-[10px]"></i> Setup sendiri</td></tr>
+              <tr><td class="font-medium">Sandbox Terisolasi</td><td><i class="fas fa-check text-green-500 text-[10px]"></i> Browser, Shell, Code, File</td><td><i class="fas fa-xmark text-red-400 text-[10px]"></i></td><td><i class="fas fa-xmark text-red-400 text-[10px]"></i></td></tr>
+              <tr><td class="font-medium">Session Memory</td><td><i class="fas fa-check text-green-500 text-[10px]"></i> Auto (Blob)</td><td><i class="fas fa-xmark text-red-400 text-[10px]"></i></td><td><i class="fas fa-xmark text-red-400 text-[10px]"></i></td></tr>
+              <tr><td class="font-medium">Observability</td><td><i class="fas fa-check text-green-500 text-[10px]"></i> Zero-intrusion</td><td><i class="fas fa-xmark text-red-400 text-[10px]"></i></td><td><i class="fas fa-xmark text-red-400 text-[10px]"></i></td></tr>
+              <tr><td class="font-medium">Web + Agent 1 Project</td><td><i class="fas fa-check text-green-500 text-[10px]"></i> Satu domain, satu deploy</td><td><i class="fas fa-xmark text-red-400 text-[10px]"></i></td><td><i class="fas fa-xmark text-red-400 text-[10px]"></i></td></tr>
+              <tr><td class="font-medium">Built-in Models</td><td><i class="fas fa-check text-green-500 text-[10px]"></i> 1 API Key semua</td><td><i class="fas fa-xmark text-red-400 text-[10px]"></i></td><td><i class="fas fa-check text-green-500 text-[10px]"></i> Workers AI</td></tr>
+              <tr><td class="font-medium">Cloud Functions</td><td><i class="fas fa-check text-green-500 text-[10px]"></i> Node, Py, Go</td><td><i class="fas fa-check text-green-500 text-[10px]"></i> Node</td><td><i class="fas fa-check text-green-500 text-[10px]"></i> Node</td></tr>
+              <tr><td class="font-medium">Edge Functions</td><td><i class="fas fa-check text-green-500 text-[10px]"></i> JS di edge</td><td><i class="fas fa-xmark text-red-400 text-[10px]"></i></td><td><i class="fas fa-check text-green-500 text-[10px]"></i></td></tr>
+              <tr><td class="font-medium">Storage (KV + Blob)</td><td><i class="fas fa-check text-green-500 text-[10px]"></i> Built-in</td><td><i class="fas fa-xmark text-red-400 text-[10px]"></i></td><td><i class="fas fa-check text-green-500 text-[10px]"></i> KV + R2</td></tr>
+              <tr class="bg-eo-50/60"><td class="font-bold text-eo-900">Asia Optimization</td><td><i class="fas fa-trophy text-amber-500 text-[10px]"></i> <span class="font-semibold text-eo-800">2.500+ PoP Asia</span></td><td class="text-slate-400">US-centric</td><td class="text-slate-400">US-centric</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="fu d3">
+        <h3 class="text-[12px] font-bold text-slate-800 mb-3"><i class="fas fa-star text-eo-500 mr-1.5 text-[10px]"></i>Keunggulan Utama</h3>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <div class="bg-slate-50 rounded-lg p-3.5 ch border border-slate-100"><div class="w-7 h-7 rounded-md bg-eo-100 flex items-center justify-center mb-2"><i class="fas fa-layer-group text-eo-600 text-[10px]"></i></div><h4 class="text-[11.5px] font-bold text-slate-800 mb-0.5">All-in-one</h4><p class="text-[10.5px] text-slate-500 leading-snug">Tidak perlu integrasi 3-4 services berbeda</p></div>
+          <div class="bg-slate-50 rounded-lg p-3.5 ch border border-slate-100"><div class="w-7 h-7 rounded-md bg-eo-100 flex items-center justify-center mb-2"><i class="fas fa-globe-asia text-eo-600 text-[10px]"></i></div><h4 class="text-[11.5px] font-bold text-slate-800 mb-0.5">Asia-first</h4><p class="text-[10.5px] text-slate-500 leading-snug">Latency terbaik untuk Indonesia & SEA</p></div>
+          <div class="bg-slate-50 rounded-lg p-3.5 ch border border-slate-100"><div class="w-7 h-7 rounded-md bg-eo-100 flex items-center justify-center mb-2"><i class="fas fa-unlock text-eo-600 text-[10px]"></i></div><h4 class="text-[11.5px] font-bold text-slate-800 mb-0.5">Framework-agnostic</h4><p class="text-[10.5px] text-slate-500 leading-snug">Tidak lock-in ke 1 framework/vendor</p></div>
+          <div class="bg-slate-50 rounded-lg p-3.5 ch border border-slate-100"><div class="w-7 h-7 rounded-md bg-eo-100 flex items-center justify-center mb-2"><i class="fas fa-bolt text-eo-600 text-[10px]"></i></div><h4 class="text-[11.5px] font-bold text-slate-800 mb-0.5">Zero infra setup</h4><p class="text-[10.5px] text-slate-500 leading-snug">Deploy langsung, sandbox otomatis</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 4 ========== -->
+<div class="slide" id="s4" style="background:#FAFBFD">
+  <div class="slide-body">
+    <div class="max-w-[1100px] mx-auto">
+      <p class="fu text-[11px] text-eo-500 font-medium mb-1.5"><i class="fas fa-arrow-right mr-1"></i>Keunggulan itu datang dari ekosistem tools yang terintegrasi penuh</p>
+      <h2 class="fu d1 text-[28px] font-extrabold text-eo-950 tracking-tight mb-6">Tools dalam 1 Platform</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 fu d2">
+        <div class="bg-white rounded-lg p-4 border border-slate-100 ch"><div class="flex items-center gap-2.5 mb-2.5"><div class="w-8 h-8 rounded-md bg-eo-600 flex items-center justify-center"><i class="fas fa-robot text-white text-[10px]"></i></div><h3 class="text-[12px] font-bold text-slate-800">Agent Runtime</h3></div><ul class="space-y-1.5 text-[11px] text-slate-500"><li><i class="fas fa-circle text-eo-400 text-[3px] mr-1.5 align-middle"></i>Hosting LLM calls + orchestration loop</li><li><i class="fas fa-circle text-eo-400 text-[3px] mr-1.5 align-middle"></i>Session-based routing (conversation_id)</li><li><i class="fas fa-circle text-eo-400 text-[3px] mr-1.5 align-middle"></i>Max runtime 30 menit (free), s/d 1 jam</li></ul></div>
+        <div class="bg-white rounded-lg p-4 border border-orange-100 ch relative"><div class="absolute -top-1.5 -right-1.5 bg-orange-500 text-white text-[8px] font-bold px-2 py-0.5 rounded-full leading-none">POPULER</div><div class="flex items-center gap-2.5 mb-2.5"><div class="w-8 h-8 rounded-md bg-orange-500 flex items-center justify-center"><i class="fas fa-fire text-white text-[10px]"></i></div><h3 class="text-[12px] font-bold text-slate-800">Sandbox Tools</h3></div><ul class="space-y-1.5 text-[11px] text-slate-500"><li><i class="fas fa-circle text-orange-400 text-[3px] mr-1.5 align-middle"></i>Dua layer: LLM tools & Developer API</li><li><i class="fas fa-circle text-orange-400 text-[3px] mr-1.5 align-middle"></i>Browser, Shell, Code, File operations</li><li><i class="fas fa-circle text-orange-400 text-[3px] mr-1.5 align-middle"></i>Micro-VM per sesi, auto-recycle</li></ul></div>
+        <div class="bg-white rounded-lg p-4 border border-slate-100 ch"><div class="flex items-center gap-2.5 mb-2.5"><div class="w-8 h-8 rounded-md bg-cyan-500 flex items-center justify-center"><i class="fas fa-bolt text-white text-[10px]"></i></div><h3 class="text-[12px] font-bold text-slate-800">Edge Functions</h3></div><ul class="space-y-1.5 text-[11px] text-slate-500"><li><i class="fas fa-circle text-cyan-400 text-[3px] mr-1.5 align-middle"></i>Serverless JS di 3.200+ PoP global</li><li><i class="fas fa-circle text-cyan-400 text-[3px] mr-1.5 align-middle"></i>File-based routing (mirip Next.js)</li><li><i class="fas fa-circle text-cyan-400 text-[3px] mr-1.5 align-middle"></i>Ultra-low latency di node terdekat</li></ul></div>
+        <div class="bg-white rounded-lg p-4 border border-slate-100 ch"><div class="flex items-center gap-2.5 mb-2.5"><div class="w-8 h-8 rounded-md bg-violet-500 flex items-center justify-center"><i class="fas fa-cloud text-white text-[10px]"></i></div><h3 class="text-[12px] font-bold text-slate-800">Cloud Functions</h3></div><ul class="space-y-1.5 text-[11px] text-slate-500"><li><i class="fas fa-circle text-violet-400 text-[3px] mr-1.5 align-middle"></i>Node.js v20, Python 3.10, Go 1.26</li><li><i class="fas fa-circle text-violet-400 text-[3px] mr-1.5 align-middle"></i>Express, FastAPI, Gin, Flask, Django</li><li><i class="fas fa-circle text-violet-400 text-[3px] mr-1.5 align-middle"></i>Multi-region: Jakarta, SG, HK, dll</li></ul></div>
+        <div class="bg-white rounded-lg p-4 border border-slate-100 ch"><div class="flex items-center gap-2.5 mb-2.5"><div class="w-8 h-8 rounded-md bg-emerald-500 flex items-center justify-center"><i class="fas fa-database text-white text-[10px]"></i></div><h3 class="text-[12px] font-bold text-slate-800">Storage</h3></div><ul class="space-y-1.5 text-[11px] text-slate-500"><li><i class="fas fa-circle text-emerald-400 text-[3px] mr-1.5 align-middle"></i>KV — key-value, max 25 MB/value</li><li><i class="fas fa-circle text-emerald-400 text-[3px] mr-1.5 align-middle"></i>Blob — object storage, directory hierarchy</li><li><i class="fas fa-circle text-emerald-400 text-[3px] mr-1.5 align-middle"></i>Eventual consistency (~60 detik)</li></ul></div>
+        <div class="bg-white rounded-lg p-4 border border-slate-100 ch"><div class="flex items-center gap-2.5 mb-2.5"><div class="w-8 h-8 rounded-md bg-eo-700 flex items-center justify-center"><i class="fas fa-network-wired text-white text-[10px]"></i></div><h3 class="text-[12px] font-bold text-slate-800">AI Gateway</h3></div><ul class="space-y-1.5 text-[11px] text-slate-500"><li><i class="fas fa-circle text-eo-400 text-[3px] mr-1.5 align-middle"></i>1 API Key + 1 endpoint semua model</li><li><i class="fas fa-circle text-eo-400 text-[3px] mr-1.5 align-middle"></i>Compatible OpenAI, Anthropic, Vercel AI</li><li><i class="fas fa-circle text-eo-400 text-[3px] mr-1.5 align-middle"></i>Streaming SSE support native</li></ul></div>
+      </div>
+      <div class="fu d3 mt-3 bg-white rounded-lg p-4 border border-slate-100 ch">
+        <div class="flex items-start gap-3"><div class="w-8 h-8 rounded-md bg-pink-500 flex items-center justify-center flex-shrink-0"><i class="fas fa-chart-line text-white text-[10px]"></i></div><div><h3 class="text-[12px] font-bold text-slate-800 mb-1.5">Observability</h3><div class="flex flex-wrap gap-x-5 gap-y-1.5 text-[11px] text-slate-500"><span><i class="fas fa-circle text-pink-400 text-[3px] mr-1.5 align-middle"></i>Auto-collect traces — zero-intrusion</span><span><i class="fas fa-circle text-pink-400 text-[3px] mr-1.5 align-middle"></i>Local debug via <code class="bg-slate-100 px-1.5 py-0.5 rounded text-[10px]">edgeone makers dev</code></span><span><i class="fas fa-circle text-pink-400 text-[3px] mr-1.5 align-middle"></i>Cloud dashboard — LLM calls, tool calls, session</span></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 5 ========== -->
+<div class="slide bg-white" id="s5">
+  <div class="slide-body">
+    <div class="max-w-[1100px] mx-auto">
+      <p class="fu text-[11px] text-eo-500 font-medium mb-1.5"><i class="fas fa-arrow-right mr-1"></i>Dengan tools yang lengkap, apa alasan konkret untuk memilihnya?</p>
+      <h2 class="fu d1 text-[28px] font-extrabold text-eo-950 tracking-tight mb-6">Mengapa Harus Menggunakan?</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="fu d2 rounded-xl p-4 border border-green-100 ch" style="background:linear-gradient(135deg,#F0FDF4,#fff)"><div class="w-9 h-9 rounded-lg bg-green-500 flex items-center justify-center mb-3 shadow-md shadow-green-500/15"><i class="fas fa-money-bill-wave text-white text-[12px]"></i></div><h3 class="text-[13px] font-bold text-slate-800 mb-1.5">Efisiensi Biaya</h3><p class="text-[11px] text-slate-500 leading-relaxed">Gratis eksplorasi (500K token, 200K executions/bln). Tidak perlu bayar Vercel + LangSmith + Supabase + OpenAI terpisah.</p></div>
+        <div class="fu d2 rounded-xl p-4 border border-eo-100 ch" style="background:linear-gradient(135deg,#EFF6FF,#fff)"><div class="w-9 h-9 rounded-lg bg-eo-600 flex items-center justify-center mb-3 shadow-md shadow-eo-600/15"><i class="fas fa-rocket text-white text-[12px]"></i></div><h3 class="text-[13px] font-bold text-slate-800 mb-1.5">Time to Market</h3><p class="text-[11px] text-slate-500 leading-relaxed">Deploy AI Agent dalam hitungan menit via template. Web + Agent dalam 1 pipeline deploy.</p></div>
+        <div class="fu d3 rounded-xl p-4 border border-cyan-100 ch" style="background:linear-gradient(135deg,#ECFEFF,#fff)"><div class="w-9 h-9 rounded-lg bg-cyan-500 flex items-center justify-center mb-3 shadow-md shadow-cyan-500/15"><i class="fas fa-globe-asia text-white text-[12px]"></i></div><h3 class="text-[13px] font-bold text-slate-800 mb-1.5">Asia Optimization</h3><p class="text-[11px] text-slate-500 leading-relaxed">2.500+ PoP di Asia. Region: Jakarta, Singapore, Bangkok, HK, Tokyo, Seoul.</p></div>
+        <div class="fu d3 rounded-xl p-4 border border-amber-100 ch" style="background:linear-gradient(135deg,#FFFBEB,#fff)"><div class="w-9 h-9 rounded-lg bg-amber-500 flex items-center justify-center mb-3 shadow-md shadow-amber-500/15"><i class="fas fa-unlock text-white text-[12px]"></i></div><h3 class="text-[13px] font-bold text-slate-800 mb-1.5">No Lock-in</h3><p class="text-[11px] text-slate-500 leading-relaxed">Bisa pakai OpenAI, Claude, LangGraph, CrewAI. JavaScript atau Python — bebas.</p></div>
+        <div class="fu d4 rounded-xl p-4 border border-violet-100 ch" style="background:linear-gradient(135deg,#F5F3FF,#fff)"><div class="w-9 h-9 rounded-lg bg-violet-600 flex items-center justify-center mb-3 shadow-md shadow-violet-600/15"><i class="fas fa-building text-white text-[12px]"></i></div><h3 class="text-[13px] font-bold text-slate-800 mb-1.5">Enterprise-Ready</h3><p class="text-[11px] text-slate-500 leading-relaxed">400 Tbps bandwidth global. DDoS protection, WAF, Bot Management built-in.</p></div>
+        <div class="fu d4 rounded-xl p-4 border border-rose-100 ch" style="background:linear-gradient(135deg,#FFF1F2,#fff)"><div class="w-9 h-9 rounded-lg bg-rose-500 flex items-center justify-center mb-3 shadow-md shadow-rose-500/15"><i class="fas fa-arrow-trend-up text-white text-[12px]"></i></div><h3 class="text-[13px] font-bold text-slate-800 mb-1.5">Early Adopter</h3><p class="text-[11px] text-slate-500 leading-relaxed">Produk Tencent Cloud, masih pre-commercial — manfaatkan gratis sebelum pricing rilis.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 6 ========== -->
+<div class="slide" id="s6" style="background:#FAFBFD">
+  <div class="slide-body">
+    <div class="max-w-[1100px] mx-auto">
+      <p class="fu text-[11px] text-eo-500 font-medium mb-1.5"><i class="fas fa-arrow-right mr-1"></i>Untuk memaksimalkan potensinya, berikut praktik terbaiknya</p>
+      <h2 class="fu d1 text-[28px] font-extrabold text-eo-950 tracking-tight mb-6">Best Practice</h2>
+      <div class="grid lg:grid-cols-2 gap-6">
+        <div class="fu d2">
+          <div class="flex items-center gap-2 mb-3"><div class="w-7 h-7 rounded-md bg-eo-100 flex items-center justify-center"><i class="fas fa-folder-tree text-eo-600 text-[10px]"></i></div><h3 class="text-[12px] font-bold text-slate-800">Struktur Project</h3></div>
+          <div class="code text-[10.5px] leading-[1.85]"><span class="cm">project/</span>
+├── <span class="fn">agents/</span>              <span class="cm">← Session mode</span>
+│   ├── customer-service/
+│   │   ├── index.ts    <span class="cm">→ POST /customer-service</span>
+│   │   └── stop.ts     <span class="cm">→ POST /customer-service/stop</span>
+│   └── research/
+│       └── index.ts    <span class="cm">→ POST /research</span>
+├── <span class="fn">cloud-functions/</span>   <span class="cm">← Request mode (Stateless)</span>
+│   ├── api/users.ts
+│   └── api/orders.ts
+├── <span class="fn">edge-functions/</span>    <span class="cm">← Edge (Ultra low-latency)</span>
+│   └── api/geo.js
+├── <span class="fn">static/</span>              <span class="cm">← Frontend assets</span>
+└── edgeone.json         <span class="cm">← Project config</span></div>
+        </div>
+        <div class="space-y-3 fu d3">
+          <div class="bg-white rounded-lg p-4 border border-slate-100">
+            <h4 class="text-[12px] font-bold text-slate-800 mb-2"><i class="fas fa-code-branch text-eo-500 mr-1.5 text-[10px]"></i>Agent vs Cloud Functions</h4>
+            <div class="grid grid-cols-2 gap-2.5 text-[11px] text-slate-500">
+              <div class="bg-eo-50 rounded-md p-2.5 border border-eo-100"><p class="font-semibold text-eo-700 mb-0.5 text-[11px]">agents/</p><p class="text-[10.5px]">Conversational, multi-turn, stateful</p></div>
+              <div class="bg-slate-50 rounded-md p-2.5 border border-slate-100"><p class="font-semibold text-slate-700 mb-0.5 text-[11px]">cloud-functions/</p><p class="text-[10.5px]">Stateless, non-LLM, API endpoint</p></div>
+            </div>
+          </div>
+          <div class="bg-white rounded-lg p-4 border border-slate-100">
+            <h4 class="text-[12px] font-bold text-slate-800 mb-2"><i class="fas fa-coins text-amber-500 mr-1.5 text-[10px]"></i>Optimalisasi Token</h4>
+            <ul class="space-y-1.5 text-[11px] text-slate-500"><li class="flex gap-2"><i class="fas fa-angle-right text-eo-400 mt-[2px] text-[8px]"></i>Session memory untuk kurangi pengulangan konteks</li><li class="flex gap-2"><i class="fas fa-angle-right text-eo-400 mt-[2px] text-[8px]"></i>Pisahkan business logic dari LLM calls</li><li class="flex gap-2"><i class="fas fa-angle-right text-eo-400 mt-[2px] text-[8px]"></i>Sandbox tools untuk operation berat (file, browser)</li></ul>
+          </div>
+          <div class="bg-white rounded-lg p-4 border border-slate-100">
+            <h4 class="text-[12px] font-bold text-slate-800 mb-2"><i class="fas fa-shield-halved text-green-500 mr-1.5 text-[10px]"></i>Keamanan</h4>
+            <ul class="space-y-1.5 text-[11px] text-slate-500"><li class="flex gap-2"><i class="fas fa-angle-right text-eo-400 mt-[2px] text-[8px]"></i>Credentials di <code class="bg-slate-100 px-1 py-0.5 rounded text-[10px]">context.env</code></li><li class="flex gap-2"><i class="fas fa-angle-right text-eo-400 mt-[2px] text-[8px]"></i>Input validation di cloud-functions layer</li><li class="flex gap-2"><i class="fas fa-angle-right text-eo-400 mt-[2px] text-[8px]"></i>Sandbox isolation otomatis</li></ul>
+          </div>
+          <div class="bg-white rounded-lg p-4 border border-slate-100">
+            <h4 class="text-[12px] font-bold text-slate-800 mb-2"><i class="fas fa-chart-line text-pink-500 mr-1.5 text-[10px]"></i>Observability</h4>
+            <ul class="space-y-1.5 text-[11px] text-slate-500"><li class="flex gap-2"><i class="fas fa-angle-right text-eo-400 mt-[2px] text-[8px]"></i>Manual instrumentation via <code class="bg-slate-100 px-1 py-0.5 rounded text-[10px]">context.tracer</code></li><li class="flex gap-2"><i class="fas fa-angle-right text-eo-400 mt-[2px] text-[8px]"></i>Local debug: <code class="bg-slate-100 px-1 py-0.5 rounded text-[10px]">edgeone makers dev</code></li><li class="flex gap-2"><i class="fas fa-angle-right text-eo-400 mt-[2px] text-[8px]"></i>Trace viewer di <code class="bg-slate-100 px-1 py-0.5 rounded text-[10px]">/agent-metrics</code></li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 7 ========== -->
+<div class="slide bg-white" id="s7">
+  <div class="slide-body">
+    <div class="max-w-[1100px] mx-auto">
+      <p class="fu text-[11px] text-eo-500 font-medium mb-1.5"><i class="fas fa-arrow-right mr-1"></i>Salah satu komponen kunci adalah AI Gateway dan model yang tersedia</p>
+      <h2 class="fu d1 text-[28px] font-extrabold text-eo-950 tracking-tight mb-6">Memahami Model</h2>
+      <div class="grid lg:grid-cols-2 gap-6">
+        <div class="fu d2">
+          <h3 class="text-[12px] font-bold text-slate-800 mb-3"><i class="fas fa-diagram-project text-eo-500 mr-1.5 text-[10px]"></i>Bagaimana AI Gateway Bekerja</h3>
+          <div class="bg-slate-50 rounded-xl p-5 border border-slate-100">
+            <div class="flex justify-center mb-4"><div class="bg-eo-600 text-white text-[11px] font-semibold px-4 py-2 rounded-lg shadow-md shadow-eo-600/15"><i class="fas fa-window-maximize mr-1.5 text-[10px]"></i>Client App</div></div>
+            <div class="flex justify-center mb-4"><div class="w-px h-5 bg-eo-200"></div></div>
+            <div class="flex justify-center mb-4"><div class="bg-eo-800 text-white text-[11px] font-bold px-4 py-2.5 rounded-lg shadow-md shadow-eo-800/15 relative"><i class="fas fa-network-wired mr-1.5 text-[10px]"></i>EdgeOne AI Gateway<div class="absolute -top-1.5 -right-1.5 bg-green-500 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full">1 Key</div></div></div>
+            <div class="flex justify-center mb-3"><div class="w-px h-5 bg-eo-200"></div></div>
+            <div class="grid grid-cols-3 gap-2">
+              <div class="bg-white border border-slate-200 rounded-lg p-2.5 text-center"><i class="fas fa-brain text-eo-500 text-sm mb-1 block"></i><p class="text-[9px] font-semibold text-slate-600 leading-tight">deepseek-v4-flash</p></div>
+              <div class="bg-white border border-slate-200 rounded-lg p-2.5 text-center"><i class="fas fa-brain text-violet-500 text-sm mb-1 block"></i><p class="text-[9px] font-semibold text-slate-600 leading-tight">hunyuan-turbo</p></div>
+              <div class="bg-white border border-slate-200 rounded-lg p-2.5 text-center"><i class="fas fa-brain text-cyan-500 text-sm mb-1 block"></i><p class="text-[9px] font-semibold text-slate-600 leading-tight">hy3-preview</p></div>
+            </div>
+          </div>
+          <div class="mt-4 space-y-1.5 text-[11px] text-slate-600">
+            <div class="flex items-center gap-2"><i class="fas fa-link text-eo-500 w-4 text-center text-[9px]"></i><span><b>1 Endpoint:</b> <code class="bg-slate-100 px-1 py-0.5 rounded text-[10px]">ai-gateway.edgeone.link/v1</code></span></div>
+            <div class="flex items-center gap-2"><i class="fas fa-key text-eo-500 w-4 text-center text-[9px]"></i><span><b>1 API Key:</b> <code class="bg-slate-100 px-1 py-0.5 rounded text-[10px]">MAKERS_MODELS_KEY</code></span></div>
+            <div class="flex items-center gap-2"><i class="fas fa-right-left text-eo-500 w-4 text-center text-[9px]"></i><span><b>Ganti model:</b> Cukup ganti 1 parameter</span></div>
+          </div>
+        </div>
+        <div class="space-y-4 fu d3">
+          <div>
+            <h3 class="text-[12px] font-bold text-slate-800 mb-2.5"><i class="fas fa-code text-eo-500 mr-1.5 text-[10px]"></i>Cara Panggil (OpenAI SDK)</h3>
+            <div class="code"><span class="kw">const</span> client = <span class="kw">new</span> <span class="fn">OpenAI</span>({
+  apiKey: process.env.<span class="str">MAKERS_MODELS_KEY</span>,
+  baseURL: <span class="str">'https://ai-gateway.edgeone.link/v1'</span>,
+});
+
+<span class="kw">const</span> completion = <span class="kw">await</span> client.chat.completions
+  .<span class="fn">create</span>({
+    model: <span class="str">"@makers/deepseek-v4-flash"</span>,
+    messages: [
+      { role: <span class="str">"user"</span>, content: <span class="str">"Halo!"</span> }
+    ]
+  });</div>
+          </div>
+          <div>
+            <h3 class="text-[12px] font-bold text-slate-800 mb-2.5"><i class="fas fa-list text-eo-500 mr-1.5 text-[10px]"></i>Model Built-in</h3>
+            <div class="space-y-2">
+              <div class="flex items-center gap-2.5 bg-eo-50 rounded-lg p-3 border border-eo-100"><div class="w-7 h-7 rounded-md bg-eo-600 flex items-center justify-center flex-shrink-0"><i class="fas fa-bolt text-white text-[9px]"></i></div><div><p class="text-[10.5px] font-bold text-eo-800 font-mono">@makers/deepseek-v4-flash</p><p class="text-[10px] text-eo-500">DeepSeek V4 — cepat & efisien</p></div></div>
+              <div class="flex items-center gap-2.5 bg-violet-50 rounded-lg p-3 border border-violet-100"><div class="w-7 h-7 rounded-md bg-violet-600 flex items-center justify-center flex-shrink-0"><i class="fas fa-microchip text-white text-[9px]"></i></div><div><p class="text-[10.5px] font-bold text-violet-800 font-mono">@makers/hunyuan-turbo</p><p class="text-[10px] text-violet-500">Hunyuan — model Tencent</p></div></div>
+              <div class="flex items-center gap-2.5 bg-cyan-50 rounded-lg p-3 border border-cyan-100"><div class="w-7 h-7 rounded-md bg-cyan-600 flex items-center justify-center flex-shrink-0"><i class="fas fa-flask text-white text-[9px]"></i></div><div><p class="text-[10.5px] font-bold text-cyan-800 font-mono">@makers/hy3-preview</p><p class="text-[10px] text-cyan-500">HY3 — Tencent preview</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 8 ========== -->
+<div class="slide bg-white" id="s8">
+  <div class="slide-body">
+    <div class="max-w-[1100px] mx-auto">
+      <p class="fu text-[11px] text-eo-500 font-medium mb-1.5"><i class="fas fa-arrow-right mr-1"></i>Tapi kapan sebaiknya menggunakan model built-in, dan kapan vendor API?</p>
+      <h2 class="fu d1 text-[28px] font-extrabold text-eo-950 tracking-tight mb-6">Built-in vs Vendor API</h2>
+      <div class="grid lg:grid-cols-3 gap-4">
+        <div class="fu d2 rounded-xl p-5 border border-eo-100" style="background:linear-gradient(180deg,#EFF6FF,#fff)">
+          <div class="flex items-center gap-2.5 mb-4"><div class="w-9 h-9 rounded-lg bg-eo-600 flex items-center justify-center"><i class="fas fa-check text-white text-[11px]"></i></div><h3 class="text-[13px] font-bold text-eo-800">Model Built-in</h3></div>
+          <ul class="space-y-2.5 text-[11px] text-slate-600 leading-relaxed"><li class="flex gap-2"><i class="fas fa-circle-check text-eo-500 mt-[3px] flex-shrink-0 text-[10px]"></i>Prototype / MVP — langsung jalan tanpa daftar API Key</li><li class="flex gap-2"><i class="fas fa-circle-check text-eo-500 mt-[3px] flex-shrink-0 text-[10px]"></i>Eksperimen — gratis 500K token/bulan</li><li class="flex gap-2"><i class="fas fa-circle-check text-eo-500 mt-[3px] flex-shrink-0 text-[10px]"></i>Aplikasi ringan — chat, Q&A, summarization</li><li class="flex gap-2"><i class="fas fa-circle-check text-eo-500 mt-[3px] flex-shrink-0 text-[10px]"></i>Benchmark — gonta-ganti model cepat</li></ul>
+        </div>
+        <div class="fu d3 rounded-xl p-5 border border-amber-100" style="background:linear-gradient(180deg,#FFFBEB,#fff)">
+          <div class="flex items-center gap-2.5 mb-4"><div class="w-9 h-9 rounded-lg bg-amber-500 flex items-center justify-center"><i class="fas fa-key text-white text-[11px]"></i></div><h3 class="text-[13px] font-bold text-amber-800">Vendor API (BYOK)</h3></div>
+          <ul class="space-y-2.5 text-[11px] text-slate-600 leading-relaxed"><li class="flex gap-2"><i class="fas fa-circle-check text-amber-500 mt-[3px] flex-shrink-0 text-[10px]"></i>Model spesifik — GPT-4o, Claude Sonnet, Gemini</li><li class="flex gap-2"><i class="fas fa-circle-check text-amber-500 mt-[3px] flex-shrink-0 text-[10px]"></i>Production dengan SLA tertentu</li><li class="flex gap-2"><i class="fas fa-circle-check text-amber-500 mt-[3px] flex-shrink-0 text-[10px]"></i>Data compliance — tidak diproses pihak ketiga</li><li class="flex gap-2"><i class="fas fa-circle-check text-amber-500 mt-[3px] flex-shrink-0 text-[10px]"></i>Karakteristik performa model tertentu</li></ul>
+        </div>
+        <div class="fu d4 rounded-xl p-5 border border-violet-100" style="background:linear-gradient(180deg,#F5F3FF,#fff)">
+          <div class="flex items-center gap-2.5 mb-4"><div class="w-9 h-9 rounded-lg bg-violet-600 flex items-center justify-center"><i class="fas fa-bullseye text-white text-[11px]"></i></div><h3 class="text-[13px] font-bold text-violet-800">Hybrid Strategy</h3></div>
+          <div class="space-y-2.5">
+            <div class="flex items-center gap-2.5 bg-white rounded-lg p-3 border border-violet-100"><span class="w-5 h-5 rounded-full bg-eo-100 text-eo-700 text-[9px] font-bold flex items-center justify-center flex-shrink-0">P1</span><div><p class="text-[11px] font-semibold text-slate-700">Built-in</p><p class="text-[10px] text-slate-400">Gratis, eksplorasi</p></div></div>
+            <div class="flex items-center gap-2.5 bg-white rounded-lg p-3 border border-violet-100"><span class="w-5 h-5 rounded-full bg-amber-100 text-amber-700 text-[9px] font-bold flex items-center justify-center flex-shrink-0">P2</span><div><p class="text-[11px] font-semibold text-slate-700">BYOK</p><p class="text-[10px] text-slate-400">Scale, specific model</p></div></div>
+            <div class="flex items-center gap-2.5 bg-white rounded-lg p-3 border border-violet-100"><span class="w-5 h-5 rounded-full bg-violet-100 text-violet-700 text-[9px] font-bold flex items-center justify-center flex-shrink-0">P3</span><div><p class="text-[11px] font-semibold text-slate-700">Hybrid</p><p class="text-[10px] text-slate-400">Built-in simple, BYOK complex</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 9 ========== -->
+<div class="slide" id="s9" style="background:#FAFBFD">
+  <div class="slide-body">
+    <div class="max-w-[900px] mx-auto">
+      <p class="fu text-[11px] text-eo-500 font-medium mb-1.5"><i class="fas fa-arrow-right mr-1"></i>Terlepas dari pilihan model, bagaimana dengan biayanya?</p>
+      <h2 class="fu d1 text-[28px] font-extrabold text-eo-950 tracking-tight mb-5">Pricing</h2>
+      <div class="fu d2 mb-4"><span class="tag bg-green-100 text-green-700"><i class="fas fa-tag text-[8px]"></i> SAAT INI: FREE EDITION</span></div>
+      <div class="fu d2 bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm mb-5">
+        <table>
+          <thead><tr><th class="!bg-eo-600 !text-white/90">Item</th><th class="!bg-eo-600 !text-white/90 text-right">Free Tier</th></tr></thead>
+          <tbody>
+            <tr><td class="font-medium">Token Model AI</td><td class="text-right"><span class="font-bold text-eo-700">500.000</span> / bulan</td></tr>
+            <tr><td class="font-medium">Agent Executions</td><td class="text-right"><span class="font-bold text-eo-700">200.000</span> / bulan</td></tr>
+            <tr><td class="font-medium">Sandbox Memory Time</td><td class="text-right"><span class="font-bold text-eo-700">100.000</span> GB-s / bulan</td></tr>
+            <tr><td class="font-medium">Max Runtime per Request</td><td class="text-right">1.800 detik (30 menit)</td></tr>
+            <tr><td class="font-medium">Max Concurrent Sessions</td><td class="text-right">40</td></tr>
+            <tr><td class="font-medium">Max Concurrent Sandbox</td><td class="text-right">20</td></tr>
+            <tr><td class="font-medium">Code Package Size</td><td class="text-right">128 MB</td></tr>
+            <tr><td class="font-medium">Request Body</td><td class="text-right">6 MB</td></tr>
+            <tr class="bg-amber-50"><td class="font-medium"><i class="fas fa-gift text-amber-500 mr-1.5 text-[10px]"></i>Bonus Launch</td><td class="text-right"><span class="font-bold text-amber-600">3.000.000 tokens</span></td></tr>
+            <tr class="bg-amber-50"><td class="font-medium"><i class="fas fa-gift text-amber-500 mr-1.5 text-[10px]"></i>Creator Rewards</td><td class="text-right"><span class="font-bold text-amber-600">50.000.000 tokens</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="fu d3 flex items-start gap-2.5 bg-eo-50 rounded-lg p-3.5 border border-eo-100">
+        <i class="fas fa-lightbulb text-eo-500 mt-[2px] text-[11px]"></i>
+        <p class="text-[11px] text-eo-700 leading-relaxed"><b>Insight:</b> Sebelum commercial rilis, kuota free "diberlakukan lebih longgar" — ini kesempatan eksplorasi tanpa batasan ketat.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 10 ========== -->
+<div class="slide bg-white" id="s10">
+  <div class="slide-body">
+    <div class="max-w-[1100px] mx-auto">
+      <p class="fu text-[11px] text-eo-500 font-medium mb-1.5"><i class="fas fa-arrow-right mr-1"></i>Selain komputasi dan AI, EdgeOne Makers juga menyediakan storage</p>
+      <h2 class="fu d1 text-[28px] font-extrabold text-eo-950 tracking-tight mb-6">Storage</h2>
+      <div class="grid lg:grid-cols-2 gap-5">
+        <div class="fu d2 rounded-xl p-5 border border-eo-100" style="background:linear-gradient(135deg,#EFF6FF,#fff)">
+          <div class="flex items-center gap-2.5 mb-3"><div class="w-9 h-9 rounded-lg bg-eo-600 flex items-center justify-center"><i class="fas fa-table text-white text-[10px]"></i></div><h3 class="text-[14px] font-bold text-eo-800">KV Storage</h3></div>
+          <p class="text-[11px] text-slate-500 mb-3">Distributed variable — Key → Value</p>
+          <ul class="space-y-1.5 text-[11px] text-slate-600 mb-4"><li><i class="fas fa-angle-right text-eo-400 mr-1.5 text-[8px]"></i>Max per value: 25 MB</li><li><i class="fas fa-angle-right text-eo-400 mr-1.5 text-[8px]"></i>Runtime: Edge Functions only</li><li><i class="fas fa-angle-right text-eo-400 mr-1.5 text-[8px]"></i>Consistency: Eventual (~60 detik)</li><li><i class="fas fa-angle-right text-eo-400 mr-1.5 text-[8px]"></i>Use case: Config, counters, session</li></ul>
+          <div class="code text-[10.5px]"><span class="kw">await</span> my_kv.<span class="fn">put</span>(<span class="str">"visitCount"</span>, <span class="str">"1"</span>);
+<span class="kw">const</span> count = <span class="kw">await</span> my_kv.<span class="fn">get</span>(<span class="str">"visitCount"</span>);</div>
+        </div>
+        <div class="fu d3 rounded-xl p-5 border border-emerald-100" style="background:linear-gradient(135deg,#ECFDF5,#fff)">
+          <div class="flex items-center gap-2.5 mb-3"><div class="w-9 h-9 rounded-lg bg-emerald-600 flex items-center justify-center"><i class="fas fa-photo-film text-white text-[10px]"></i></div><h3 class="text-[14px] font-bold text-emerald-800">Blob Storage</h3></div>
+          <p class="text-[11px] text-slate-500 mb-3">Distributed object — Path-based hierarchy</p>
+          <ul class="space-y-1.5 text-[11px] text-slate-600 mb-4"><li><i class="fas fa-angle-right text-emerald-400 mr-1.5 text-[8px]"></i>Max per object: 25 MB</li><li><i class="fas fa-angle-right text-emerald-400 mr-1.5 text-[8px]"></i>Runtime: Edge & Cloud Functions</li><li><i class="fas fa-angle-right text-emerald-400 mr-1.5 text-[8px]"></i>Consistency: Eventual (~60 detik)</li><li><i class="fas fa-angle-right text-emerald-400 mr-1.5 text-[8px]"></i>Use case: Images, dokumen, AI content</li></ul>
+          <div class="code text-[10.5px]"><span class="kw">import</span> { getStore } <span class="kw">from</span> <span class="str">"@tencent/pages-blob"</span>;
+<span class="kw">const</span> store = <span class="fn">getStore</span>(<span class="str">"uploads"</span>);
+<span class="kw">await</span> store.<span class="fn">set</span>(<span class="str">"photos/avatar.jpg"</span>, data);
+<span class="kw">const</span> file = <span class="kw">await</span> store.<span class="fn">get</span>(<span class="str">"photos/avatar.jpg"</span>);</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 11 ========== -->
+<div class="slide" id="s11" style="background:#FAFBFD">
+  <div class="slide-body">
+    <div class="max-w-[900px] mx-auto">
+      <p class="fu text-[11px] text-eo-500 font-medium mb-1.5"><i class="fas fa-arrow-right mr-1"></i>Tentu saja setiap platform memiliki batas. Berikut detail lengkapnya</p>
+      <h2 class="fu d1 text-[28px] font-extrabold text-eo-950 tracking-tight mb-6">Limit & Quotas</h2>
+      <div class="fu d2 grid md:grid-cols-2 gap-4">
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+          <table><tbody>
+            <tr class="bg-slate-50"><td class="font-semibold text-[11px]">Agent Executions</td><td class="text-[11px] text-right font-mono text-eo-700">200.000/bln</td></tr>
+            <tr><td class="font-semibold text-[11px]">Sandbox Memory Time</td><td class="text-[11px] text-right font-mono text-eo-700">100.000 GB-s</td></tr>
+            <tr class="bg-slate-50"><td class="font-semibold text-[11px]">Agent Max Runtime</td><td class="text-[11px] text-right font-mono">1.800 detik</td></tr>
+            <tr><td class="font-semibold text-[11px]">Agent Session Idle</td><td class="text-[11px] text-right font-mono">300 detik</td></tr>
+            <tr class="bg-slate-50"><td class="font-semibold text-[11px]">Concurrent Sessions</td><td class="text-[11px] text-right font-mono text-eo-700">40</td></tr>
+            <tr><td class="font-semibold text-[11px]">Concurrent Sandbox</td><td class="text-[11px] text-right font-mono text-eo-700">20</td></tr>
+            <tr class="bg-slate-50"><td class="font-semibold text-[11px]">Sandbox Max Runtime</td><td class="text-[11px] text-right font-mono">3.600 detik</td></tr>
+          </tbody></table>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+          <table><tbody>
+            <tr class="bg-slate-50"><td class="font-semibold text-[11px]">CF Code Size</td><td class="text-[11px] text-right font-mono">128 MB</td></tr>
+            <tr><td class="font-semibold text-[11px]">CF Request Body</td><td class="text-[11px] text-right font-mono">6 MB</td></tr>
+            <tr class="bg-slate-50"><td class="font-semibold text-[11px]">CF Max Execution</td><td class="text-[11px] text-right font-mono">120 detik</td></tr>
+            <tr><td class="font-semibold text-[11px]">Storage per Value</td><td class="text-[11px] text-right font-mono">25 MB</td></tr>
+            <tr class="bg-slate-50"><td class="font-semibold text-[11px]">Storage Consistency</td><td class="text-[11px] text-right font-mono">~60 detik</td></tr>
+            <tr><td class="font-semibold text-[11px]">Node.js Runtime</td><td class="text-[11px] text-right font-mono">v20</td></tr>
+            <tr class="bg-slate-50"><td class="font-semibold text-[11px]">Python / Go</td><td class="text-[11px] text-right font-mono">3.10 / 1.26</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <div class="fu d3 mt-4 flex items-start gap-2.5 bg-white rounded-lg p-3.5 border border-slate-200">
+        <i class="fas fa-circle-info text-eo-500 mt-[2px] text-[11px]"></i>
+        <p class="text-[11px] text-slate-500">Semua limit berlaku untuk <b class="text-slate-700">Free Edition</b>. Limit komersial diumumkan saat produk rilis komersial.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 12 ========== -->
+<div class="slide bg-white" id="s12">
+  <div class="slide-body">
+    <div class="max-w-[1100px] mx-auto">
+      <p class="fu text-[11px] text-eo-500 font-medium mb-1.5"><i class="fas fa-arrow-right mr-1"></i>Di balik angka-angka itu, ada filosofi desain yang menarik</p>
+      <h2 class="fu d1 text-[26px] font-extrabold text-eo-950 tracking-tight mb-2">Memahami Logika di Balik EdgeOne Makers</h2>
+      <p class="fu d1 text-[12px] text-eo-600 font-medium mb-5"><i class="fas fa-quote-left text-eo-200 mr-1.5 text-[10px]"></i>Developer fokus ke business logic, platform handle infrastructure</p>
+      <div class="space-y-2.5">
+        <div class="fu d2 bg-slate-50 rounded-lg p-4 border border-slate-100 flex gap-4 items-start"><div class="w-7 h-7 rounded-md bg-eo-600 flex items-center justify-center flex-shrink-0 text-white text-[10px] font-bold">1</div><div><h3 class="text-[12px] font-bold text-slate-800 mb-1.5">Decoupled Architecture</h3><div class="flex items-center gap-1.5 text-[10px] text-slate-500 mb-1.5 flex-wrap"><span class="bg-eo-100 text-eo-700 px-2 py-0.5 rounded font-medium">Agent Runtime</span><i class="fas fa-arrows-left-right text-slate-300 text-[8px]"></i><span class="bg-orange-100 text-orange-700 px-2 py-0.5 rounded font-medium">Sandbox</span><i class="fas fa-arrows-left-right text-slate-300 text-[8px]"></i><span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-medium">Storage</span></div><p class="text-[11px] text-slate-500">Masing-masing punya lifecycle & scaling sendiri. Micro-VM sandbox: lazy start, reuse, recycle saat timeout.</p></div></div>
+        <div class="fu d2 bg-slate-50 rounded-lg p-4 border border-slate-100 flex gap-4 items-start"><div class="w-7 h-7 rounded-md bg-eo-600 flex items-center justify-center flex-shrink-0 text-white text-[10px] font-bold">2</div><div><h3 class="text-[12px] font-bold text-slate-800 mb-1">Framework-Agnostic by Design</h3><p class="text-[11px] text-slate-500">Bukan "pake SDK kami" — adaptasi ke framework apapun. <code class="bg-white px-1 py-0.5 rounded text-[10px] border border-slate-200">context.tools</code> auto-format ke bentuk yang dimengerti framework target.</p></div></div>
+        <div class="fu d3 bg-slate-50 rounded-lg p-4 border border-slate-100 flex gap-4 items-start"><div class="w-7 h-7 rounded-md bg-eo-600 flex items-center justify-center flex-shrink-0 text-white text-[10px] font-bold">3</div><div class="flex-1"><h3 class="text-[12px] font-bold text-slate-800 mb-2">Session vs Request Mode</h3><div class="grid md:grid-cols-2 gap-2.5"><div class="bg-eo-50 rounded-md p-2.5 border border-eo-100"><p class="text-[10.5px] font-bold text-eo-700 mb-1">agents/ → Session</p><p class="text-[10px] text-slate-500 leading-snug">conversation_id routing, memory reusable, cocok multi-turn</p></div><div class="bg-slate-100 rounded-md p-2.5 border border-slate-200"><p class="text-[10.5px] font-bold text-slate-700 mb-1">cloud-functions/ → Request</p><p class="text-[10px] text-slate-500 leading-snug">Stateless, elastic scaling, cocok API & webhook</p></div></div></div></div>
+        <div class="fu d4 bg-slate-50 rounded-lg p-4 border border-slate-100 flex gap-4 items-start"><div class="w-7 h-7 rounded-md bg-eo-600 flex items-center justify-center flex-shrink-0 text-white text-[10px] font-bold">4</div><div><h3 class="text-[12px] font-bold text-slate-800 mb-1">Zero-Intrusion Observability</h3><p class="text-[11px] text-slate-500">Auto-detect framework & inject instrumentor. Local & cloud trace sharing — primitives identik.</p></div></div>
+        <div class="fu d5 bg-eo-50 rounded-lg p-4 border border-eo-100 flex gap-4 items-start"><div class="w-7 h-7 rounded-md bg-eo-700 flex items-center justify-center flex-shrink-0 text-white text-[10px] font-bold">5</div><div><h3 class="text-[12px] font-bold text-eo-800 mb-1">Web + Agent = Satu Stack</h3><p class="text-[11px] text-eo-600">Frontend (React/Next.js) + AI Agent = satu project, satu domain, satu deploy pipeline.</p></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 13 ========== -->
+<div class="slide" id="s13" style="background:#FAFBFD">
+  <div class="slide-body">
+    <div class="max-w-[1100px] mx-auto">
+      <p class="fu text-[11px] text-eo-500 font-medium mb-1.5"><i class="fas fa-arrow-right mr-1"></i>Daripada hanya membahas, mari lihat bagaimana ini bekerja dalam praktik</p>
+      <h2 class="fu d1 text-[26px] font-extrabold text-eo-950 tracking-tight mb-5">Demo Plan: Live EdgeOne Makers</h2>
+      <div class="grid md:grid-cols-2 gap-3">
+        <div class="fu d2 bg-white rounded-xl p-4 border border-slate-100 ch">
+          <div class="flex items-center justify-between mb-3"><div class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg bg-eo-600 flex items-center justify-center"><i class="fas fa-play text-white text-[9px]"></i></div><div><h3 class="text-[12px] font-bold text-slate-800">Deploy Agent Template</h3><p class="text-[9px] text-slate-400">3 Menit</p></div></div><span class="tag bg-eo-100 text-eo-700">DEMO 1</span></div>
+          <ol class="space-y-1.5 text-[11px] text-slate-500 ml-1"><li class="flex gap-2"><span class="w-4 h-4 rounded-full bg-eo-50 text-eo-600 text-[8px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">1</span>Buka pages.edgeone.ai/templates</li><li class="flex gap-2"><span class="w-4 h-4 rounded-full bg-eo-50 text-eo-600 text-[8px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">2</span>Pilih "OpenAI Agents Starter"</li><li class="flex gap-2"><span class="w-4 h-4 rounded-full bg-eo-50 text-eo-600 text-[8px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">3</span>Klik Deploy → tunggu 30 detik</li><li class="flex gap-2"><span class="w-4 h-4 rounded-full bg-eo-50 text-eo-600 text-[8px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">4</span>Buka URL live → chat langsung</li></ol>
+        </div>
+        <div class="fu d2 bg-white rounded-xl p-4 border border-slate-100 ch">
+          <div class="flex items-center justify-between mb-3"><div class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg bg-violet-600 flex items-center justify-center"><i class="fas fa-right-left text-white text-[9px]"></i></div><div><h3 class="text-[12px] font-bold text-slate-800">Model Switching</h3><p class="text-[9px] text-slate-400">2 Menit</p></div></div><span class="tag bg-violet-100 text-violet-700">DEMO 2</span></div>
+          <div class="space-y-2 text-[11px]"><div class="bg-slate-50 rounded-md p-2.5 font-mono text-[10px]"><span class="text-slate-400">model:</span> <span class="text-eo-600">"@makers/deepseek-v4-flash"</span> <span class="text-slate-400">→ response</span></div><div class="flex justify-center"><i class="fas fa-arrow-down text-slate-300 text-[9px]"></i></div><div class="bg-slate-50 rounded-md p-2.5 font-mono text-[10px]"><span class="text-slate-400">model:</span> <span class="text-violet-600">"@makers/hunyuan-turbo"</span> <span class="text-slate-400">→ bedanya</span></div><div class="flex items-start gap-2 bg-amber-50 rounded-md p-2.5 border border-amber-100 mt-1"><i class="fas fa-lightbulb text-amber-500 mt-[2px] text-[9px]"></i><p class="text-[10px] text-amber-700">Cuma ganti 1 parameter — tanpa ganti API Key</p></div></div>
+        </div>
+        <div class="fu d3 bg-white rounded-xl p-4 border border-slate-100 ch">
+          <div class="flex items-center justify-between mb-3"><div class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg bg-orange-500 flex items-center justify-center"><i class="fas fa-magnifying-glass text-white text-[9px]"></i></div><div><h3 class="text-[12px] font-bold text-slate-800">Agent Dengan Tools</h3><p class="text-[9px] text-slate-400">5 Menit</p></div></div><span class="tag bg-orange-100 text-orange-700">DEMO 3</span></div>
+          <ol class="space-y-1.5 text-[11px] text-slate-500 ml-1"><li class="flex gap-2"><span class="w-4 h-4 rounded-full bg-orange-50 text-orange-600 text-[8px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">1</span>Deploy "Deep Research Agent"</li><li class="flex gap-2"><span class="w-4 h-4 rounded-full bg-orange-50 text-orange-600 text-[8px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">2</span>"Research tentang [topik bisnis]"</li><li class="flex gap-2"><span class="w-4 h-4 rounded-full bg-orange-50 text-orange-600 text-[8px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">3</span>Agent: search → baca → report</li><li class="flex gap-2"><span class="w-4 h-4 rounded-full bg-orange-50 text-orange-600 text-[8px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">4</span>Tunjukkan trace viewer</li></ol>
+        </div>
+        <div class="fu d3 bg-white rounded-xl p-4 border border-slate-100 ch">
+          <div class="flex items-center justify-between mb-3"><div class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center"><i class="fas fa-layer-group text-white text-[9px]"></i></div><div><h3 class="text-[12px] font-bold text-slate-800">Full-stack Web + Agent</h3><p class="text-[9px] text-slate-400">5 Menit</p></div></div><span class="tag bg-emerald-100 text-emerald-700">DEMO 4</span></div>
+          <ol class="space-y-1.5 text-[11px] text-slate-500 ml-1"><li class="flex gap-2"><span class="w-4 h-4 rounded-full bg-emerald-50 text-emerald-600 text-[8px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">1</span>Template React + OpenAI Agents SDK</li><li class="flex gap-2"><span class="w-4 h-4 rounded-full bg-emerald-50 text-emerald-600 text-[8px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">2</span>Upload PDF dokumen perusahaan</li><li class="flex gap-2"><span class="w-4 h-4 rounded-full bg-emerald-50 text-emerald-600 text-[8px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">3</span>Tanya → jawab dengan citation</li><li class="flex gap-2"><span class="w-4 h-4 rounded-full bg-emerald-50 text-emerald-600 text-[8px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">4</span>React + Agent = 1 project</li></ol>
+        </div>
+      </div>
+      <div class="fu d4 mt-4 bg-eo-600 rounded-xl p-4 text-white flex items-center gap-3.5">
+        <div class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center flex-shrink-0"><i class="fas fa-flag-checkered text-lg"></i></div>
+        <div><h4 class="font-bold text-[12px] mb-0.5">Kesimpulan Demo</h4><p class="text-[11px] text-eo-100 leading-relaxed">Dari 0 ke Agent live di domain publik dalam <b class="text-white">&lt; 5 menit</b>. Zero infra config. Zero SDK integration. Zero API key setup.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 14 ========== -->
+<div class="slide" id="s14" style="background:linear-gradient(135deg,#F0F7FF,#fff 45%,#EFF6FF)">
+  <div class="slide-body">
+    <div class="max-w-[1000px] mx-auto">
+      <p class="fu text-[11px] text-eo-500 font-medium mb-1.5"><i class="fas fa-arrow-right mr-1"></i>Dari semua yang telah dibahas, berikut kesimpulan dan langkah selanjutnya</p>
+      <h2 class="fu d1 text-[28px] font-extrabold text-eo-950 tracking-tight mb-6">Kesimpulan & Rekomendasi</h2>
+      <div class="fu d2 bg-white rounded-xl p-5 border border-slate-200 shadow-sm mb-6">
+        <h3 class="text-[12px] font-bold text-slate-800 mb-3"><i class="fas fa-circle-check text-eo-500 mr-1.5 text-[10px]"></i>EdgeOne Makers adalah:</h3>
+        <div class="grid md:grid-cols-3 gap-3">
+          <div class="bg-eo-50 rounded-lg p-3.5 text-center border border-eo-100"><i class="fas fa-layer-group text-eo-500 text-lg mb-1.5"></i><p class="text-[11px] font-semibold text-eo-800 leading-snug">Platform all-in-one Web + AI Agent dari Tencent Cloud</p></div>
+          <div class="bg-eo-50 rounded-lg p-3.5 text-center border border-eo-100"><i class="fas fa-trophy text-amber-500 text-lg mb-1.5"></i><p class="text-[11px] font-semibold text-eo-800 leading-snug">Asia-optimized, framework-agnostic, built-in sandbox & memory</p></div>
+          <div class="bg-eo-50 rounded-lg p-3.5 text-center border border-eo-100"><i class="fas fa-gift text-green-500 text-lg mb-1.5"></i><p class="text-[11px] font-semibold text-eo-800 leading-snug">Gratis untuk eksplorasi — waktu yang tepat untuk mencoba</p></div>
+        </div>
+      </div>
+      <div class="fu d3">
+        <h3 class="text-[12px] font-bold text-slate-800 mb-3"><i class="fas fa-hand-point-right text-eo-500 mr-1.5 text-[10px]"></i>Rekomendasi</h3>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <div class="bg-white rounded-xl p-4 border border-slate-200 text-center ch relative overflow-hidden"><div class="absolute top-0 left-0 right-0 h-[3px] bg-eo-500"></div><div class="w-10 h-10 rounded-full bg-eo-100 flex items-center justify-center mx-auto mb-2.5 mt-1"><i class="fas fa-magnifying-glass text-eo-600 text-[13px]"></i></div><p class="text-[11px] font-bold text-eo-700 mb-0.5">Explorasi</p><p class="text-[10px] text-slate-400">Sign up, deploy template, evaluasi</p></div>
+          <div class="bg-white rounded-xl p-4 border border-slate-200 text-center ch relative overflow-hidden"><div class="absolute top-0 left-0 right-0 h-[3px] bg-violet-500"></div><div class="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center mx-auto mb-2.5 mt-1"><i class="fas fa-rotate text-violet-600 text-[13px]"></i></div><p class="text-[11px] font-bold text-violet-700 mb-0.5">Pilot Project</p><p class="text-[10px] text-slate-400">1 use case kecil production test</p></div>
+          <div class="bg-white rounded-xl p-4 border border-slate-200 text-center ch relative overflow-hidden"><div class="absolute top-0 left-0 right-0 h-[3px] bg-amber-500"></div><div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-2.5 mt-1"><i class="fas fa-chart-column text-amber-600 text-[13px]"></i></div><p class="text-[11px] font-bold text-amber-700 mb-0.5">Evaluasi</p><p class="text-[10px] text-slate-400">Saat pricing rilis, bandingkan</p></div>
+          <div class="bg-white rounded-xl p-4 border border-slate-200 text-center ch relative overflow-hidden"><div class="absolute top-0 left-0 right-0 h-[3px] bg-green-500"></div><div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-2.5 mt-1"><i class="fas fa-rocket text-green-600 text-[13px]"></i></div><p class="text-[11px] font-bold text-green-700 mb-0.5">Scale</p><p class="text-[10px] text-slate-400">Deploy untuk use case lebih luas</p></div>
+        </div>
+      </div>
+      <div class="fu d4 mt-8 text-center">
+        <div class="inline-flex items-center gap-3 text-slate-400"><div class="w-10 h-px bg-slate-200"></div><span class="text-[13px] font-medium">Terima Kasih</span><div class="w-10 h-px bg-slate-200"></div></div>
+        <p class="text-[11px] text-slate-400 mt-1.5">BAHRUL ROZAK — EdgeOne Makers Research & Analysis</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- slides -->
+
+<!-- Footer Dots -->
+<footer class="fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-t border-slate-100 py-2.5"><div class="flex justify-center gap-1" id="dc"></div></footer>
+
+</div>
+
+<script>
+const T=14;let cur=1;
+const dc=document.getElementById('dc');
+for(let i=1;i<=T;i++){const d=document.createElement('div');d.className='dot'+(i===1?' active':'');d.onclick=()=>go(i);dc.appendChild(d)}
+function go(n){if(n<1||n>T||n===cur)return;document.getElementById('s'+cur).classList.remove('active');dc.children[cur-1].classList.remove('active');cur=n;document.getElementById('s'+cur).classList.add('active');dc.children[cur-1].classList.add('active');document.getElementById('sc').textContent=String(cur).padStart(2,'0')+' / '+String(T).padStart(2,'0');document.getElementById('pb').style.width=((cur/T)*100)+'%'}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){e.preventDefault();go(cur+1)}else if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();go(cur-1)}else if(e.key==='Home'){e.preventDefault();go(1)}else if(e.key==='End'){e.preventDefault();go(T)}});
+let tx=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].screenX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].screenX;if(Math.abs(d)>50){d>0?go(cur+1):go(cur-1)}},{passive:true});
+</script>
+</body>
+</html>
