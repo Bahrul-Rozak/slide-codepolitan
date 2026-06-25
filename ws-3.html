@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EdgeOne Makers — Workshop #3</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: {
+              50:  '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(1); opacity: 0.4; }
+      100% { transform: scale(1.8); opacity: 0; }
+    }
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fade-in-scale {
+      from { opacity: 0; transform: scale(0.7); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes rotate-slow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes icon-pop {
+      0% { opacity: 0; transform: scale(0.5) translateY(10px); }
+      60% { transform: scale(1.1) translateY(-2px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .animate-float { animation: float 4s ease-in-out infinite; }
+    .animate-pulse-ring { animation: pulse-ring 2.5s ease-out infinite; }
+    .animate-fade-in-up { animation: fade-in-up 0.8s ease-out both; }
+    .animate-fade-in-scale { animation: fade-in-scale 0.6s ease-out both; }
+    .animate-icon-pop { animation: icon-pop 0.5s ease-out both; }
+    .animate-rotate-slow { animation: rotate-slow 30s linear infinite; }
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+    .delay-600 { animation-delay: 0.6s; }
+    .delay-700 { animation-delay: 0.7s; }
+    .delay-800 { animation-delay: 0.8s; }
+    .delay-900 { animation-delay: 0.9s; }
+    .delay-1000 { animation-delay: 1.0s; }
+    .delay-1100 { animation-delay: 1.1s; }
+
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(59,130,246,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,130,246,0.035) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #2563eb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .shimmer-border {
+      background: linear-gradient(90deg, transparent, rgba(59,130,246,0.15), transparent);
+      background-size: 200% 100%;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    .tool-card {
+      box-shadow:
+        0 0 0 1px rgba(59,130,246,0.06),
+        0 4px 20px -4px rgba(59,130,246,0.10),
+        0 1px 3px rgba(0,0,0,0.03);
+      transition: all 0.3s ease;
+    }
+    .tool-card:hover {
+      box-shadow:
+        0 0 0 1px rgba(59,130,246,0.15),
+        0 8px 30px -4px rgba(59,130,246,0.18),
+        0 2px 6px rgba(0,0,0,0.05);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body class="font-sans antialiased">
+
+  <div class="relative w-screen h-screen overflow-hidden bg-white grid-bg">
+
+    <!-- Decorative Blobs -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-brand-50/60 blur-3xl pointer-events-none"></div>
+    <div class="absolute -top-20 right-[10%] w-[350px] h-[350px] rounded-full bg-brand-100/40 blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-20 left-[10%] w-[300px] h-[300px] rounded-full bg-brand-100/30 blur-3xl pointer-events-none"></div>
+
+    <!-- Geometric — hexagonal / shield feel -->
+    <svg class="absolute top-0 right-0 w-full h-full opacity-[0.04] pointer-events-none" viewBox="0 0 1400 900" fill="none">
+      <!-- Hexagons -->
+      <polygon points="1050,200 1115,240 1115,320 1050,360 985,320 985,240" stroke="#2563eb" stroke-width="1"/>
+      <polygon points="1150,150 1215,190 1215,270 1150,310 1085,270 1085,190" stroke="#2563eb" stroke-width="0.5" stroke-dasharray="4 4"/>
+      <polygon points="1100,350 1165,390 1165,470 1100,510 1035,470 1035,390" stroke="#2563eb" stroke-width="0.5"/>
+      <!-- Triangles -->
+      <polygon points="200,600 260,500 320,600" stroke="#2563eb" stroke-width="0.8" stroke-dasharray="6 4"/>
+      <polygon points="160,650 220,550 280,650" stroke="#2563eb" stroke-width="0.4" stroke-dasharray="3 6"/>
+      <!-- Diagonal slash -->
+      <line x1="0" y1="700" x2="500" y2="400" stroke="#2563eb" stroke-width="0.8"/>
+      <line x1="900" y1="0" x2="1400" y2="500" stroke="#2563eb" stroke-width="0.5" stroke-dasharray="8 8"/>
+    </svg>
+
+    <!-- Rotating ring decoration -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] pointer-events-none opacity-[0.06]">
+      <div class="animate-rotate-slow w-full h-full rounded-full border border-dashed border-brand-500"></div>
+    </div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[640px] h-[640px] pointer-events-none opacity-[0.03]">
+      <div class="animate-rotate-slow w-full h-full rounded-full border border-dashed border-brand-500" style="animation-direction: reverse; animation-duration: 45s;"></div>
+    </div>
+
+    <!-- Corner brackets — all four corners for "complete/armed" feel -->
+    <div class="absolute top-6 left-6 w-10 h-10 border-l-2 border-t-2 border-brand-300/50 rounded-tl-lg"></div>
+    <div class="absolute top-6 right-6 w-10 h-10 border-r-2 border-t-2 border-brand-300/50 rounded-tr-lg"></div>
+    <div class="absolute bottom-6 left-6 w-10 h-10 border-l-2 border-b-2 border-brand-300/50 rounded-bl-lg"></div>
+    <div class="absolute bottom-6 right-6 w-10 h-10 border-r-2 border-b-2 border-brand-300/50 rounded-br-lg"></div>
+
+    <!-- Floating decorative elements -->
+    <div class="animate-float absolute top-[10%] left-[12%] w-2.5 h-2.5 rounded-full bg-brand-300/40"></div>
+    <div class="animate-float absolute top-[18%] right-[15%] w-2 h-2 rounded-full bg-brand-400/30" style="animation-delay: 1s;"></div>
+    <div class="animate-float absolute bottom-[15%] left-[20%] w-3 h-3 rounded-sm rotate-45 border border-brand-300/30" style="animation-delay: 2s;"></div>
+    <div class="animate-float absolute bottom-[22%] right-[12%] w-2 h-2 rounded-full bg-brand-200/50" style="animation-delay: 0.8s;"></div>
+    <div class="animate-float absolute top-[50%] left-[5%] w-3.5 h-3.5 rounded-sm rotate-12 border border-brand-200/30" style="animation-delay: 1.5s;"></div>
+    <div class="animate-float absolute top-[40%] right-[5%] w-2.5 h-2.5 rounded-full bg-brand-300/25" style="animation-delay: 2.2s;"></div>
+
+    <!-- Main Content -->
+    <div class="relative z-10 w-full h-full flex flex-col items-center justify-center px-6">
+
+      <!-- Workshop Badge -->
+      <div class="animate-fade-in-up delay-100 mb-7">
+        <div class="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-brand-50 border border-brand-200/80 shadow-sm shadow-brand-100">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-brand-500"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span>
+          </span>
+          <span class="text-brand-700 text-sm font-semibold tracking-wide uppercase">Workshop #3</span>
+        </div>
+      </div>
+
+      <!-- Logo -->
+      <div class="animate-fade-in-up delay-200 mb-7 relative">
+        <div class="absolute inset-0 bg-brand-400/20 rounded-full blur-2xl scale-150"></div>
+        <img
+          src="https://avatars.githubusercontent.com/u/176978739?s=200&v=4"
+          alt="EdgeOne Makers"
+          class="relative w-20 h-20 rounded-full shadow-lg shadow-brand-200/50 ring-4 ring-white"
+        />
+      </div>
+
+      <!-- Community Name -->
+      <div class="animate-fade-in-up delay-300 mb-7">
+        <p class="text-brand-600 text-sm font-semibold tracking-[0.2em] uppercase">EdgeOne Makers</p>
+      </div>
+
+      <!-- Three Tool Cards — the "arsenal" -->
+      <div class="animate-fade-in-up delay-400 mb-9 flex items-center gap-3 sm:gap-4">
+        <!-- Tools -->
+        <div class="tool-card flex flex-col items-center gap-2 px-5 py-3.5 rounded-2xl bg-white animate-icon-pop delay-500 cursor-default">
+          <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17l-5.1-5.1m0 0L3.07 12.9a1.5 1.5 0 000 2.12l4.9 4.9a1.5 1.5 0 002.12 0l2.88-2.88m-7.65-4.52l5.1-5.1m0 0l2.88-2.88a1.5 1.5 0 012.12 0l4.9 4.9a1.5 1.5 0 010 2.12l-2.88 2.88M12 12h.01"/>
+            </svg>
+          </div>
+          <span class="text-gray-700 text-xs font-bold tracking-wide uppercase">Tools</span>
+        </div>
+
+        <!-- Connector dot -->
+        <div class="flex flex-col items-center gap-0.5 opacity-30">
+          <div class="w-1 h-1 rounded-full bg-brand-400"></div>
+          <div class="w-1 h-1 rounded-full bg-brand-300"></div>
+          <div class="w-1 h-1 rounded-full bg-brand-400"></div>
+        </div>
+
+        <!-- Sandbox -->
+        <div class="tool-card flex flex-col items-center gap-2 px-5 py-3.5 rounded-2xl bg-white animate-icon-pop delay-700 cursor-default">
+          <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/>
+            </svg>
+          </div>
+          <span class="text-gray-700 text-xs font-bold tracking-wide uppercase">Sandbox</span>
+        </div>
+
+        <!-- Connector dot -->
+        <div class="flex flex-col items-center gap-0.5 opacity-30">
+          <div class="w-1 h-1 rounded-full bg-brand-400"></div>
+          <div class="w-1 h-1 rounded-full bg-brand-300"></div>
+          <div class="w-1 h-1 rounded-full bg-brand-400"></div>
+        </div>
+
+        <!-- Storage -->
+        <div class="tool-card flex flex-col items-center gap-2 px-5 py-3.5 rounded-2xl bg-white animate-icon-pop delay-900 cursor-default">
+          <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/>
+            </svg>
+          </div>
+          <span class="text-gray-700 text-xs font-bold tracking-wide uppercase">Storage</span>
+        </div>
+      </div>
+
+      <!-- Main Title -->
+      <div class="animate-fade-in-up delay-500 text-center max-w-4xl">
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.08] tracking-tight text-gray-900">
+          Agent Bersenjata
+          <br/>
+          <span class="gradient-text">Lengkap</span>
+          <span class="text-gray-900"> — </span>
+          <span class="relative inline-block">
+            <span class="gradient-text">Tools</span>
+          </span>
+          <span class="text-gray-300 mx-1">·</span>
+          <span class="relative inline-block">
+            <span class="gradient-text">Sandbox</span>
+          </span>
+          <span class="text-gray-300 mx-1">&</span>
+          <span class="relative inline-block">
+            <span class="gradient-text">Storage</span>
+            <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
+              <path d="M2 8 C50 2, 150 2, 198 8" stroke="#3b82f6" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+            </svg>
+          </span>
+        </h1>
+      </div>
+
+      <!-- Subtitle -->
+      <div class="animate-fade-in-up delay-600 mt-7 text-center max-w-xl">
+        <p class="text-gray-500 text-lg font-light leading-relaxed">
+          Lengkapi agent-mu dengan tool calling, sandboxed execution, dan persistent storage — jadi benar-benar siap tempur.
+        </p>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="animate-fade-in-up delay-700 mt-9 flex flex-wrap items-center justify-center gap-3">
+        <div class="flex items-center gap-2 px-5 py-2.5 bg-brand-600 text-white rounded-full font-medium text-sm shadow-lg shadow-brand-500/25 hover:bg-brand-700 transition-colors cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          Mulai Workshop
+        </div>
+        <div class="flex items-center gap-2 px-5 py-2.5 bg-white text-gray-600 rounded-full font-medium text-sm border border-gray-200 shadow-sm hover:border-brand-300 hover:text-brand-600 transition-colors cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
+          </svg>
+          Buka Dokumentasi
+        </div>
+      </div>
+
+      <!-- Bottom Tags -->
+      <div class="animate-fade-in-up delay-800 mt-12 flex flex-wrap items-center justify-center gap-2">
+        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">Tool Calling</span>
+        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">Sandbox</span>
+        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">KV Storage</span>
+        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">EdgeOne</span>
+        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">Advanced</span>
+        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">Production</span>
+      </div>
+    </div>
+
+    <!-- Bottom shimmer bar -->
+    <div class="absolute bottom-0 left-0 right-0 h-1 shimmer-border"></div>
+    <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-400 via-brand-600 to-brand-400"></div>
+
+  </div>
+
+</body>
+</html>
