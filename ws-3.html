@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EdgeOne Makers — Workshop #3</title>
+  <title>Workshop 3 — Agent Bersenjata Lengkap: Tools, Sandbox & Storage</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
@@ -13,16 +14,9 @@
           fontFamily: { sans: ['Inter', 'sans-serif'] },
           colors: {
             brand: {
-              50:  '#eff6ff',
-              100: '#dbeafe',
-              200: '#bfdbfe',
-              300: '#93c5fd',
-              400: '#60a5fa',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8',
-              800: '#1e40af',
-              900: '#1e3a8a',
+              50:'#EFF6FF',100:'#DBEAFE',200:'#BFDBFE',300:'#93C5FD',
+              400:'#60A5FA',500:'#3B82F6',600:'#2563EB',700:'#1D4ED8',
+              800:'#1E40AF',900:'#1E3A8A',950:'#172554',
             }
           }
         }
@@ -30,274 +24,861 @@
     }
   </script>
   <style>
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-12px); }
-    }
-    @keyframes pulse-ring {
-      0% { transform: scale(1); opacity: 0.4; }
-      100% { transform: scale(1.8); opacity: 0; }
-    }
-    @keyframes fade-in-up {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fade-in-scale {
-      from { opacity: 0; transform: scale(0.7); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    @keyframes shimmer {
-      0% { background-position: -200% center; }
-      100% { background-position: 200% center; }
-    }
-    @keyframes rotate-slow {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    @keyframes icon-pop {
-      0% { opacity: 0; transform: scale(0.5) translateY(10px); }
-      60% { transform: scale(1.1) translateY(-2px); }
-      100% { opacity: 1; transform: scale(1) translateY(0); }
-    }
-    .animate-float { animation: float 4s ease-in-out infinite; }
-    .animate-pulse-ring { animation: pulse-ring 2.5s ease-out infinite; }
-    .animate-fade-in-up { animation: fade-in-up 0.8s ease-out both; }
-    .animate-fade-in-scale { animation: fade-in-scale 0.6s ease-out both; }
-    .animate-icon-pop { animation: icon-pop 0.5s ease-out both; }
-    .animate-rotate-slow { animation: rotate-slow 30s linear infinite; }
-    .delay-100 { animation-delay: 0.1s; }
-    .delay-200 { animation-delay: 0.2s; }
-    .delay-300 { animation-delay: 0.3s; }
-    .delay-400 { animation-delay: 0.4s; }
-    .delay-500 { animation-delay: 0.5s; }
-    .delay-600 { animation-delay: 0.6s; }
-    .delay-700 { animation-delay: 0.7s; }
-    .delay-800 { animation-delay: 0.8s; }
-    .delay-900 { animation-delay: 0.9s; }
-    .delay-1000 { animation-delay: 1.0s; }
-    .delay-1100 { animation-delay: 1.1s; }
-
-    .grid-bg {
-      background-image:
-        linear-gradient(rgba(59,130,246,0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(59,130,246,0.035) 1px, transparent 1px);
-      background-size: 48px 48px;
-    }
-
-    .gradient-text {
-      background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #2563eb 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .shimmer-border {
-      background: linear-gradient(90deg, transparent, rgba(59,130,246,0.15), transparent);
-      background-size: 200% 100%;
-      animation: shimmer 3s ease-in-out infinite;
-    }
-
-    .tool-card {
-      box-shadow:
-        0 0 0 1px rgba(59,130,246,0.06),
-        0 4px 20px -4px rgba(59,130,246,0.10),
-        0 1px 3px rgba(0,0,0,0.03);
-      transition: all 0.3s ease;
-    }
-    .tool-card:hover {
-      box-shadow:
-        0 0 0 1px rgba(59,130,246,0.15),
-        0 8px 30px -4px rgba(59,130,246,0.18),
-        0 2px 6px rgba(0,0,0,0.05);
-      transform: translateY(-2px);
-    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',sans-serif;overflow:hidden;height:100vh}
+    .slide{display:none;opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+    .slide.active{display:flex;opacity:1;transform:translateY(0)}
+    .code-block{background:#0F172A;color:#E2E8F0;border-radius:8px;padding:14px 18px;font-family:'Courier New',monospace;font-size:12px;line-height:1.65;overflow-x:auto;white-space:pre}
+    .code-block .kw{color:#93C5FD}.code-block .str{color:#86EFAC}.code-block .cmt{color:#64748B}
+    .code-block .prop{color:#FCD34D}.code-block .type{color:#C4B5FD}.code-block .fn{color:#67E8F9}
+    .slide-indicator{transition:all .3s ease}.slide-indicator.active{width:24px;border-radius:9999px;background:#2563EB}
+    .step-num{width:34px;height:34px;min-width:34px;border-radius:50%;background:#2563EB;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+    .step-num-sm{width:26px;height:26px;min-width:26px;border-radius:50%;background:#2563EB;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10px}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}.float-anim{animation:float 3s ease-in-out infinite}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}.fade-in{animation:fadeInUp .6s ease forwards}
+    .s1{animation-delay:.1s;opacity:0}.s2{animation-delay:.2s;opacity:0}.s3{animation-delay:.3s;opacity:0}.s4{animation-delay:.4s;opacity:0}.s5{animation-delay:.5s;opacity:0}
+    .tag-praktik{background:linear-gradient(135deg,#2563EB,#1D4ED8);color:white;padding:3px 10px;border-radius:9999px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+    .tag-challenge{background:linear-gradient(135deg,#F59E0B,#D97706);color:white;padding:3px 10px;border-radius:9999px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+    .tag-final{background:linear-gradient(135deg,#DC2626,#B91C1C);color:white;padding:3px 10px;border-radius:9999px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+    .url-box{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:6px;padding:5px 11px;font-family:'Courier New',monospace;font-size:12px;color:#2563EB;display:inline-block}
+    .nav-btn{transition:all .2s ease}.nav-btn:hover:not(:disabled){background:#2563EB;color:white;transform:scale(1.1)}.nav-btn:active:not(:disabled){transform:scale(.95)}
+    .progress-bar{transition:width .5s ease}
+    .card-hover{transition:transform .3s ease,box-shadow .3s ease}.card-hover:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(37,99,235,.12)}
+    @keyframes pulse-ring{0%{transform:scale(1);opacity:.5}100%{transform:scale(1.5);opacity:0}}
+    .pulse-ring::before{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid #2563EB;animation:pulse-ring 2s ease-out infinite}
+    .arch-box{border:2px solid #BFDBFE;border-radius:8px;padding:8px 14px;background:white;text-align:center;font-size:11px;font-weight:600;color:#1E40AF}
+    .arch-box.active-box{border-color:#2563EB;background:#EFF6FF}
+    .arch-arrow{color:#93C5FD;font-size:16px}
+    .table-custom{border-collapse:collapse;width:100%;font-size:12px}
+    .table-custom th{background:#1E40AF;color:white;padding:8px 12px;text-align:left;font-weight:600}
+    .table-custom td{padding:8px 12px;border-bottom:1px solid #E2E8F0;color:#334155}
+    .table-custom tr:nth-child(even) td{background:#F8FAFC}.table-custom tr:last-child td{border-bottom:none}
+    .skill-card{position:relative;overflow:hidden}.skill-card::after{content:'';position:absolute;top:0;right:0;width:60px;height:60px;background:linear-gradient(135deg,transparent 50%,rgba(37,99,235,.06) 50%);border-radius:0 8px 0 0}
   </style>
 </head>
-<body class="font-sans antialiased">
+<body class="bg-white text-slate-800">
 
-  <div class="relative w-screen h-screen overflow-hidden bg-white grid-bg">
+  <div class="fixed top-0 left-0 w-full h-1 bg-blue-100 z-50"><div id="progressBar" class="progress-bar h-full bg-gradient-to-r from-blue-600 to-blue-400" style="width:0%"></div></div>
 
-    <!-- Decorative Blobs -->
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-brand-50/60 blur-3xl pointer-events-none"></div>
-    <div class="absolute -top-20 right-[10%] w-[350px] h-[350px] rounded-full bg-brand-100/40 blur-3xl pointer-events-none"></div>
-    <div class="absolute -bottom-20 left-[10%] w-[300px] h-[300px] rounded-full bg-brand-100/30 blur-3xl pointer-events-none"></div>
-
-    <!-- Geometric — hexagonal / shield feel -->
-    <svg class="absolute top-0 right-0 w-full h-full opacity-[0.04] pointer-events-none" viewBox="0 0 1400 900" fill="none">
-      <!-- Hexagons -->
-      <polygon points="1050,200 1115,240 1115,320 1050,360 985,320 985,240" stroke="#2563eb" stroke-width="1"/>
-      <polygon points="1150,150 1215,190 1215,270 1150,310 1085,270 1085,190" stroke="#2563eb" stroke-width="0.5" stroke-dasharray="4 4"/>
-      <polygon points="1100,350 1165,390 1165,470 1100,510 1035,470 1035,390" stroke="#2563eb" stroke-width="0.5"/>
-      <!-- Triangles -->
-      <polygon points="200,600 260,500 320,600" stroke="#2563eb" stroke-width="0.8" stroke-dasharray="6 4"/>
-      <polygon points="160,650 220,550 280,650" stroke="#2563eb" stroke-width="0.4" stroke-dasharray="3 6"/>
-      <!-- Diagonal slash -->
-      <line x1="0" y1="700" x2="500" y2="400" stroke="#2563eb" stroke-width="0.8"/>
-      <line x1="900" y1="0" x2="1400" y2="500" stroke="#2563eb" stroke-width="0.5" stroke-dasharray="8 8"/>
-    </svg>
-
-    <!-- Rotating ring decoration -->
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] pointer-events-none opacity-[0.06]">
-      <div class="animate-rotate-slow w-full h-full rounded-full border border-dashed border-brand-500"></div>
+  <div class="fixed top-1 left-0 w-full z-40 px-6 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <img src="https://avatars.githubusercontent.com/u/176978739?s=200&v=4" alt="EdgeOne" class="w-8 h-8 rounded-lg">
+      <span class="text-sm font-semibold text-brand-700 hidden sm:block">EdgeOne Makers Workshop</span>
     </div>
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[640px] h-[640px] pointer-events-none opacity-[0.03]">
-      <div class="animate-rotate-slow w-full h-full rounded-full border border-dashed border-brand-500" style="animation-direction: reverse; animation-duration: 45s;"></div>
+    <div class="flex items-center gap-4">
+      <span id="slideCounter" class="text-xs font-medium text-slate-400">1 / 22</span>
+      <button onclick="toggleFullscreen()" class="text-slate-400 hover:text-brand-600 transition-colors"><i class="fa-solid fa-expand text-sm"></i></button>
+    </div>
+  </div>
+
+  <div id="slideContainer" class="w-full h-screen relative">
+
+    <!-- SLIDE 1: TITLE -->
+    <div class="slide active flex-col items-center justify-center h-full px-6 text-center bg-gradient-to-br from-white via-blue-50 to-white" data-slide="1">
+      <div class="fade-in s1 mb-6"><img src="https://avatars.githubusercontent.com/u/176978739?s=200&v=4" alt="EdgeOne" class="w-20 h-20 rounded-2xl shadow-lg mx-auto float-anim"></div>
+      <div class="fade-in s2"><span class="inline-flex items-center gap-2 bg-blue-100 text-brand-700 text-xs font-semibold px-4 py-1.5 rounded-full mb-6"><i class="fa-solid fa-toolbox"></i> Workshop 3 — Step by Step: Agent Bersenjata Lengkap</span></div>
+      <h1 class="fade-in s3 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brand-900 leading-tight mb-6 max-w-4xl">Tools, Sandbox<br>& Storage</h1>
+      <p class="fade-in s4 text-lg text-slate-500 max-w-2xl mb-8">Platform: <strong class="text-brand-700">EdgeOne Makers</strong> (Tencent Cloud) &middot; Durasi: 2 Jam</p>
+      <div class="fade-in s5 flex flex-wrap items-center justify-center gap-6 text-sm text-slate-500">
+        <span class="flex items-center gap-2"><i class="fa-solid fa-chalkboard-user text-brand-500"></i> Rozak</span>
+        <span class="flex items-center gap-2"><i class="fa-solid fa-graduation-cap text-brand-500"></i> Mentor KelasFullstack</span>
+        <span class="flex items-center gap-2"><i class="fa-solid fa-lock text-amber-500"></i> Prasyarat: Sesi 1 & 2</span>
+      </div>
+      <div class="absolute bottom-10 animate-bounce"><i class="fa-solid fa-chevron-down text-brand-300 text-xl"></i></div>
     </div>
 
-    <!-- Corner brackets — all four corners for "complete/armed" feel -->
-    <div class="absolute top-6 left-6 w-10 h-10 border-l-2 border-t-2 border-brand-300/50 rounded-tl-lg"></div>
-    <div class="absolute top-6 right-6 w-10 h-10 border-r-2 border-t-2 border-brand-300/50 rounded-tr-lg"></div>
-    <div class="absolute bottom-6 left-6 w-10 h-10 border-l-2 border-b-2 border-brand-300/50 rounded-bl-lg"></div>
-    <div class="absolute bottom-6 right-6 w-10 h-10 border-r-2 border-b-2 border-brand-300/50 rounded-br-lg"></div>
-
-    <!-- Floating decorative elements -->
-    <div class="animate-float absolute top-[10%] left-[12%] w-2.5 h-2.5 rounded-full bg-brand-300/40"></div>
-    <div class="animate-float absolute top-[18%] right-[15%] w-2 h-2 rounded-full bg-brand-400/30" style="animation-delay: 1s;"></div>
-    <div class="animate-float absolute bottom-[15%] left-[20%] w-3 h-3 rounded-sm rotate-45 border border-brand-300/30" style="animation-delay: 2s;"></div>
-    <div class="animate-float absolute bottom-[22%] right-[12%] w-2 h-2 rounded-full bg-brand-200/50" style="animation-delay: 0.8s;"></div>
-    <div class="animate-float absolute top-[50%] left-[5%] w-3.5 h-3.5 rounded-sm rotate-12 border border-brand-200/30" style="animation-delay: 1.5s;"></div>
-    <div class="animate-float absolute top-[40%] right-[5%] w-2.5 h-2.5 rounded-full bg-brand-300/25" style="animation-delay: 2.2s;"></div>
-
-    <!-- Main Content -->
-    <div class="relative z-10 w-full h-full flex flex-col items-center justify-center px-6">
-
-      <!-- Workshop Badge -->
-      <div class="animate-fade-in-up delay-100 mb-7">
-        <div class="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-brand-50 border border-brand-200/80 shadow-sm shadow-brand-100">
-          <span class="relative flex h-2.5 w-2.5">
-            <span class="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-brand-500"></span>
-            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span>
-          </span>
-          <span class="text-brand-700 text-sm font-semibold tracking-wide uppercase">Workshop #3</span>
-        </div>
-      </div>
-
-      <!-- Logo -->
-      <div class="animate-fade-in-up delay-200 mb-7 relative">
-        <div class="absolute inset-0 bg-brand-400/20 rounded-full blur-2xl scale-150"></div>
-        <img
-          src="https://avatars.githubusercontent.com/u/176978739?s=200&v=4"
-          alt="EdgeOne Makers"
-          class="relative w-20 h-20 rounded-full shadow-lg shadow-brand-200/50 ring-4 ring-white"
-        />
-      </div>
-
-      <!-- Community Name -->
-      <div class="animate-fade-in-up delay-300 mb-7">
-        <p class="text-brand-600 text-sm font-semibold tracking-[0.2em] uppercase">EdgeOne Makers</p>
-      </div>
-
-      <!-- Three Tool Cards — the "arsenal" -->
-      <div class="animate-fade-in-up delay-400 mb-9 flex items-center gap-3 sm:gap-4">
-        <!-- Tools -->
-        <div class="tool-card flex flex-col items-center gap-2 px-5 py-3.5 rounded-2xl bg-white animate-icon-pop delay-500 cursor-default">
-          <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17l-5.1-5.1m0 0L3.07 12.9a1.5 1.5 0 000 2.12l4.9 4.9a1.5 1.5 0 002.12 0l2.88-2.88m-7.65-4.52l5.1-5.1m0 0l2.88-2.88a1.5 1.5 0 012.12 0l4.9 4.9a1.5 1.5 0 010 2.12l-2.88 2.88M12 12h.01"/>
-            </svg>
+    <!-- SLIDE 2: PERSIAPAN -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="2">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider">Sebelum Memulai</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-8">Persiapan Workshop</h2>
+        <div class="space-y-4">
+          <div class="flex items-start gap-4 p-4 bg-blue-50 rounded-xl border border-blue-100">
+            <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-user-check text-white text-sm"></i></div>
+            <div><h3 class="font-semibold text-slate-800 mb-1">Akun & Project dari Sesi 1 & 2</h3><p class="text-sm text-slate-500">Peserta sudah memiliki akun dan pernah melakukan deploy project dari workshop sebelumnya</p></div>
           </div>
-          <span class="text-gray-700 text-xs font-bold tracking-wide uppercase">Tools</span>
-        </div>
-
-        <!-- Connector dot -->
-        <div class="flex flex-col items-center gap-0.5 opacity-30">
-          <div class="w-1 h-1 rounded-full bg-brand-400"></div>
-          <div class="w-1 h-1 rounded-full bg-brand-300"></div>
-          <div class="w-1 h-1 rounded-full bg-brand-400"></div>
-        </div>
-
-        <!-- Sandbox -->
-        <div class="tool-card flex flex-col items-center gap-2 px-5 py-3.5 rounded-2xl bg-white animate-icon-pop delay-700 cursor-default">
-          <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/>
-            </svg>
+          <div class="flex items-start gap-4 p-4 bg-blue-50 rounded-xl border border-blue-100">
+            <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-wrench text-white text-sm"></i></div>
+            <div><h3 class="font-semibold text-slate-800 mb-1">Pemahaman Dasar Agent & Function Tools</h3><p class="text-sm text-slate-500">Peserta memahami konsep dasar agent dan telah menambahkan function tools di Sesi 1</p></div>
           </div>
-          <span class="text-gray-700 text-xs font-bold tracking-wide uppercase">Sandbox</span>
-        </div>
-
-        <!-- Connector dot -->
-        <div class="flex flex-col items-center gap-0.5 opacity-30">
-          <div class="w-1 h-1 rounded-full bg-brand-400"></div>
-          <div class="w-1 h-1 rounded-full bg-brand-300"></div>
-          <div class="w-1 h-1 rounded-full bg-brand-400"></div>
-        </div>
-
-        <!-- Storage -->
-        <div class="tool-card flex flex-col items-center gap-2 px-5 py-3.5 rounded-2xl bg-white animate-icon-pop delay-900 cursor-default">
-          <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/>
-            </svg>
+          <div class="flex items-start gap-4 p-4 bg-blue-50 rounded-xl border border-blue-100">
+            <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-wifi text-white text-sm"></i></div>
+            <div><h3 class="font-semibold text-slate-800 mb-1">Koneksi Internet Stabil</h3><p class="text-sm text-slate-500">Workshop sepenuhnya berbasis cloud, koneksi yang stabil sangat diperlukan</p></div>
           </div>
-          <span class="text-gray-700 text-xs font-bold tracking-wide uppercase">Storage</span>
+          <div class="flex items-start gap-4 p-4 bg-brand-600 rounded-xl">
+            <div class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-globe text-white text-sm"></i></div>
+            <div><h3 class="font-semibold text-white mb-1">Buka Platform</h3><p class="text-sm text-blue-100">Buka <span class="url-box !bg-white/15 !border-transparent text-white">pages.edgeone.ai</span> di browser</p></div>
+          </div>
         </div>
-      </div>
-
-      <!-- Main Title -->
-      <div class="animate-fade-in-up delay-500 text-center max-w-4xl">
-        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.08] tracking-tight text-gray-900">
-          Agent Bersenjata
-          <br/>
-          <span class="gradient-text">Lengkap</span>
-          <span class="text-gray-900"> — </span>
-          <span class="relative inline-block">
-            <span class="gradient-text">Tools</span>
-          </span>
-          <span class="text-gray-300 mx-1">·</span>
-          <span class="relative inline-block">
-            <span class="gradient-text">Sandbox</span>
-          </span>
-          <span class="text-gray-300 mx-1">&</span>
-          <span class="relative inline-block">
-            <span class="gradient-text">Storage</span>
-            <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
-              <path d="M2 8 C50 2, 150 2, 198 8" stroke="#3b82f6" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
-            </svg>
-          </span>
-        </h1>
-      </div>
-
-      <!-- Subtitle -->
-      <div class="animate-fade-in-up delay-600 mt-7 text-center max-w-xl">
-        <p class="text-gray-500 text-lg font-light leading-relaxed">
-          Lengkapi agent-mu dengan tool calling, sandboxed execution, dan persistent storage — jadi benar-benar siap tempur.
-        </p>
-      </div>
-
-      <!-- CTA Buttons -->
-      <div class="animate-fade-in-up delay-700 mt-9 flex flex-wrap items-center justify-center gap-3">
-        <div class="flex items-center gap-2 px-5 py-2.5 bg-brand-600 text-white rounded-full font-medium text-sm shadow-lg shadow-brand-500/25 hover:bg-brand-700 transition-colors cursor-pointer">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-          Mulai Workshop
-        </div>
-        <div class="flex items-center gap-2 px-5 py-2.5 bg-white text-gray-600 rounded-full font-medium text-sm border border-gray-200 shadow-sm hover:border-brand-300 hover:text-brand-600 transition-colors cursor-pointer">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
-          </svg>
-          Buka Dokumentasi
-        </div>
-      </div>
-
-      <!-- Bottom Tags -->
-      <div class="animate-fade-in-up delay-800 mt-12 flex flex-wrap items-center justify-center gap-2">
-        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">Tool Calling</span>
-        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">Sandbox</span>
-        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">KV Storage</span>
-        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">EdgeOne</span>
-        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">Advanced</span>
-        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">Production</span>
       </div>
     </div>
 
-    <!-- Bottom shimmer bar -->
-    <div class="absolute bottom-0 left-0 right-0 h-1 shimmer-border"></div>
-    <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-400 via-brand-600 to-brand-400"></div>
+    <!-- SLIDE 3: RECAP -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="3">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 1 — 7 Menit</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Recap Workshop Sebelumnya</h2>
+        <p class="text-slate-500 mb-6">Perjalanan kita dari Sesi 1 hingga sekarang</p>
+        <div class="space-y-3 mb-6">
+          <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="flex items-center gap-3 mb-2"><span class="text-xs font-bold text-white bg-brand-600 w-6 h-6 rounded-full flex items-center justify-center">1</span><h3 class="font-semibold text-slate-800 text-sm">Deploy Agent dari Template</h3></div>
+            <p class="text-sm text-slate-500 ml-9">AI Agent pertama live dalam 5 menit. Mengubah instructions, menambah tools, mengganti model.</p>
+          </div>
+          <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="flex items-center gap-3 mb-2"><span class="text-xs font-bold text-white bg-brand-600 w-6 h-6 rounded-full flex items-center justify-center">2</span><h3 class="font-semibold text-slate-800 text-sm">Full-Stack Web + Agent RAG</h3></div>
+            <p class="text-sm text-slate-500 ml-9">Upload PDF, tanya dokumen, jawab dengan citation. Blob Storage untuk file management.</p>
+          </div>
+          <div class="p-4 bg-brand-50 rounded-xl border-2 border-brand-300">
+            <div class="flex items-center gap-3 mb-2"><span class="text-xs font-bold text-white bg-brand-700 w-6 h-6 rounded-full flex items-center justify-center">3</span><h3 class="font-semibold text-brand-800 text-sm">Agent Bersenjata Lengkap</h3><p class="text-xs text-brand-500 font-medium ml-1">Sekarang</p></div>
+            <p class="text-sm text-brand-700 ml-9 font-medium">Memberikan agent kemampuan eksekusi: browsing, shell, kode, memori, dan file.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: 5 KEMAMPUAN BARU -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="4">
+      <div class="max-w-3xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider">Sesi 1 — Lanjutan</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">5 Kemampuan Baru untuk Agent</h2>
+        <p class="text-slate-500 mb-8">Agent selama ini hanya bisa menghasilkan teks. Hari ini kita memberikannya kemampuan eksekusi.</p>
+        <div class="grid sm:grid-cols-3 gap-4 mb-4">
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm card-hover text-center skill-card">
+            <div class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center mx-auto mb-3"><i class="fa-solid fa-globe text-brand-600 text-xl"></i></div>
+            <h3 class="font-semibold text-slate-800 text-sm mb-1">Browser</h3>
+            <p class="text-xs text-slate-400">Buka website, baca konten secara langsung</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm card-hover text-center skill-card">
+            <div class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center mx-auto mb-3"><i class="fa-solid fa-terminal text-brand-600 text-xl"></i></div>
+            <h3 class="font-semibold text-slate-800 text-sm mb-1">Shell</h3>
+            <p class="text-xs text-slate-400">Jalankan command Linux di lingkungan terisolasi</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm card-hover text-center skill-card">
+            <div class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center mx-auto mb-3"><i class="fa-solid fa-code text-brand-600 text-xl"></i></div>
+            <h3 class="font-semibold text-slate-800 text-sm mb-1">Code</h3>
+            <p class="text-xs text-slate-400">Tulis dan eksekusi kode secara runtime</p>
+          </div>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm card-hover text-center skill-card">
+            <div class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center mx-auto mb-3"><i class="fa-solid fa-brain text-brand-600 text-xl"></i></div>
+            <h3 class="font-semibold text-slate-800 text-sm mb-1">Memory</h3>
+            <p class="text-xs text-slate-400">Ingat konteks dan preferensi lintas sesi chat</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm card-hover text-center skill-card">
+            <div class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center mx-auto mb-3"><i class="fa-solid fa-folder-open text-brand-600 text-xl"></i></div>
+            <h3 class="font-semibold text-slate-800 text-sm mb-1">File</h3>
+            <p class="text-xs text-slate-400">Baca, tulis, dan proses file secara langsung</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: SPIEL -->
+    <div class="slide flex-col items-center justify-center h-full px-6 bg-gradient-to-br from-white via-blue-50 to-white" data-slide="5">
+      <div class="max-w-2xl w-full text-center">
+        <img src="https://avatars.githubusercontent.com/u/176978739?s=200&v=4" alt="EdgeOne" class="w-14 h-14 rounded-xl shadow-lg mx-auto mb-6 float-anim">
+        <h2 class="text-3xl font-bold text-brand-900 mb-6">Mengapa Ini Berbeda?</h2>
+        <div class="bg-slate-900 rounded-2xl p-8 text-white text-left mb-6">
+          <i class="fa-solid fa-quote-left text-blue-300 text-xl mb-4 block"></i>
+          <p class="text-lg leading-relaxed mb-4">Ini yang membuat EdgeOne Makers berada di level berikutnya.</p>
+          <p class="text-base leading-relaxed text-blue-200 mb-4">Agent yang Anda buat <strong class="text-white">bukan hanya bisa berbicara</strong> — tetapi bisa <strong class="text-white">EKSEKUSI</strong>.</p>
+          <div class="flex flex-wrap gap-3 mt-5">
+            <span class="bg-white/10 rounded-lg px-3 py-1.5 text-sm"><i class="fa-solid fa-globe mr-2 text-blue-400"></i>Browsing web nyata</span>
+            <span class="bg-white/10 rounded-lg px-3 py-1.5 text-sm"><i class="fa-solid fa-code mr-2 text-blue-400"></i>Jalankan kode</span>
+            <span class="bg-white/10 rounded-lg px-3 py-1.5 text-sm"><i class="fa-solid fa-download mr-2 text-blue-400"></i>Download file</span>
+          </div>
+        </div>
+        <div class="bg-blue-50 rounded-xl p-5 border border-blue-100 flex items-center gap-3">
+          <i class="fa-solid fa-shield-halved text-brand-600 text-xl"></i>
+          <p class="text-sm text-slate-600 text-left">Semua eksekusi terisolasi di dalam <strong>Sandbox</strong> — aman dari side effects terhadap server utama.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: KONSEP SANDBOX -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="6">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 2 — 10 Menit</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Apa Itu Sandbox?</h2>
+        <p class="text-slate-500 mb-6">Micro-VM terisolasi yang diberikan kepada setiap agent</p>
+        <div class="space-y-4 mb-6">
+          <div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-cube text-brand-600"></i></div>
+            <div><h3 class="font-semibold text-slate-800 mb-1">Sesi Terisolasi</h3><p class="text-sm text-slate-500">Setiap sesi agent mendapatkan sandbox sendiri. Agent A tidak bisa melihat file Agent B.</p></div>
+          </div>
+          <div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-bolt text-brand-600"></i></div>
+            <div><h3 class="font-semibold text-slate-800 mb-1">Lazy Start</h3><p class="text-sm text-slate-500">Sandbox baru aktif ketika digunakan. Tidak ada resource yang terbuang saat idle.</p></div>
+          </div>
+          <div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-rotate text-brand-600"></i></div>
+            <div><h3 class="font-semibold text-slate-800 mb-1">Auto-Recycle</h3><p class="text-sm text-slate-500">Sandbox otomatis dimatikan setelah 5 menit idle. Resource dikembalikan ke pool.</p></div>
+          </div>
+          <div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-shield-halved text-brand-600"></i></div>
+            <div><h3 class="font-semibold text-slate-800 mb-1">Fully Isolated</h3><p class="text-sm text-slate-500">Tidak dapat mengakses host server. Semua operasi terbatas pada sandbox masing-masing.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: LAYER SANDBOX -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="7">
+      <div class="max-w-3xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider">Sesi 2 — Lanjutan</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-8">Layer Sandbox API</h2>
+        <div class="grid lg:grid-cols-2 gap-5">
+          <div>
+            <div class="bg-white rounded-xl border-2 border-blue-200 p-5 mb-4">
+              <h3 class="font-semibold text-brand-800 text-sm mb-3"><i class="fa-solid fa-robot mr-2"></i>Tool API (untuk LLM)</h3>
+              <div class="space-y-2 text-xs font-mono">
+                <div class="p-2 bg-slate-50 rounded"><span class="text-brand-600">browser_open</span>(url) <span class="text-slate-400">→ Buka web</span></div>
+                <div class="p-2 bg-slate-50 rounded"><span class="text-brand-600">browser_text</span>() <span class="text-slate-400">→ Baca konten</span></div>
+                <div class="p-2 bg-slate-50 rounded"><span class="text-brand-600">files_write</span>(path, data) <span class="text-slate-400">→ Tulis file</span></div>
+                <div class="p-2 bg-slate-50 rounded"><span class="text-brand-600">files_read</span>(path) <span class="text-slate-400">→ Baca file</span></div>
+                <div class="p-2 bg-slate-50 rounded"><span class="text-brand-600">shell_run</span>(command) <span class="text-slate-400">→ Jalankan command</span></div>
+                <div class="p-2 bg-slate-50 rounded"><span class="text-brand-600">code_run</span>(code, lang) <span class="text-slate-400">→ Eksekusi kode</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="bg-white rounded-xl border-2 border-amber-200 p-5 mb-4">
+              <h3 class="font-semibold text-amber-800 text-sm mb-3"><i class="fa-solid fa-code mr-2"></i>Atomic API (untuk Developer)</h3>
+              <div class="code-block text-xs !bg-slate-900">
+<span class="cmt">// Shell</span>
+ctx.sandbox.commands.<span class="fn">run</span>(<span class="str">"ls -la"</span>)
+
+<span class="cmt">// File</span>
+ctx.sandbox.files.<span class="fn">write</span>(<span class="str">"data.txt"</span>, content)
+
+<span class="cmt">// Browser</span>
+ctx.sandbox.browser.<span class="fn">navigate</span>(url)
+
+<span class="cmt">// Code</span>
+ctx.sandbox.<span class="fn">runCode</span>(
+  <span class="str">"console.log('hi')"</span>, <span class="str">"js"</span>
+)
+              </div>
+            </div>
+            <div class="bg-blue-50 rounded-lg p-3 border border-blue-100">
+              <p class="text-xs text-slate-600"><i class="fa-solid fa-circle-info text-brand-500 mr-1"></i>Tool API dipanggil oleh LLM melalui function calling. Atomic API dipanggil langsung oleh developer di kode.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: KENAPA PENTING -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="8">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider">Sesi 2 — Penutup</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-8">Mengapa Sandbox Penting?</h2>
+        <div class="space-y-4">
+          <div class="flex items-start gap-4 p-5 bg-gradient-to-r from-brand-600 to-brand-700 rounded-xl text-white">
+            <div class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-play text-white"></i></div>
+            <div><h3 class="font-semibold mb-1">Eksekusi Nyata</h3><p class="text-sm text-blue-100">Agent menjalankan kode secara sungguhan — bukan simulasi. Hasil yang diperoleh adalah output asli.</p></div>
+          </div>
+          <div class="flex items-start gap-4 p-5 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-spider text-brand-600"></i></div>
+            <div><h3 class="font-semibold text-slate-800 mb-1">Browsing & Scraping</h3><p class="text-sm text-slate-500">Agent dapat membuka website, membaca halaman, mengekstrak informasi secara otomatis.</p></div>
+          </div>
+          <div class="flex items-start gap-4 p-5 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-file-export text-brand-600"></i></div>
+            <div><h3 class="font-semibold text-slate-800 mb-1">Proses File</h3><p class="text-sm text-slate-500">Convert CSV ke JSON, resize gambar, merge dokumen — semua dilakukan di dalam sandbox.</p></div>
+          </div>
+          <div class="flex items-start gap-4 p-5 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-shield-halved text-green-600"></i></div>
+            <div><h3 class="font-semibold text-slate-800 mb-1">Keamanan Terjamin</h3><p class="text-sm text-slate-500">Semua operasi terisolasi. Tidak ada efek samping terhadap server atau sesi agent lain.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: DEPLOY RESEARCH AGENT -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="9">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 3 — 10 Menit</span>
+          <span class="tag-praktik"><i class="fa-solid fa-hand-pointer mr-1"></i> Praktik</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Deploy Deep Research Agent</h2>
+        <p class="text-slate-500 mb-6">Agent yang bisa mencari dan membaca informasi dari web</p>
+        <div class="space-y-4">
+          <div class="flex items-start gap-4"><div class="step-num">1</div><div class="flex-1"><h3 class="font-semibold text-slate-800 text-sm mb-1">Buka Templates</h3><p class="text-sm text-slate-500"><span class="url-box">pages.edgeone.ai/templates</span></p></div></div>
+          <div class="flex items-start gap-4"><div class="step-num">2</div><div class="flex-1"><h3 class="font-semibold text-slate-800 text-sm mb-1">Cari "Deep Research Agent"</h3></div></div>
+          <div class="flex items-start gap-4"><div class="step-num">3</div><div class="flex-1"><h3 class="font-semibold text-slate-800 text-sm mb-1">Klik "Use Template"</h3></div></div>
+          <div class="flex items-start gap-4"><div class="step-num">4</div><div class="flex-1"><h3 class="font-semibold text-slate-800 text-sm mb-2">Konfigurasi</h3><div class="grid sm:grid-cols-2 gap-3"><div><label class="text-xs font-medium text-slate-500 mb-1 block">Project Name</label><div class="url-box w-full text-xs">kelasfullstack-research-nama</div></div><div><label class="text-xs font-medium text-slate-500 mb-1 block">Region</label><div class="url-box w-full text-xs">Singapore / Hong Kong</div></div></div></div></div>
+          <div class="flex items-start gap-4"><div class="step-num">5</div><div class="flex-1"><h3 class="font-semibold text-slate-800 text-sm mb-1">Klik "Create & Deploy"</h3><div class="bg-slate-900 rounded-lg p-2.5 flex items-center gap-3 mt-2"><span class="text-green-400 text-xs font-mono"><i class="fa-solid fa-code-branch mr-1"></i>Cloning</span><i class="fa-solid fa-chevron-right text-slate-600 text-xs"></i><span class="text-yellow-400 text-xs font-mono"><i class="fa-solid fa-hammer mr-1"></i>Building</span><i class="fa-solid fa-chevron-right text-slate-600 text-xs"></i><span class="text-blue-400 text-xs font-mono"><i class="fa-solid fa-rocket mr-1"></i>Deploying</span></div><p class="text-xs text-slate-400 mt-1"><i class="fa-solid fa-stopwatch mr-1"></i>Tunggu 30-60 detik</p></div></div>
+          <div class="flex items-start gap-4"><div class="step-num">6</div><div class="flex-1"><h3 class="font-semibold text-slate-800 text-sm mb-1">Buka URL dan coba langsung!</h3></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: STRUKTUR + DEMO -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="10">
+      <div class="max-w-3xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider">Sesi 3 — Lanjutan</span><span class="tag-praktik"><i class="fa-solid fa-hand-pointer mr-1"></i> Praktik</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-6">Struktur Project & Demo</h2>
+        <div class="grid lg:grid-cols-2 gap-5">
+          <div>
+            <p class="text-xs font-semibold text-slate-400 uppercase mb-2">Struktur Folder</p>
+            <div class="code-block text-xs">
+<span class="prop">agents/research/</span>
+├── <span class="kw">index.ts</span>        <span class="cmt">← Entry point</span>
+├── <span class="prop">tools/</span>
+│   ├── <span class="kw">browser.ts</span>    <span class="cmt">← Web browsing</span>
+│   ├── <span class="kw">search.ts</span>     <span class="cmt">← Web search</span>
+│   └── <span class="kw">report.ts</span>     <span class="cmt">← Report gen</span>
+└── <span class="kw">prompts.ts</span>      <span class="cmt">← System prompts</span>
+            </div>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-slate-400 uppercase mb-2">Coba Demo Ini</p>
+            <div class="bg-white rounded-xl border border-blue-200 p-4 mb-4">
+              <p class="text-sm text-slate-700 leading-relaxed">"Research tentang perbandingan <strong>Vercel vs EdgeOne Makers</strong>. Cari 3 artikel, baca, dan buat ringkasan perbandingan."</p>
+            </div>
+            <div class="space-y-2">
+              <div class="flex items-center gap-3 p-2.5 bg-blue-50 rounded-lg"><div class="step-num-sm">1</div><span class="text-sm text-slate-600">Search web → dapatkan link</span></div>
+              <div class="flex items-center gap-3 p-2.5 bg-blue-50 rounded-lg"><div class="step-num-sm">2</div><span class="text-sm text-slate-600">Buka link → baca konten</span></div>
+              <div class="flex items-center gap-3 p-2.5 bg-blue-50 rounded-lg"><div class="step-num-sm">3</div><span class="text-sm text-slate-600">Compare → generate report</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-5 bg-gradient-to-r from-brand-600 to-brand-700 rounded-xl p-4 text-white text-center">
+          <p class="font-semibold">Agent tidak hanya berbicara — agent benar-benar bekerja dan mengeksekusi tugas.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 11: BROWSER TOOLS - browsePage -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="11">
+      <div class="max-w-3xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 4 — 20 Menit</span>
+          <span class="tag-praktik"><i class="fa-solid fa-hand-pointer mr-1"></i> Praktik</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Mengoprek Browser Tools</h2>
+        <p class="text-slate-500 mb-5">Buka file <code class="bg-slate-100 px-2 py-0.5 rounded text-xs">agents/research/tools/browser.ts</code></p>
+        <div class="code-block text-xs mb-5" style="max-height:280px;overflow-y:auto">
+<span class="kw">export const</span> <span class="fn">browsePage</span> = <span class="fn">functionTool</span>({
+  <span class="prop">name</span>: <span class="str">"browse_web_page"</span>,
+  <span class="prop">description</span>: <span class="str">"Buka halaman web dan baca kontennya"</span>,
+  <span class="prop">parameters</span>: {
+    <span class="prop">type</span>: <span class="str">"object"</span>,
+    <span class="prop">properties</span>: {
+      <span class="prop">url</span>: { <span class="prop">type</span>: <span class="str">"string"</span>, <span class="prop">description</span>: <span class="str">"URL yang mau dibuka"</span> },
+    },
+    <span class="prop">required</span>: [<span class="str">"url"</span>],
+  },
+  <span class="prop">handler</span>: <span class="kw">async</span> ({ <span class="prop">url</span> }, ctx) => {
+    <span class="kw">const</span> page = <span class="kw">await</span> ctx.sandbox.browser.<span class="fn">navigate</span>(url);
+    <span class="kw">const</span> content = <span class="kw">await</span> ctx.sandbox.browser.<span class="fn">getContent</span>();
+    <span class="kw">return</span> <span class="str">`[${url}] — ${content.substring(0, 5000)}...`</span>;
+  },
+});
+        </div>
+        <div class="bg-blue-50 rounded-xl p-4 border border-blue-100">
+          <p class="text-sm text-slate-600"><i class="fa-solid fa-circle-info text-brand-500 mr-2"></i>Tool ini membuka URL menggunakan browser di dalam sandbox, mengambil konten halaman, dan mengembalikan teksnya kepada LLM untuk diproses.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 12: TUGAS searchAndBrowse -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="12">
+      <div class="max-w-3xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider">Sesi 4 — Tugas 1</span><span class="tag-praktik"><i class="fa-solid fa-hand-pointer mr-1"></i> Praktik</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Tugas: Tool Search & Browse</h2>
+        <p class="text-slate-500 mb-5">Buat tool yang bisa mencari di Google dan membaca artikel pertama — 10 menit</p>
+        <div class="code-block text-xs mb-5" style="max-height:320px;overflow-y:auto">
+<span class="kw">export const</span> <span class="fn">searchAndBrowse</span> = <span class="fn">functionTool</span>({
+  <span class="prop">name</span>: <span class="str">"search_and_browse"</span>,
+  <span class="prop">description</span>: <span class="str">"Search web & baca artikel pertama"</span>,
+  <span class="prop">parameters</span>: {
+    <span class="prop">type</span>: <span class="str">"object"</span>,
+    <span class="prop">properties</span>: {
+      <span class="prop">query</span>: { <span class="prop">type</span>: <span class="str">"string"</span> },
+    },
+    <span class="prop">required</span>: [<span class="str">"query"</span>],
+  },
+  <span class="prop">handler</span>: <span class="kw">async</span> ({ <span class="prop">query</span> }, ctx) => {
+    <span class="cmt">// Step 1: Search Google</span>
+    <span class="kw">const</span> searchUrl = <span class="str">`https://www.google.com/search?q=${<span class="fn">encodeURIComponent</span>(query)}`</span>;
+    <span class="kw">await</span> ctx.sandbox.browser.<span class="fn">navigate</span>(searchUrl);
+    <span class="kw">const</span> results = <span class="kw">await</span> ctx.sandbox.browser.<span class="fn">getContent</span>();
+
+    <span class="cmt">// Step 2: Extract link pertama</span>
+    <span class="kw">const</span> linkMatch = results.<span class="fn">match</span>(<span class="str">/https?:\/\/[^\s"'<>]+/</span>);
+    <span class="kw">if</span> (!linkMatch) <span class="kw">return</span> <span class="str">"Tidak menemukan hasil."</span>;
+
+    <span class="cmt">// Step 3: Buka link & baca</span>
+    <span class="kw">await</span> ctx.sandbox.browser.<span class="fn">navigate</span>(linkMatch[0]);
+    <span class="kw">const</span> content = <span class="kw">await</span> ctx.sandbox.browser.<span class="fn">getContent</span>();
+    <span class="kw">return</span> <span class="str">`[${linkMatch[0]}]\n\n${content.substring(0, 8000)}`</span>;
+  },
+});
+        </div>
+        <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-lg bg-amber-400 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-camera text-white text-xs"></i></div>
+            <div><p class="text-sm font-semibold text-slate-800 mb-1">Tugas 2 — 5 Menit: Tambah Screenshot</p><p class="text-xs text-slate-500">Gunakan <code class="bg-white px-1 py-0.5 rounded">ctx.sandbox.browser.screenshot()</code> lalu simpan dengan <code class="bg-white px-1 py-0.5 rounded">ctx.sandbox.files.write("screenshot.png", screenshot)</code></p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 13: FILE PROCESSING -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="13">
+      <div class="max-w-3xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 5 — 20 Menit</span>
+          <span class="tag-praktik"><i class="fa-solid fa-hand-pointer mr-1"></i> Praktik</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">File Processing</h2>
+        <p class="text-slate-500 mb-5">Membaca dan menghasilkan file dari dalam sandbox</p>
+        <div class="grid lg:grid-cols-2 gap-4">
+          <div>
+            <p class="text-xs font-semibold text-slate-400 uppercase mb-2">Baca File (process_file)</p>
+            <div class="code-block text-xs" style="max-height:220px;overflow-y:auto">
+<span class="kw">export const</span> <span class="fn">processFile</span> = <span class="fn">functionTool</span>({
+  <span class="prop">name</span>: <span class="str">"process_file"</span>,
+  <span class="prop">description</span>: <span class="str">"Baca & proses CSV/JSON/TXT"</span>,
+  <span class="prop">parameters</span>: {
+    <span class="prop">type</span>: <span class="str">"object"</span>,
+    <span class="prop">properties</span>: {
+      <span class="prop">filename</span>: { <span class="prop">type</span>: <span class="str">"string"</span> },
+    },
+    <span class="prop">required</span>: [<span class="str">"filename"</span>],
+  },
+  <span class="prop">handler</span>: <span class="kw">async</span> ({ <span class="prop">filename</span> }, ctx) => {
+    <span class="kw">const</span> content =
+      <span class="kw">await</span> ctx.sandbox.files.<span class="fn">read</span>(filename);
+
+    <span class="kw">if</span> (filename.<span class="fn">endsWith</span>(<span class="str">'.csv'</span>)) {
+      <span class="kw">const</span> lines = content.<span class="fn">split</span>(<span class="str">'\n'</span>);
+      <span class="kw">const</span> headers = lines[0].<span class="fn">split</span>(<span class="str">','</span>);
+      <span class="kw">const</span> data = lines.<span class="fn">slice</span>(1)
+        .<span class="fn">filter</span>(l => l)
+        .<span class="fn">map</span>(l => l.<span class="fn">split</span>(<span class="str">','</span>));
+      <span class="kw">return</span> <span class="type">JSON</span>.<span class="fn">stringify</span>({
+        headers, total: data.length,
+        preview: data.<span class="fn">slice</span>(0, 3)
+      });
+    }
+    <span class="kw">return</span> content.<span class="fn">substring</span>(0, 5000);
+  },
+});
+            </div>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-slate-400 uppercase mb-2">Generate File (generate_report)</p>
+            <div class="code-block text-xs" style="max-height:220px;overflow-y:auto">
+<span class="kw">export const</span> <span class="fn">generateReport</span> = <span class="fn">functionTool</span>({
+  <span class="prop">name</span>: <span class="str">"generate_report"</span>,
+  <span class="prop">description</span>: <span class="str">"Buat report TXT/CSV"</span>,
+  <span class="prop">handler</span>: <span class="kw">async</span> (
+    { <span class="prop">format</span>, <span class="prop">content</span> }, ctx
+  ) => {
+    <span class="kw">const</span> filename =
+      <span class="str">`report-${<span class="type">Date</span>.now()}.${format}`</span>;
+
+    <span class="cmt">// Simpan ke sandbox</span>
+    <span class="kw">await</span> ctx.sandbox.files.<span class="fn">write</span>(
+      filename, content
+    );
+
+    <span class="cmt">// Simpan ke Blob Storage</span>
+    <span class="kw">const</span> store = <span class="fn">getStore</span>(<span class="str">"reports"</span>);
+    <span class="kw">await</span> store.<span class="fn">set</span>(filename, content);
+
+    <span class="kw">return</span> <span class="str">`Report siap: ${filename}`</span>;
+  },
+});
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 14: TUGAS CSV -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="14">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider">Sesi 5 — Tugas</span><span class="tag-praktik"><i class="fa-solid fa-hand-pointer mr-1"></i> Praktik</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Tugas: Tool Analisis CSV</h2>
+        <p class="text-slate-500 mb-6">Buat tool yang mampu melakukan analisis data otomatis</p>
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-lg p-6 mb-6">
+          <div class="space-y-4">
+            <div class="flex items-start gap-3"><div class="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white text-xs font-bold">1</span></div><p class="text-slate-700 text-sm">Baca file CSV dari upload user</p></div>
+            <div class="flex items-start gap-3"><div class="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white text-xs font-bold">2</span></div><p class="text-slate-700 text-sm">Hitung statistik: <strong>total, rata-rata, min, max</strong></p></div>
+            <div class="flex items-start gap-3"><div class="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white text-xs font-bold">3</span></div><p class="text-slate-700 text-sm">Generate report CSV hasil analisis</p></div>
+            <div class="flex items-start gap-3"><div class="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white text-xs font-bold">4</span></div><p class="text-slate-700 text-sm">Simpan ke Blob Storage untuk di-download</p></div>
+          </div>
+        </div>
+        <div class="bg-blue-50 rounded-xl p-4 border border-blue-100">
+          <p class="text-sm text-slate-600"><i class="fa-solid fa-lightbulb text-amber-500 mr-2"></i><strong>Tips:</strong> Gunakan <code class="bg-white px-1.5 py-0.5 rounded text-xs">ctx.sandbox.files.read()</code> untuk baca CSV, proses datanya, lalu gunakan <code class="bg-white px-1.5 py-0.5 rounded text-xs">ctx.sandbox.files.write()</code> untuk menyimpan hasil.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 15: SHELL EXECUTION -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="15">
+      <div class="max-w-3xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 6 — 15 Menit</span>
+          <span class="tag-praktik"><i class="fa-solid fa-hand-pointer mr-1"></i> Praktik</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Shell Execution</h2>
+        <p class="text-slate-500 mb-5">Menjalankan command Linux di dalam sandbox yang terisolasi</p>
+        <div class="grid lg:grid-cols-2 gap-4">
+          <div>
+            <p class="text-xs font-semibold text-slate-400 uppercase mb-2">Tool: run_shell</p>
+            <div class="code-block text-xs" style="max-height:200px;overflow-y:auto">
+<span class="kw">export const</span> <span class="fn">runShell</span> = <span class="fn">functionTool</span>({
+  <span class="prop">name</span>: <span class="str">"run_shell"</span>,
+  <span class="prop">description</span>: <span class="str">"Jalankan command Linux"</span>,
+  <span class="prop">parameters</span>: {
+    <span class="prop">type</span>: <span class="str">"object"</span>,
+    <span class="prop">properties</span>: {
+      <span class="prop">command</span>: { <span class="prop">type</span>: <span class="str">"string"</span> },
+    },
+    <span class="prop">required</span>: [<span class="str">"command"</span>],
+  },
+  <span class="prop">handler</span>: <span class="kw">async</span> ({ <span class="prop">command</span> }, ctx) => {
+    <span class="kw">const</span> result =
+      <span class="kw">await</span> ctx.sandbox.commands.<span class="fn">run</span>(command);
+    <span class="kw">return</span> <span class="str">`Output:\n${result.stdout || ''}\n${result.stderr || ''}`</span>;
+  },
+});
+            </div>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-slate-400 uppercase mb-2">Contoh Penggunaan</p>
+            <div class="space-y-3">
+              <div class="bg-white rounded-lg border border-slate-200 p-3">
+                <p class="text-xs text-slate-500 mb-1">User:</p>
+                <p class="text-sm text-slate-700">"Download file dari URL ini & compress jadi ZIP"</p>
+                <div class="mt-2 p-2 bg-slate-900 rounded text-xs font-mono text-green-400">curl -o data.csv https://example.com/data.csv<br>zip archive.zip data.csv</div>
+              </div>
+              <div class="bg-white rounded-lg border border-slate-200 p-3">
+                <p class="text-xs text-slate-500 mb-1">User:</p>
+                <p class="text-sm text-slate-700">"Cek isi folder project"</p>
+                <div class="mt-2 p-2 bg-slate-900 rounded text-xs font-mono text-green-400">ls -la</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 16: PYTHON EXECUTION -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="16">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider">Sesi 6 — Tugas</span><span class="tag-praktik"><i class="fa-solid fa-hand-pointer mr-1"></i> Praktik</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Tugas: Tool run_python_script</h2>
+        <p class="text-slate-500 mb-5">Agent menulis script Python, menjalankannya, dan mengembalikan output</p>
+        <div class="code-block text-xs mb-5" style="max-height:240px;overflow-y:auto">
+<span class="kw">const</span> script = <span class="str">`
+import json
+data = [
+  {"nama": "Andi", "nilai": 85},
+  {"nama": "Budi", "nilai": 92},
+  {"nama": "Cici", "nilai": 78}
+]
+rata2 = sum(d["nilai"] for d in data) / len(data)
+print(json.dumps({
+  "rata_rata": rata2,
+  "total": len(data),
+  "data": data
+}))
+`</span>;
+
+<span class="kw">const</span> result = <span class="kw">await</span> ctx.sandbox.<span class="fn">runCode</span>(script, <span class="str">"python3"</span>);
+<span class="cmt">// Output: {"rata_rata": 85, "total": 3, "data": [...]}</span>
+        </div>
+        <div class="bg-green-50 border border-green-200 rounded-xl p-4 flex items-start gap-3">
+          <i class="fa-solid fa-shield-halved text-green-600 mt-0.5"></i>
+          <p class="text-sm text-slate-600">Sandbox aman dan terisolasi. Tidak dapat mengakses host server. Hanya agent dalam sesi tersebut yang dapat menggunakan sandbox ini.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 17: SESSION MEMORY - KONSEP -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="17">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 7 — 15 Menit</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Session Memory</h2>
+        <p class="text-slate-500 mb-6">Membuat agent mengingat informasi lintas sesi percakapan</p>
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-lg p-6 mb-6">
+          <div class="flex items-center gap-4 mb-5">
+            <div class="w-14 h-14 rounded-2xl bg-red-100 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-xmark text-red-500 text-xl"></i></div>
+            <div>
+              <p class="text-sm font-semibold text-slate-800">Tanpa Memory</p>
+              <p class="text-xs text-slate-500">Agent hanya ingat dalam 1 sesi. Jika halaman di-refresh, semua informasi hilang.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 mb-5"><i class="fa-solid fa-arrow-down text-brand-400"></i></div>
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-green-100 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-check text-green-600 text-xl"></i></div>
+            <div>
+              <p class="text-sm font-semibold text-slate-800">Dengan Memory (context.store)</p>
+              <p class="text-xs text-slate-500">Agent menyimpan dan mengambil informasi penting di setiap sesi baru. Auto-terhubung ke conversation_id.</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-blue-50 rounded-xl p-4 border border-blue-100">
+          <p class="text-sm text-slate-600"><i class="fa-solid fa-circle-info text-brand-500 mr-2"></i>EdgeOne menyediakan <strong>context.store</strong> — key-value storage yang otomatis terhubung ke conversation_id setiap user.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 18: SESSION MEMORY - IMPLEMENTASI -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="18">
+      <div class="max-w-3xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider">Sesi 7 — Lanjutan</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-5">Implementasi Session Memory</h2>
+        <div class="grid lg:grid-cols-2 gap-4">
+          <div>
+            <p class="text-xs font-semibold text-slate-400 uppercase mb-2">Simpan & Ambil Memori</p>
+            <div class="code-block text-xs" style="max-height:200px;overflow-y:auto">
+<span class="cmt">// Simpan memori</span>
+<span class="kw">await</span> ctx.store.<span class="fn">set</span>(<span class="str">"user_name"</span>, <span class="str">"Rozak"</span>);
+<span class="kw">await</span> ctx.store.<span class="fn">set</span>(<span class="str">"preferences"</span>,
+  <span class="type">JSON</span>.<span class="fn">stringify</span>({
+    <span class="prop">language</span>: <span class="str">"id"</span>,
+    <span class="prop">tone</span>: <span class="str">"santai"</span>,
+    <span class="prop">topic</span>: [<span class="str">"AI"</span>, <span class="str">"Fullstack"</span>]
+  })
+);
+
+<span class="cmt">// Ambil memori</span>
+<span class="kw">const</span> userName =
+  <span class="kw">await</span> ctx.store.<span class="fn">get</span>(<span class="str">"user_name"</span>);
+<span class="kw">const</span> prefs = <span class="type">JSON</span>.<span class="fn">parse</span>(
+  <span class="kw">await</span> ctx.store.<span class="fn">get</span>(<span class="str">"preferences"</span>)
+  || <span class="str">"{}"</span>
+);
+            </div>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-slate-400 uppercase mb-2">Contoh Alur</p>
+            <div class="space-y-3">
+              <div class="bg-white rounded-lg border border-slate-200 p-3">
+                <div class="flex items-center gap-2 mb-1"><span class="text-xs font-bold text-white bg-slate-700 px-2 py-0.5 rounded">Sesi 1</span></div>
+                <p class="text-sm text-slate-700 mb-1">User: "Nama saya Rozak"</p>
+                <p class="text-xs text-green-600"><i class="fa-solid fa-arrow-right mr-1"></i>Agent simpan: user_name = "Rozak"</p>
+              </div>
+              <div class="bg-white rounded-lg border border-slate-200 p-3">
+                <div class="flex items-center gap-2 mb-1"><span class="text-xs font-bold text-white bg-slate-700 px-2 py-0.5 rounded">Sesi 2 (besok)</span></div>
+                <p class="text-sm text-slate-700 mb-1">User: "Halo lagi!"</p>
+                <p class="text-xs text-blue-600"><i class="fa-solid fa-arrow-right mr-1"></i>Agent ambil memori: "Halo Rozak! Senang bertemu lagi."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 19: FINAL CHALLENGE -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="19">
+      <div class="max-w-2xl w-full text-center">
+        <div class="flex items-center justify-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 8 — 25 Menit</span>
+          <span class="tag-final"><i class="fa-solid fa-trophy mr-1"></i> Final Challenge</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-2">Autonomous Research Assistant</h2>
+        <p class="text-slate-500 mb-6">Puncak dari 3 sesi workshop — 20 menit ngoding, 5 menit demo</p>
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-lg p-6 text-left mb-5">
+          <div class="space-y-2.5">
+            <div class="flex items-start gap-3"><div class="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white text-xs font-bold">1</span></div><p class="text-slate-700 text-sm"><strong>Search & Browse</strong> — Cari info dari web</p></div>
+            <div class="flex items-start gap-3"><div class="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white text-xs font-bold">2</span></div><p class="text-slate-700 text-sm"><strong>File Processing</strong> — Download & baca file</p></div>
+            <div class="flex items-start gap-3"><div class="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white text-xs font-bold">3</span></div><p class="text-slate-700 text-sm"><strong>Shell Execution</strong> — Jalankan command untuk processing</p></div>
+            <div class="flex items-start gap-3"><div class="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white text-xs font-bold">4</span></div><p class="text-slate-700 text-sm"><strong>Memory</strong> — Ingat user & preferensi lintas sesi</p></div>
+            <div class="flex items-start gap-3"><div class="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white text-xs font-bold">5</span></div><p class="text-slate-700 text-sm"><strong>Report Generation</strong> — Buat report & simpan ke storage</p></div>
+            <div class="flex items-start gap-3"><div class="w-7 h-7 rounded-full bg-amber-400 flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fa-solid fa-star text-white text-xs"></i></div><p class="text-slate-700 text-sm">Bonus: Kirim report ke user via link download</p></div>
+          </div>
+        </div>
+        <div class="bg-slate-900 rounded-xl p-4 text-left text-sm">
+          <p class="text-xs text-slate-400 uppercase font-semibold mb-2">Contoh Workflow</p>
+          <p class="text-slate-300 leading-relaxed">"Research framework AI Agent terbaik 2026. Bandingkan LangGraph, CrewAI, dan OpenAI Agents SDK. Cari 2 artikel per framework, baca, buat tabel perbandingan. Simpan sebagai CSV."</p>
+        </div>
+        <p class="text-sm text-slate-400 mt-4"><i class="fa-solid fa-gift text-amber-400 mr-1"></i> Peserta terbaik mendapat shoutout + akses materi bonus!</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 20: PRODUCTION READINESS -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="20">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 9 — 10 Menit</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-6">Production Readiness</h2>
+        <div class="space-y-3">
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+            <div class="flex items-center gap-3 mb-2"><div class="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center"><i class="fa-solid fa-clock text-brand-600 text-sm"></i></div><h3 class="font-semibold text-slate-800 text-sm">Sandbox Timeout</h3></div>
+            <p class="text-xs text-slate-500 ml-12">Default: 5 menit idle lalu mati. Untuk proses berat, perpanjang dengan <code class="bg-slate-100 px-1 py-0.5 rounded">ctx.sandbox.setTimeout(600)</code> (10 menit).</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+            <div class="flex items-center gap-3 mb-2"><div class="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center"><i class="fa-solid fa-triangle-exclamation text-brand-600 text-sm"></i></div><h3 class="font-semibold text-slate-800 text-sm">Error Handling</h3></div>
+            <p class="text-xs text-slate-500 ml-12">Sandbox bisa gagal (resource exhausted). Selalu wrap sandbox calls dalam try-catch. Berikan fallback yang informatif.</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+            <div class="flex items-center gap-3 mb-2"><div class="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center"><i class="fa-solid fa-gauge-high text-brand-600 text-sm"></i></div><h3 class="font-semibold text-slate-800 text-sm">Rate Limiting</h3></div>
+            <div class="ml-12 flex flex-wrap gap-3 text-xs">
+              <span class="bg-blue-50 text-brand-700 px-3 py-1.5 rounded-lg font-medium">200K executions/bulan</span>
+              <span class="bg-blue-50 text-brand-700 px-3 py-1.5 rounded-lg font-medium">100K GB-s/bulan sandbox</span>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+            <div class="flex items-center gap-3 mb-2"><div class="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center"><i class="fa-solid fa-chart-line text-brand-600 text-sm"></i></div><h3 class="font-semibold text-slate-800 text-sm">Observability</h3></div>
+            <p class="text-xs text-slate-500 ml-12">Buka <code class="bg-slate-100 px-1 py-0.5 rounded">/agent-metrics</code> di mode development. Lihat trace: token usage, tool duration, memory consumption.</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+            <div class="flex items-center gap-3 mb-2"><div class="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center"><i class="fa-solid fa-shield-halved text-brand-600 text-sm"></i></div><h3 class="font-semibold text-slate-800 text-sm">Keamanan</h3></div>
+            <div class="ml-12 text-xs text-slate-500 space-y-1">
+              <p><i class="fa-solid fa-check text-green-500 mr-1.5"></i>Jangan expose sandbox langsung ke user</p>
+              <p><i class="fa-solid fa-check text-green-500 mr-1.5"></i>Validasi input sebelum masuk sandbox</p>
+              <p><i class="fa-solid fa-check text-green-500 mr-1.5"></i>Set timeout yang wajar</p>
+              <p><i class="fa-solid fa-check text-green-500 mr-1.5"></i>Jangan hardcode credentials</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 21: RANGKUMAN 3 SESI -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="21">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 10 — 10 Menit</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-6">Rangkuman 3 Sesi Workshop</h2>
+        <div class="space-y-3 mb-6">
+          <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="flex items-center gap-3"><span class="text-xs font-bold text-white bg-brand-600 w-6 h-6 rounded-full flex items-center justify-center">1</span><h3 class="font-semibold text-slate-800 text-sm">Deploy AI Agent dari Template</h3></div>
+            <p class="text-xs text-slate-500 ml-9 mt-1">Agent pertama live dalam 5 menit. Mengubah instructions, menambah tools, mengganti model AI.</p>
+          </div>
+          <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="flex items-center gap-3"><span class="text-xs font-bold text-white bg-brand-600 w-6 h-6 rounded-full flex items-center justify-center">2</span><h3 class="font-semibold text-slate-800 text-sm">Full-Stack Web + Agent RAG</h3></div>
+            <p class="text-xs text-slate-500 ml-9 mt-1">Web dan agent dalam 1 project. Upload PDF, tanya dokumen, jawab dengan citation. Blob Storage.</p>
+          </div>
+          <div class="p-4 bg-brand-50 rounded-xl border-2 border-brand-300">
+            <div class="flex items-center gap-3"><span class="text-xs font-bold text-white bg-brand-700 w-6 h-6 rounded-full flex items-center justify-center">3</span><h3 class="font-semibold text-brand-800 text-sm">Agent dengan Tools, Sandbox & Memory</h3></div>
+            <p class="text-xs text-brand-600 ml-9 mt-1">Browsing, shell, code execution, file processing, session memory — autonomous agent.</p>
+          </div>
+        </div>
+        <div class="bg-gradient-to-r from-brand-50 to-blue-50 rounded-xl p-5 border border-blue-200">
+          <h3 class="font-semibold text-brand-800 text-sm mb-3">Skill yang Anda Miliki Sekarang</h3>
+          <div class="grid grid-cols-2 gap-2 text-xs text-slate-600">
+            <p><i class="fa-solid fa-check text-brand-500 mr-1.5"></i>Buat AI Agent — 5 menit</p>
+            <p><i class="fa-solid fa-check text-brand-500 mr-1.5"></i>Full-stack RAG app</p>
+            <p><i class="fa-solid fa-check text-brand-500 mr-1.5"></i>Autonomous task agent</p>
+            <p><i class="fa-solid fa-check text-brand-500 mr-1.5"></i>Persistent context</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 22: ROADMAP + PENUTUP -->
+    <div class="slide flex-col items-center justify-center h-full px-6 bg-gradient-to-br from-white via-blue-50 to-white" data-slide="22">
+      <div class="max-w-2xl w-full text-center">
+        <img src="https://avatars.githubusercontent.com/u/176978739?s=200&v=4" alt="EdgeOne Makers" class="w-16 h-16 rounded-2xl shadow-lg mx-auto mb-6 float-anim">
+        <h2 class="text-3xl font-bold text-brand-900 mb-6">Roadmap & Langkah Selanjutnya</h2>
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-lg p-6 text-left mb-6">
+          <div class="space-y-3">
+            <div class="flex items-center gap-3"><div class="step-num-sm">1</div><p class="text-slate-700 text-sm">Buat project nyata — pilih 1 use case bisnis</p></div>
+            <div class="flex items-center gap-3"><div class="step-num-sm">2</div><p class="text-slate-700 text-sm">Eksplorasi template lain di marketplace EdgeOne</p></div>
+            <div class="flex items-center gap-3"><div class="step-num-sm">3</div><p class="text-slate-700 text-sm">Coba BYOK — hubungkan API Key sendiri</p></div>
+            <div class="flex items-center gap-3"><div class="step-num-sm">4</div><p class="text-slate-700 text-sm">Pasang custom domain untuk tampilan profesional</p></div>
+            <div class="flex items-center gap-3"><div class="step-num-sm">5</div><p class="text-slate-700 text-sm">Bergabung di komunitas — sharing di grup KelasFullstack</p></div>
+          </div>
+        </div>
+        <div class="bg-slate-900 rounded-2xl p-6 text-white text-left mb-6">
+          <i class="fa-solid fa-quote-left text-blue-300 text-xl mb-3 block"></i>
+          <p class="text-base leading-relaxed mb-3">Tiga sesi workshop telah selesai. Anda sekarang memiliki skill yang:</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="bg-white/10 rounded-lg px-3 py-1.5 text-sm">90% developer belum miliki</span>
+            <span class="bg-white/10 rounded-lg px-3 py-1.5 text-sm">Langsung applicable untuk klien</span>
+            <span class="bg-white/10 rounded-lg px-3 py-1.5 text-sm">Gratis — EdgeOne free tier</span>
+          </div>
+          <p class="text-sm text-blue-200 font-medium">Yang paling penting: <strong class="text-white">JANGAN BERHENTI DI SINI.</strong> Praktik. Bikin project. Gagal. Coba lagi. Karena skill inilah yang akan menentukan karir Anda di era AI Agent.</p>
+        </div>
+        <p class="text-2xl font-bold text-brand-700 mb-1">Terima kasih atas 3 sesi workshop!</p>
+        <p class="text-sm text-slate-400">Jika ada pertanyaan, silakan diskusi di grup KelasFullstack.</p>
+        <p class="text-sm text-slate-500 mt-4 font-medium">Rozak — Mentor KelasFullstack</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 23: TIMELINE -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="23">
+      <div class="max-w-2xl w-full">
+        <h2 class="text-3xl font-bold text-brand-900 mb-8 text-center">Timeline Workshop 2 Jam</h2>
+        <div class="relative">
+          <div class="absolute left-[18px] top-0 bottom-0 w-0.5 bg-blue-200"></div>
+          <div class="space-y-3">
+            <div class="flex items-start gap-4"><div class="w-9 h-9 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 z-10 shadow"><span class="text-white text-xs font-bold">1</span></div><div class="flex-1 bg-white rounded-xl border border-slate-200 p-3 shadow-sm flex items-center justify-between"><h3 class="font-semibold text-slate-800 text-sm">Recap</h3><span class="text-xs font-mono text-slate-400">00:00 - 00:07</span></div></div>
+            <div class="flex items-start gap-4"><div class="w-9 h-9 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 z-10 shadow"><span class="text-white text-xs font-bold">2</span></div><div class="flex-1 bg-white rounded-xl border border-slate-200 p-3 shadow-sm flex items-center justify-between"><h3 class="font-semibold text-slate-800 text-sm">Konsep Sandbox</h3><span class="text-xs font-mono text-slate-400">00:07 - 00:17</span></div></div>
+            <div class="flex items-start gap-4"><div class="w-9 h-9 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 z-10 shadow"><span class="text-white text-xs font-bold">3</span></div><div class="flex-1 bg-blue-50 rounded-xl border border-blue-200 p-3 flex items-center justify-between"><h3 class="font-semibold text-slate-800 text-sm">Deploy Research Agent <span class="tag-praktik ml-1">Praktik</span></h3><span class="text-xs font-mono text-slate-400">00:17 - 00:27</span></div></div>
+            <div class="flex items-start gap-4"><div class="w-9 h-9 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 z-10 shadow relative pulse-ring"><span class="text-white text-xs font-bold">4</span></div><div class="flex-1 bg-brand-50 rounded-xl border-2 border-brand-300 p-3 flex items-center justify-between"><h3 class="font-semibold text-brand-800 text-sm">Browser Tools <span class="tag-praktik ml-1">Praktik</span></h3><span class="text-xs font-mono text-brand-500 font-semibold">00:27 - 00:47</span></div></div>
+            <div class="flex items-start gap-4"><div class="w-9 h-9 rounded-full bg-slate-300 flex items-center justify-center flex-shrink-0 z-10"><span class="text-white text-xs font-bold">5</span></div><div class="flex-1 bg-blue-50 rounded-xl border border-blue-200 p-3 flex items-center justify-between"><h3 class="font-semibold text-slate-800 text-sm">File Processing <span class="tag-praktik ml-1">Praktik</span></h3><span class="text-xs font-mono text-slate-400">00:47 - 01:07</span></div></div>
+            <div class="flex items-start gap-4"><div class="w-9 h-9 rounded-full bg-slate-300 flex items-center justify-center flex-shrink-0 z-10"><span class="text-white text-xs font-bold">6</span></div><div class="flex-1 bg-blue-50 rounded-xl border border-blue-200 p-3 flex items-center justify-between"><h3 class="font-semibold text-slate-800 text-sm">Shell Execution <span class="tag-praktik ml-1">Praktik</span></h3><span class="text-xs font-mono text-slate-400">01:07 - 01:22</span></div></div>
+            <div class="flex items-start gap-4"><div class="w-9 h-9 rounded-full bg-slate-300 flex items-center justify-center flex-shrink-0 z-10"><span class="text-white text-xs font-bold">7</span></div><div class="flex-1 bg-white rounded-xl border border-slate-200 p-3 shadow-sm flex items-center justify-between"><h3 class="font-semibold text-slate-800 text-sm">Session Memory</h3><span class="text-xs font-mono text-slate-400">01:22 - 01:37</span></div></div>
+            <div class="flex items-start gap-4"><div class="w-9 h-9 rounded-full bg-red-500 flex items-center justify-center flex-shrink-0 z-10"><i class="fa-solid fa-trophy text-white text-xs"></i></div><div class="flex-1 bg-red-50 rounded-xl border border-red-200 p-3 flex items-center justify-between"><h3 class="font-semibold text-slate-800 text-sm">Final Challenge</h3><span class="text-xs font-mono text-slate-400">01:37 - 02:02</span></div></div>
+            <div class="flex items-start gap-4"><div class="w-9 h-9 rounded-full bg-slate-300 flex items-center justify-center flex-shrink-0 z-10"><span class="text-white text-xs font-bold">9</span></div><div class="flex-1 bg-white rounded-xl border border-slate-200 p-3 shadow-sm flex items-center justify-between"><h3 class="font-semibold text-slate-800 text-sm">Production Readiness</h3><span class="text-xs font-mono text-slate-400">02:02 - 02:12</span></div></div>
+            <div class="flex items-start gap-4"><div class="w-9 h-9 rounded-full bg-slate-300 flex items-center justify-center flex-shrink-0 z-10"><i class="fa-solid fa-flag-checkered text-white text-xs"></i></div><div class="flex-1 bg-white rounded-xl border border-slate-200 p-3 shadow-sm flex items-center justify-between"><h3 class="font-semibold text-slate-800 text-sm">Roadmap + Penutup</h3><span class="text-xs font-mono text-slate-400">02:12 - 02:22</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 
+  <!-- Navigation -->
+  <div class="fixed bottom-0 left-0 w-full z-40">
+    <div class="flex items-center justify-between px-6 py-4 bg-white/80 backdrop-blur-xl border-t border-slate-100">
+      <button id="prevBtn" onclick="changeSlide(-1)" class="nav-btn w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 disabled:opacity-30 disabled:cursor-not-allowed disabled:transform-none" disabled><i class="fa-solid fa-chevron-left text-sm"></i></button>
+      <div id="indicators" class="flex items-center gap-1.5"></div>
+      <button id="nextBtn" onclick="changeSlide(1)" class="nav-btn w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400"><i class="fa-solid fa-chevron-right text-sm"></i></button>
+    </div>
+  </div>
+
+  <div id="keyHint" class="fixed bottom-20 right-6 z-30 bg-slate-900 text-white text-xs rounded-lg px-3 py-2 opacity-0 transition-opacity duration-500 pointer-events-none">
+    <i class="fa-solid fa-keyboard mr-1"></i> Gunakan <kbd class="bg-slate-700 px-1.5 py-0.5 rounded text-xs">&larr;</kbd> <kbd class="bg-slate-700 px-1.5 py-0.5 rounded text-xs">&rarr;</kbd> untuk navigasi
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 1;
+    const indC = document.getElementById('indicators');
+    for (let i = 1; i <= totalSlides; i++) {
+      const d = document.createElement('button');
+      d.className = 'slide-indicator w-2 h-2 rounded-full bg-slate-300 cursor-pointer';
+      d.dataset.slide = i;
+      d.onclick = () => goToSlide(i);
+      indC.appendChild(d);
+    }
+    function updateSlide() {
+      slides.forEach(s => s.classList.remove('active'));
+      const t = document.querySelector(`[data-slide="${currentSlide}"]`);
+      if (t) setTimeout(() => t.classList.add('active'), 50);
+      document.querySelectorAll('.slide-indicator').forEach((d, i) => { d.classList.remove('active'); if (i + 1 === currentSlide) d.classList.add('active'); });
+      document.getElementById('slideCounter').textContent = `${currentSlide} / ${totalSlides}`;
+      document.getElementById('progressBar').style.width = `${((currentSlide - 1) / (totalSlides - 1)) * 100}%`;
+      document.getElementById('prevBtn').disabled = currentSlide === 1;
+      document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+      t?.querySelectorAll('.fade-in').forEach(el => { el.style.animation = 'none'; el.offsetHeight; el.style.animation = ''; });
+    }
+    function changeSlide(d) { const n = currentSlide + d; if (n >= 1 && n <= totalSlides) { currentSlide = n; updateSlide(); } }
+    function goToSlide(n) { if (n >= 1 && n <= totalSlides) { currentSlide = n; updateSlide(); } }
+    function toggleFullscreen() { if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{}); else document.exitFullscreen().catch(()=>{}); }
+    document.addEventListener('keydown', (e) => {
+      if (e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' ') { e.preventDefault(); changeSlide(1); }
+      else if (e.key==='ArrowLeft'||e.key==='ArrowUp') { e.preventDefault(); changeSlide(-1); }
+      else if (e.key==='Home') { e.preventDefault(); goToSlide(1); }
+      else if (e.key==='End') { e.preventDefault(); goToSlide(totalSlides); }
+      else if (e.key==='f'||e.key==='F') toggleFullscreen();
+    });
+    let tX=0,tY=0;
+    document.addEventListener('touchstart',(e)=>{tX=e.changedTouches[0].screenX;tY=e.changedTouches[0].screenY});
+    document.addEventListener('touchend',(e)=>{const dx=tX-e.changedTouches[0].screenX,dy=tY-e.changedTouches[0].screenY;if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>50){dx>0?changeSlide(1):changeSlide(-1)}});
+    setTimeout(()=>{const h=document.getElementById('keyHint');h.style.opacity='1';setTimeout(()=>{h.style.opacity='0'},4000)},2000);
+    updateSlide();
+  </script>
 </body>
 </html>
