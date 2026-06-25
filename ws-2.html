@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EdgeOne Makers — Workshop #2</title>
+  <title>Workshop 2 — Full-Stack AI: Web + Agent dalam 1 Project</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
@@ -13,16 +14,9 @@
           fontFamily: { sans: ['Inter', 'sans-serif'] },
           colors: {
             brand: {
-              50:  '#eff6ff',
-              100: '#dbeafe',
-              200: '#bfdbfe',
-              300: '#93c5fd',
-              400: '#60a5fa',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8',
-              800: '#1e40af',
-              900: '#1e3a8a',
+              50: '#EFF6FF', 100: '#DBEAFE', 200: '#BFDBFE', 300: '#93C5FD',
+              400: '#60A5FA', 500: '#3B82F6', 600: '#2563EB', 700: '#1D4ED8',
+              800: '#1E40AF', 900: '#1E3A8A', 950: '#172554',
             }
           }
         }
@@ -30,222 +24,923 @@
     }
   </script>
   <style>
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-12px); }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; }
+    .slide {
+      display: none; opacity: 0; transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
-    @keyframes pulse-ring {
-      0% { transform: scale(1); opacity: 0.4; }
-      100% { transform: scale(1.8); opacity: 0; }
+    .slide.active { display: flex; opacity: 1; transform: translateY(0); }
+    .code-block {
+      background: #0F172A; color: #E2E8F0; border-radius: 8px;
+      padding: 16px 20px; font-family: 'Courier New', monospace;
+      font-size: 12.5px; line-height: 1.7; overflow-x: auto; white-space: pre;
     }
-    @keyframes fade-in-up {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+    .code-block .kw { color: #93C5FD; }
+    .code-block .str { color: #86EFAC; }
+    .code-block .cmt { color: #64748B; }
+    .code-block .prop { color: #FCD34D; }
+    .code-block .type { color: #C4B5FD; }
+    .code-block .fn { color: #67E8F9; }
+    .slide-indicator { transition: all 0.3s ease; }
+    .slide-indicator.active { width: 24px; border-radius: 9999px; background: #2563EB; }
+    .step-num {
+      width: 36px; height: 36px; min-width: 36px; border-radius: 50%;
+      background: #2563EB; color: white; display: flex; align-items: center;
+      justify-content: center; font-weight: 700; font-size: 14px;
     }
-    @keyframes draw-line {
-      from { stroke-dashoffset: 600; }
-      to { stroke-dashoffset: 0; }
+    .step-num-sm {
+      width: 28px; height: 28px; min-width: 28px; border-radius: 50%;
+      background: #2563EB; color: white; display: flex; align-items: center;
+      justify-content: center; font-weight: 700; font-size: 11px;
     }
-    @keyframes fade-in-scale {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    .float-anim { animation: float 3s ease-in-out infinite; }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    .fade-in { animation: fadeInUp 0.6s ease forwards; }
+    .s1{animation-delay:.1s;opacity:0} .s2{animation-delay:.2s;opacity:0}
+    .s3{animation-delay:.3s;opacity:0} .s4{animation-delay:.4s;opacity:0} .s5{animation-delay:.5s;opacity:0}
+    .tag-praktik {
+      background: linear-gradient(135deg,#2563EB,#1D4ED8); color: white;
+      padding: 3px 10px; border-radius: 9999px; font-size: 10px;
+      font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
     }
-    .animate-float { animation: float 4s ease-in-out infinite; }
-    .animate-pulse-ring { animation: pulse-ring 2.5s ease-out infinite; }
-    .animate-fade-in-up { animation: fade-in-up 0.8s ease-out both; }
-    .animate-fade-in-scale { animation: fade-in-scale 0.6s ease-out both; }
-    .animate-draw-line { stroke-dasharray: 600; animation: draw-line 2s ease-out both; }
-    .delay-100 { animation-delay: 0.1s; }
-    .delay-200 { animation-delay: 0.2s; }
-    .delay-300 { animation-delay: 0.3s; }
-    .delay-400 { animation-delay: 0.4s; }
-    .delay-500 { animation-delay: 0.5s; }
-    .delay-600 { animation-delay: 0.6s; }
-    .delay-700 { animation-delay: 0.7s; }
-    .delay-800 { animation-delay: 0.8s; }
-    .delay-1000 { animation-delay: 1.0s; }
-    .delay-1200 { animation-delay: 1.2s; }
-
-    .grid-bg {
-      background-image:
-        linear-gradient(rgba(59,130,246,0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(59,130,246,0.035) 1px, transparent 1px);
-      background-size: 48px 48px;
+    .tag-challenge {
+      background: linear-gradient(135deg,#F59E0B,#D97706); color: white;
+      padding: 3px 10px; border-radius: 9999px; font-size: 10px;
+      font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
     }
-
-    .gradient-text {
-      background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #2563eb 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .url-box {
+      background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px;
+      padding: 6px 12px; font-family: 'Courier New', monospace;
+      font-size: 12px; color: #2563EB; display: inline-block;
     }
-
-    .card-glow {
-      box-shadow:
-        0 0 0 1px rgba(59,130,246,0.08),
-        0 4px 24px -4px rgba(59,130,246,0.12),
-        0 1px 3px rgba(0,0,0,0.04);
+    .nav-btn { transition: all 0.2s ease; }
+    .nav-btn:hover:not(:disabled) { background: #2563EB; color: white; transform: scale(1.1); }
+    .nav-btn:active:not(:disabled) { transform: scale(0.95); }
+    .progress-bar { transition: width 0.5s ease; }
+    .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .card-hover:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(37,99,235,0.12); }
+    @keyframes pulse-ring { 0%{transform:scale(1);opacity:.5} 100%{transform:scale(1.5);opacity:0} }
+    .pulse-ring::before {
+      content:''; position:absolute; inset:-4px; border-radius:50%;
+      border:2px solid #2563EB; animation:pulse-ring 2s ease-out infinite;
     }
+    .arch-arrow { color: #93C5FD; font-size: 18px; }
+    .arch-box {
+      border: 2px solid #BFDBFE; border-radius: 10px; padding: 10px 16px;
+      background: white; text-align: center; font-size: 12px; font-weight: 600;
+      color: #1E40AF; position: relative;
+    }
+    .arch-box.active-box { border-color: #2563EB; background: #EFF6FF; }
+    .table-custom { border-collapse: collapse; width: 100%; font-size: 13px; }
+    .table-custom th { background: #1E40AF; color: white; padding: 10px 14px; text-align: left; font-weight: 600; }
+    .table-custom td { padding: 10px 14px; border-bottom: 1px solid #E2E8F0; color: #334155; }
+    .table-custom tr:nth-child(even) td { background: #F8FAFC; }
+    .table-custom tr:last-child td { border-bottom: none; }
   </style>
 </head>
-<body class="font-sans antialiased">
+<body class="bg-white text-slate-800">
 
-  <div class="relative w-screen h-screen overflow-hidden bg-white grid-bg">
+  <!-- Progress Bar -->
+  <div class="fixed top-0 left-0 w-full h-1 bg-blue-100 z-50">
+    <div id="progressBar" class="progress-bar h-full bg-gradient-to-r from-blue-600 to-blue-400" style="width:0%"></div>
+  </div>
 
-    <!-- Decorative Blobs -->
-    <div class="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-brand-100/50 blur-3xl pointer-events-none"></div>
-    <div class="absolute -bottom-32 -right-32 w-[550px] h-[550px] rounded-full bg-brand-50/70 blur-3xl pointer-events-none"></div>
-    <div class="absolute top-1/4 left-1/3 w-[250px] h-[250px] rounded-full bg-brand-200/20 blur-2xl pointer-events-none"></div>
+  <!-- Top Bar -->
+  <div class="fixed top-1 left-0 w-full z-40 px-6 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <img src="https://avatars.githubusercontent.com/u/176978739?s=200&v=4" alt="EdgeOne" class="w-8 h-8 rounded-lg">
+      <span class="text-sm font-semibold text-brand-700 hidden sm:block">EdgeOne Makers Workshop</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <span id="slideCounter" class="text-xs font-medium text-slate-400">1 / 17</span>
+      <button onclick="toggleFullscreen()" class="text-slate-400 hover:text-brand-600 transition-colors"><i class="fa-solid fa-expand text-sm"></i></button>
+    </div>
+  </div>
 
-    <!-- Geometric SVG — different from #1 -->
-    <svg class="absolute top-0 left-0 w-[40%] h-full opacity-[0.05] pointer-events-none" viewBox="0 0 700 900" fill="none">
-      <rect x="100" y="150" width="300" height="300" rx="8" stroke="#2563eb" stroke-width="1" transform="rotate(15 250 300)"/>
-      <rect x="150" y="200" width="300" height="300" rx="8" stroke="#2563eb" stroke-width="0.5" transform="rotate(15 300 350)" stroke-dasharray="6 6"/>
-      <line x1="0" y1="450" x2="700" y2="450" stroke="#2563eb" stroke-width="0.5" stroke-dasharray="4 8"/>
-    </svg>
+  <div id="slideContainer" class="w-full h-screen relative">
 
-    <!-- Corner brackets — mirrored from #1 -->
-    <div class="absolute top-6 right-6 w-12 h-12 border-r-2 border-t-2 border-brand-300/40 rounded-tr-lg"></div>
-    <div class="absolute bottom-6 left-6 w-12 h-12 border-l-2 border-b-2 border-brand-300/40 rounded-bl-lg"></div>
-
-    <!-- Dot pattern bottom-right -->
-    <div class="absolute bottom-10 right-10 grid grid-cols-5 gap-2 opacity-20">
-      <div class="w-1 h-1 rounded-full bg-brand-400"></div>
-      <div class="w-1 h-1 rounded-full bg-brand-400"></div>
-      <div class="w-1 h-1 rounded-full bg-brand-400"></div>
-      <div class="w-1 h-1 rounded-full bg-brand-300"></div>
-      <div class="w-1 h-1 rounded-full bg-brand-300"></div>
-      <div class="w-1 h-1 rounded-full bg-brand-400"></div>
-      <div class="w-1 h-1 rounded-full bg-brand-300"></div>
-      <div class="w-1 h-1 rounded-full bg-brand-300"></div>
-      <div class="w-1 h-1 rounded-full bg-brand-200"></div>
-      <div class="w-1 h-1 rounded-full bg-brand-200"></div>
-      <div class="w-1 h-1 rounded-full bg-brand-300"></div>
-      <div class="w-1 h-1 rounded-full bg-brand-300"></div>
-      <div class="w-1 h-1 rounded-full bg-brand-200"></div>
-      <div class="w-1 h-1 rounded-full bg-brand-200"></div>
-      <div class="w-1 h-1 rounded-full bg-brand-100"></div>
+    <!-- ===== SLIDE 1: TITLE ===== -->
+    <div class="slide active flex-col items-center justify-center h-full px-6 text-center bg-gradient-to-br from-white via-blue-50 to-white" data-slide="1">
+      <div class="fade-in s1 mb-6">
+        <img src="https://avatars.githubusercontent.com/u/176978739?s=200&v=4" alt="EdgeOne Makers" class="w-20 h-20 rounded-2xl shadow-lg mx-auto float-anim">
+      </div>
+      <div class="fade-in s2">
+        <span class="inline-flex items-center gap-2 bg-blue-100 text-brand-700 text-xs font-semibold px-4 py-1.5 rounded-full mb-6">
+          <i class="fa-solid fa-layer-group"></i> Workshop 2 — Step by Step: Full-Stack AI
+        </span>
+      </div>
+      <h1 class="fade-in s3 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brand-900 leading-tight mb-6 max-w-4xl">
+        Web + Agent<br>dalam 1 Project
+      </h1>
+      <p class="fade-in s4 text-lg text-slate-500 max-w-2xl mb-8">
+        Platform: <strong class="text-brand-700">EdgeOne Makers</strong> (Tencent Cloud) &middot; Durasi: 2 Jam
+      </p>
+      <div class="fade-in s5 flex flex-wrap items-center justify-center gap-6 text-sm text-slate-500">
+        <span class="flex items-center gap-2"><i class="fa-solid fa-chalkboard-user text-brand-500"></i> Rozak</span>
+        <span class="flex items-center gap-2"><i class="fa-solid fa-graduation-cap text-brand-500"></i> Mentor KelasFullstack</span>
+        <span class="flex items-center gap-2"><i class="fa-solid fa-lock text-amber-500"></i> Prasyarat: Sesi 1</span>
+      </div>
+      <div class="absolute bottom-10 animate-bounce"><i class="fa-solid fa-chevron-down text-brand-300 text-xl"></i></div>
     </div>
 
-    <!-- Floating decorative elements -->
-    <div class="animate-float absolute top-[12%] right-[10%] w-3 h-3 rounded-full bg-brand-300/40"></div>
-    <div class="animate-float absolute top-[60%] left-[6%] w-2 h-2 rounded-full bg-brand-400/30" style="animation-delay: 1.2s;"></div>
-    <div class="animate-float absolute bottom-[25%] right-[18%] w-2.5 h-2.5 rounded-full bg-brand-200/50" style="animation-delay: 2s;"></div>
-    <div class="animate-float absolute top-[35%] left-[12%] w-3.5 h-3.5 rounded-sm rotate-45 border border-brand-200/40" style="animation-delay: 0.5s;"></div>
-    <div class="animate-float absolute bottom-[35%] right-[6%] w-4 h-4 rounded-sm rotate-12 border border-brand-300/30" style="animation-delay: 1.8s;"></div>
-
-    <!-- Main Content -->
-    <div class="relative z-10 w-full h-full flex flex-col items-center justify-center px-6">
-
-      <!-- Workshop Badge -->
-      <div class="animate-fade-in-up delay-100 mb-8">
-        <div class="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-brand-50 border border-brand-200/80 shadow-sm shadow-brand-100">
-          <span class="relative flex h-2.5 w-2.5">
-            <span class="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-brand-500"></span>
-            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span>
-          </span>
-          <span class="text-brand-700 text-sm font-semibold tracking-wide uppercase">Workshop #2</span>
+    <!-- ===== SLIDE 2: PERSIAPAN ===== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="2">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider">Sebelum Memulai</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-8">Persiapan Workshop</h2>
+        <div class="space-y-4">
+          <div class="flex items-start gap-4 p-4 bg-blue-50 rounded-xl border border-blue-100">
+            <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-user-check text-white text-sm"></i></div>
+            <div><h3 class="font-semibold text-slate-800 mb-1">Akun EdgeOne Makers</h3><p class="text-sm text-slate-500">Peserta sudah memiliki akun dari Workshop Sesi 1</p></div>
+          </div>
+          <div class="flex items-start gap-4 p-4 bg-blue-50 rounded-xl border border-blue-100">
+            <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-rocket text-white text-sm"></i></div>
+            <div><h3 class="font-semibold text-slate-800 mb-1">Pengalaman Deploy Template</h3><p class="text-sm text-slate-500">Peserta sudah pernah melakukan deploy template di Sesi 1</p></div>
+          </div>
+          <div class="flex items-start gap-4 p-4 bg-blue-50 rounded-xl border border-blue-100">
+            <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-wifi text-white text-sm"></i></div>
+            <div><h3 class="font-semibold text-slate-800 mb-1">Koneksi Internet Stabil</h3><p class="text-sm text-slate-500">Workshop sepenuhnya berbasis cloud, koneksi stabil diperlukan</p></div>
+          </div>
+          <div class="flex items-start gap-4 p-4 bg-brand-600 rounded-xl">
+            <div class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-globe text-white text-sm"></i></div>
+            <div><h3 class="font-semibold text-white mb-1">Buka Platform</h3><p class="text-sm text-blue-100">Buka <span class="url-box !bg-white/15 !border-transparent text-white">pages.edgeone.ai</span> di browser</p></div>
+          </div>
         </div>
       </div>
+    </div>
 
-      <!-- Logo -->
-      <div class="animate-fade-in-up delay-200 mb-8 relative">
-        <div class="absolute inset-0 bg-brand-400/20 rounded-full blur-2xl scale-150"></div>
-        <img
-          src="https://avatars.githubusercontent.com/u/176978739?s=200&v=4"
-          alt="EdgeOne Makers"
-          class="relative w-20 h-20 rounded-full shadow-lg shadow-brand-200/50 ring-4 ring-white"
-        />
+    <!-- ===== SLIDE 3: RECAP SESI 1 ===== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="3">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 1 — 7 Menit</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Recap Sesi 1</h2>
+        <p class="text-slate-500 mb-6">Apa yang sudah kita capai bersama di workshop sebelumnya</p>
+        <div class="space-y-3 mb-6">
+          <div class="flex items-center gap-3 p-3 bg-green-50 rounded-lg border border-green-100">
+            <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-check text-white text-xs"></i></div>
+            <span class="text-slate-700 text-sm font-medium">Deploy AI Agent dari template</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 bg-green-50 rounded-lg border border-green-100">
+            <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-check text-white text-xs"></i></div>
+            <span class="text-slate-700 text-sm font-medium">Mengubah instruksi agent</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 bg-green-50 rounded-lg border border-green-100">
+            <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-check text-white text-xs"></i></div>
+            <span class="text-slate-700 text-sm font-medium">Menambahkan function tools</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 bg-green-50 rounded-lg border border-green-100">
+            <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-check text-white text-xs"></i></div>
+            <span class="text-slate-700 text-sm font-medium">Mengganti model AI dengan 1 parameter</span>
+          </div>
+        </div>
+        <div class="bg-gradient-to-r from-brand-600 to-brand-700 rounded-xl p-5 text-white text-center">
+          <p class="text-lg font-semibold">Sekarang kita UPGRADE ke level berikutnya.</p>
+        </div>
       </div>
+    </div>
 
-      <!-- Community Name -->
-      <div class="animate-fade-in-up delay-300 mb-8">
-        <p class="text-brand-600 text-sm font-semibold tracking-[0.2em] uppercase">EdgeOne Makers</p>
+    <!-- ===== SLIDE 4: APA YANG AKAN DIBUAT ===== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="4">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider">Sesi 1 — Lanjutan</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Apa yang Akan Dibuat?</h2>
+        <p class="text-slate-500 mb-6">Membangun Enterprise RAG Agent dari awal</p>
+        <div class="bg-gradient-to-br from-brand-600 to-brand-800 rounded-2xl p-8 text-white mb-6 text-center">
+          <div class="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-file-pdf text-3xl"></i></div>
+          <h3 class="text-2xl font-bold mb-2">Enterprise RAG Agent</h3>
+          <div class="flex items-center justify-center gap-3 text-blue-200 text-sm mt-4">
+            <span class="flex items-center gap-1"><i class="fa-solid fa-upload"></i> Upload PDF</span>
+            <i class="fa-solid fa-arrow-right"></i>
+            <span class="flex items-center gap-1"><i class="fa-solid fa-brain"></i> AI Membaca</span>
+            <i class="fa-solid fa-arrow-right"></i>
+            <span class="flex items-center gap-1"><i class="fa-solid fa-comments"></i> Tanya Apa Saja</span>
+            <i class="fa-solid fa-arrow-right"></i>
+            <span class="flex items-center gap-1"><i class="fa-solid fa-quote-left"></i> Jawab + Citation</span>
+          </div>
+        </div>
+        <div class="bg-blue-50 rounded-xl p-5 border border-blue-100">
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-circle-info text-brand-500 mt-0.5"></i>
+            <div>
+              <p class="text-sm text-slate-700 font-medium mb-1">Apa itu RAG?</p>
+              <p class="text-sm text-slate-500"><strong>Retrieval Augmented Generation</strong> — agent dapat membaca file yang diupload, lalu menjawab pertanyaan berdasarkan isi file tersebut. Cocok untuk HR, legal, edukasi, dan customer service.</p>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <!-- Connector visual: Web + Agent -->
-      <div class="animate-fade-in-scale delay-400 mb-8 flex items-center gap-4">
-        <!-- Web Pill -->
-        <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-white card-glow">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/>
-          </svg>
-          <span class="text-gray-700 text-sm font-semibold">Web</span>
+    <!-- ===== SLIDE 5: SPIEL BRIDGE ===== -->
+    <div class="slide flex-col items-center justify-center h-full px-6 bg-gradient-to-br from-white via-blue-50 to-white" data-slide="5">
+      <div class="max-w-2xl w-full text-center">
+        <img src="https://avatars.githubusercontent.com/u/176978739?s=200&v=4" alt="EdgeOne" class="w-14 h-14 rounded-xl shadow-lg mx-auto mb-6 float-anim">
+        <h2 class="text-3xl font-bold text-brand-900 mb-6">Mengapa Ini Berbeda?</h2>
+        <div class="grid sm:grid-cols-3 gap-4 mb-8">
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm card-hover">
+            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-3"><i class="fa-solid fa-globe text-brand-600"></i></div>
+            <h3 class="font-semibold text-slate-800 text-sm mb-1">1 Domain</h3>
+            <p class="text-xs text-slate-400">Frontend dan backend di satu alamat</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm card-hover">
+            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-3"><i class="fa-solid fa-code-merge text-brand-600"></i></div>
+            <h3 class="font-semibold text-slate-800 text-sm mb-1">1 Project</h3>
+            <p class="text-xs text-slate-400">Web dan Agent dalam satu repositori</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm card-hover">
+            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-3"><i class="fa-solid fa-ban text-brand-600"></i></div>
+            <h3 class="font-semibold text-slate-800 text-sm mb-1">No CORS Drama</h3>
+            <p class="text-xs text-slate-400">Tidak ada masalah cross-origin</p>
+          </div>
+        </div>
+        <div class="bg-slate-900 rounded-xl p-5 text-white text-left">
+          <p class="text-base leading-relaxed">"Sesi 2 ini yang membuat EdgeOne Makers berbeda dari platform lain. <strong class="text-blue-300">Web (frontend) + AI Agent (backend) = SATU project.</strong> Satu domain. Satu deploy. Tanpa konfigurasi CORS yang rumit."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 6: ARSITEKTUR ===== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="6">
+      <div class="max-w-3xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 2 — 10 Menit</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-8">Arsitektur Web + Agent</h2>
+
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 mb-6">
+          <!-- Architecture Diagram -->
+          <div class="flex flex-col items-center gap-2">
+            <div class="arch-box active-box w-48"><i class="fa-solid fa-desktop mr-2 text-brand-500"></i>Browser User</div>
+            <i class="fa-solid fa-arrow-down arch-arrow"></i>
+            <div class="flex flex-wrap justify-center gap-3 w-full">
+              <div class="arch-box flex-1 min-w-[140px]">
+                <div class="text-xs text-slate-400 mb-1">GET</div>
+                <div class="font-mono text-xs text-brand-700">/</div>
+                <div class="text-xs text-slate-400 mt-1">static/index.html</div>
+              </div>
+              <div class="arch-box flex-1 min-w-[140px]">
+                <div class="text-xs text-slate-400 mb-1">GET</div>
+                <div class="font-mono text-xs text-brand-700">/style.css</div>
+                <div class="text-xs text-slate-400 mt-1">static/style.css</div>
+              </div>
+              <div class="arch-box flex-1 min-w-[140px]">
+                <div class="text-xs text-slate-400 mb-1">GET</div>
+                <div class="font-mono text-xs text-brand-700">/app.js</div>
+                <div class="text-xs text-slate-400 mt-1">static/app.js</div>
+              </div>
+            </div>
+            <div class="my-1"></div>
+            <div class="arch-box active-box w-56">
+              <div class="text-xs text-slate-400 mb-1">POST</div>
+              <div class="font-mono text-xs text-brand-700">/rag-agent</div>
+              <div class="text-xs text-slate-400 mt-1">agents/rag/index.ts</div>
+            </div>
+            <i class="fa-solid fa-arrow-down arch-arrow"></i>
+            <div class="flex flex-wrap justify-center gap-3 w-full">
+              <div class="arch-box flex-1 min-w-[120px] !border-blue-300 !bg-blue-50"><i class="fa-solid fa-microchip mr-1 text-brand-500 text-xs"></i><span class="text-xs">AI Gateway</span></div>
+              <div class="arch-box flex-1 min-w-[120px] !border-blue-300 !bg-blue-50"><i class="fa-solid fa-database mr-1 text-brand-500 text-xs"></i><span class="text-xs">Blob Storage</span></div>
+              <div class="arch-box flex-1 min-w-[120px] !border-blue-300 !bg-blue-50"><i class="fa-solid fa-terminal mr-1 text-brand-500 text-xs"></i><span class="text-xs">Sandbox</span></div>
+            </div>
+          </div>
         </div>
 
-        <!-- Plus / Connector -->
+        <div class="bg-blue-50 rounded-xl p-4 border border-blue-100">
+          <p class="text-sm text-slate-600"><i class="fa-solid fa-circle-info text-brand-500 mr-2"></i>Di Vercel atau Netlify, hanya bisa hosting frontend. Backend agent harus di platform lain. Di EdgeOne: <strong>SEMUA dalam 1 folder project</strong>. Folder <code class="bg-white px-1.5 py-0.5 rounded text-xs">static/</code> auto-serve, folder <code class="bg-white px-1.5 py-0.5 rounded text-xs">agents/</code> auto-jadi API endpoint.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 7: DEPLOY RAG - STEP 1-4 ===== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="7">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 3 — 15 Menit</span>
+          <span class="tag-praktik"><i class="fa-solid fa-hand-pointer mr-1"></i> Praktik</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Deploy Enterprise RAG Agent</h2>
+        <p class="text-slate-500 mb-8">Menggunakan template RAG yang sudah tersedia</p>
+        <div class="space-y-5">
+          <div class="flex items-start gap-4">
+            <div class="step-num">1</div>
+            <div class="flex-1"><h3 class="font-semibold text-slate-800 mb-1">Buka Halaman Templates</h3><p class="text-sm text-slate-500">Arahkan browser ke <span class="url-box">pages.edgeone.ai/templates</span></p></div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="step-num">2</div>
+            <div class="flex-1"><h3 class="font-semibold text-slate-800 mb-1">Klik "Agent Templates"</h3><p class="text-sm text-slate-500">Pilih kategori Agent Templates dari marketplace</p></div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="step-num">3</div>
+            <div class="flex-1"><h3 class="font-semibold text-slate-800 mb-1">Cari "Enterprise RAG Agent"</h3><p class="text-sm text-slate-500">Temukan template RAG Agent dalam daftar yang tersedia</p></div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="step-num">4</div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-slate-800 mb-2">Klik "Use Template"</h3>
+              <div class="bg-white rounded-xl border border-blue-200 p-4 flex items-center gap-3">
+                <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center"><i class="fa-solid fa-file-lines text-brand-600 text-lg"></i></div>
+                <div><p class="font-semibold text-slate-800">Enterprise RAG Agent</p><p class="text-xs text-slate-400">Upload dokumen, tanya apa saja, jawab dengan citation</p></div>
+                <span class="ml-auto bg-brand-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg">Use Template</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 8: DEPLOY RAG - STEP 5-8 ===== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="8">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider">Sesi 3 — Lanjutan</span>
+          <span class="tag-praktik"><i class="fa-solid fa-hand-pointer mr-1"></i> Praktik</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-6">Deploy Enterprise RAG Agent</h2>
+        <div class="space-y-5">
+          <div class="flex items-start gap-4">
+            <div class="step-num">5</div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-slate-800 mb-2">Konfigurasi Project</h3>
+              <div class="grid sm:grid-cols-2 gap-3">
+                <div><label class="text-xs font-medium text-slate-500 mb-1 block">Project Name</label><div class="url-box w-full">kelasfullstack-rag-nama</div></div>
+                <div><label class="text-xs font-medium text-slate-500 mb-1 block">Region</label><div class="url-box w-full">Singapore / Hong Kong</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="step-num">6</div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-slate-800 mb-2">Edit edgeone.json Sebelum Deploy</h3>
+              <div class="code-block text-xs">
+{
+  <span class="prop">"name"</span>: <span class="str">"rag-agent"</span>,
+  <span class="prop">"framework"</span>: <span class="str">"openai-agents"</span>,
+  <span class="prop">"agents"</span>: {
+    <span class="prop">"rag-agent"</span>: {
+      <span class="prop">"entry"</span>: <span class="str">"agents/rag/index.ts"</span>,
+      <span class="prop">"model"</span>: <span class="str">"@makers/deepseek-v4-flash"</span>
+    }
+  }
+}
+              </div>
+              <p class="text-xs text-slate-400 mt-2"><i class="fa-solid fa-circle-info mr-1"></i>Menggunakan built-in model agar gratis tanpa API Key vendor</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="step-num">7</div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-slate-800 mb-1">Klik "Create & Deploy"</h3>
+              <div class="bg-slate-900 rounded-lg p-3 flex items-center gap-3 mt-2">
+                <span class="text-green-400 text-xs font-mono"><i class="fa-solid fa-code-branch mr-1"></i>Cloning</span>
+                <i class="fa-solid fa-chevron-right text-slate-600 text-xs"></i>
+                <span class="text-yellow-400 text-xs font-mono"><i class="fa-solid fa-hammer mr-1"></i>Building</span>
+                <i class="fa-solid fa-chevron-right text-slate-600 text-xs"></i>
+                <span class="text-blue-400 text-xs font-mono"><i class="fa-solid fa-rocket mr-1"></i>Deploying</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-2"><i class="fa-solid fa-stopwatch mr-1"></i>Tunggu 30-60 detik</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="step-num">8</div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-slate-800 mb-1">Buka URL Project</h3>
+              <p class="text-sm text-slate-500"><span class="url-box">kelasfullstack-rag-nama.edgeone.dev</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-5 bg-gradient-to-r from-brand-600 to-brand-700 rounded-xl p-4 text-white text-center">
+          <p class="font-semibold">RAG Agent sudah siap! Tinggal upload PDF dan mulai bertanya.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 9: COBA FITUR RAG ===== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="9">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 4 — 10 Menit</span>
+          <span class="tag-praktik"><i class="fa-solid fa-hand-pointer mr-1"></i> Praktik</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Mencoba Fitur RAG</h2>
+        <p class="text-slate-500 mb-6">Upload dokumen dan ajukan pertanyaan</p>
+        <div class="space-y-4 mb-6">
+          <div class="flex items-start gap-4">
+            <div class="step-num-sm">1</div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-slate-800 mb-1 text-sm">Siapkan File PDF</h3>
+              <p class="text-sm text-slate-500">Download artikel bebas dari web, simpan sebagai PDF. Atau gunakan file contoh yang tersedia di template.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="step-num-sm">2</div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-slate-800 mb-1 text-sm">Upload File</h3>
+              <p class="text-sm text-slate-500">Klik "Choose File" untuk memilih PDF, lalu klik "Upload"</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="step-num-sm">3</div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-slate-800 mb-2 text-sm">Ajukan Pertanyaan</h3>
+              <div class="space-y-2">
+                <div class="flex items-center gap-2 p-2.5 bg-white rounded-lg border border-slate-200 text-sm text-slate-600"><i class="fa-solid fa-message text-brand-400 text-xs"></i>"Apa isi dokumen ini?"</div>
+                <div class="flex items-center gap-2 p-2.5 bg-white rounded-lg border border-slate-200 text-sm text-slate-600"><i class="fa-solid fa-message text-brand-400 text-xs"></i>"Siapa penulisnya?"</div>
+                <div class="flex items-center gap-2 p-2.5 bg-white rounded-lg border border-slate-200 text-sm text-slate-600"><i class="fa-solid fa-message text-brand-400 text-xs"></i>"Apa poin utama di halaman 3?"</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-brand-600 rounded-xl p-4 text-white text-sm">
+          <p><i class="fa-solid fa-lightbulb text-yellow-300 mr-2"></i>Agent membaca file dan menjawab berdasarkan isi dokumen. Berbeda dengan ChatGPT biasa, jawabannya terbatas pada dokumen yang diupload.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 10: USE CASE RAG ===== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="10">
+      <div class="max-w-3xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider">Sesi 4 — Lanjutan</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-8">Use Case RAG di Dunia Nyata</h2>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm card-hover">
+            <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-3"><i class="fa-solid fa-people-group text-brand-600 text-lg"></i></div>
+            <h3 class="font-semibold text-slate-800 mb-1">HR Policy Bot</h3>
+            <p class="text-sm text-slate-500">Upload manual HR, tanya kebijakan perusahaan kapan saja tanpa menghubungi tim HR</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm card-hover">
+            <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-3"><i class="fa-solid fa-scale-balanced text-brand-600 text-lg"></i></div>
+            <h3 class="font-semibold text-slate-800 mb-1">Legal Contract Checker</h3>
+            <p class="text-sm text-slate-500">Upload kontrak, tanya klausul termination, hak dan kewajiban para pihak</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm card-hover">
+            <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-3"><i class="fa-solid fa-graduation-cap text-brand-600 text-lg"></i></div>
+            <h3 class="font-semibold text-slate-800 mb-1">Materi Kuliah Assistant</h3>
+            <p class="text-sm text-slate-500">Upload slide dan materi kuliah, tanya untuk persiapan ujian</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm card-hover">
+            <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-3"><i class="fa-solid fa-headset text-brand-600 text-lg"></i></div>
+            <h3 class="font-semibold text-slate-800 mb-1">Customer Service SOP</h3>
+            <p class="text-sm text-slate-500">Upload SOP, agent menjawab pertanyaan pelanggan secara otomatis</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 11: STRUKTUR KODE RAG ===== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="11">
+      <div class="max-w-3xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 5 — 20 Menit</span>
+          <span class="tag-praktik"><i class="fa-solid fa-hand-pointer mr-1"></i> Praktik</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Struktur Kode RAG Agent</h2>
+        <p class="text-slate-500 mb-6">Memahami kode inti di <code class="bg-slate-100 px-2 py-0.5 rounded text-xs">agents/rag/index.ts</code></p>
+        <div class="code-block text-xs mb-4" style="max-height:280px;overflow-y:auto">
+<span class="kw">import</span> { Agent, Runner, functionTool } <span class="kw">from</span> <span class="str">"openai-agents"</span>;
+<span class="kw">import</span> { getStore } <span class="kw">from</span> <span class="str">"@tencent/pages-blob"</span>;
+
+<span class="kw">const</span> <span class="fn">readDocument</span> = <span class="fn">functionTool</span>({
+  <span class="prop">name</span>: <span class="str">"read_document"</span>,
+  <span class="prop">description</span>: <span class="str">"Baca konten dokumen yang sudah diupload"</span>,
+  <span class="prop">parameters</span>: {
+    <span class="prop">type</span>: <span class="str">"object"</span>,
+    <span class="prop">properties</span>: {
+      <span class="prop">filename</span>: { <span class="prop">type</span>: <span class="str">"string"</span>, <span class="prop">description</span>: <span class="str">"Nama file"</span> },
+    },
+    <span class="prop">required</span>: [<span class="str">"filename"</span>],
+  },
+  <span class="prop">handler</span>: <span class="kw">async</span> ({ <span class="prop">filename</span> }, ctx) => {
+    <span class="kw">const</span> store = <span class="fn">getStore</span>(<span class="str">"documents"</span>);
+    <span class="kw">const</span> file = <span class="kw">await</span> store.<span class="fn">get</span>(filename);
+    <span class="kw">if</span> (!file) <span class="kw">return</span> <span class="str">"File tidak ditemukan."</span>;
+    <span class="kw">return</span> <span class="fn">extractText</span>(file);
+  },
+});
+        </div>
+        <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-lg bg-amber-400 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-pen-to-square text-white text-xs"></i></div>
+            <div>
+              <p class="text-sm font-semibold text-slate-800 mb-1">Tugas 1 — 5 Menit</p>
+              <p class="text-sm text-slate-500">Tambahkan tool <code class="bg-white px-1.5 py-0.5 rounded text-xs">ringkas_dokumen</code> yang memanggil LLM untuk merangkum isi file menjadi 3 bullet point.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 12: CUSTOMISASI FRONTEND ===== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="12">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider">Sesi 5 — Lanjutan</span>
+          <span class="tag-praktik"><i class="fa-solid fa-hand-pointer mr-1"></i> Praktik</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Customisasi Frontend</h2>
+        <p class="text-slate-500 mb-6">Mengubah tampilan antarmuka di <code class="bg-slate-100 px-2 py-0.5 rounded text-xs">static/app.js</code></p>
+
+        <div class="space-y-4 mb-6">
+          <div class="flex items-start gap-4">
+            <div class="step-num-sm">1</div>
+            <div class="flex-1 bg-white rounded-xl border border-slate-200 p-4">
+              <h3 class="font-semibold text-slate-800 text-sm mb-1">Ganti Judul</h3>
+              <div class="flex items-center gap-3 text-xs">
+                <span class="text-slate-400 line-through">"Enterprise RAG"</span>
+                <i class="fa-solid fa-arrow-right text-brand-400"></i>
+                <span class="text-brand-700 font-semibold">"KelasFullstack Document AI"</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="step-num-sm">2</div>
+            <div class="flex-1 bg-white rounded-xl border border-slate-200 p-4">
+              <h3 class="font-semibold text-slate-800 text-sm mb-1">Ganti Warna Tema</h3>
+              <p class="text-xs text-slate-500">Sesuaikan warna primer dan aksen dengan identitas KelasFullstack</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="step-num-sm">3</div>
+            <div class="flex-1 bg-white rounded-xl border border-slate-200 p-4">
+              <h3 class="font-semibold text-slate-800 text-sm mb-1">Tambah Footer</h3>
+              <p class="text-xs text-slate-500">"Powered by EdgeOne Makers x KelasFullstack"</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-lg bg-amber-400 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-pen-to-square text-white text-xs"></i></div>
+            <div>
+              <p class="text-sm font-semibold text-slate-800 mb-1">Tugas 2 — 10 Menit</p>
+              <p class="text-sm text-slate-500">Lakukan ketiga perubahan di atas, lalu redeploy dan lihat hasilnya di browser.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 13: BLOB STORAGE ===== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="13">
+      <div class="max-w-3xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 6 — 15 Menit</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Blob Storage</h2>
+        <p class="text-slate-500 mb-6">Di mana file yang diupload disimpan?</p>
+
+        <div class="bg-white rounded-xl border border-slate-200 p-5 mb-5">
+          <div class="flex flex-col items-center gap-2 text-sm">
+            <div class="arch-box active-box w-48"><i class="fa-solid fa-upload mr-2 text-brand-500 text-xs"></i>User Upload PDF</div>
+            <i class="fa-solid fa-arrow-down arch-arrow text-xs"></i>
+            <div class="arch-box w-56"><i class="fa-solid fa-server mr-2 text-brand-500 text-xs"></i>EdgeOne terima (multipart/form-data)</div>
+            <i class="fa-solid fa-arrow-down arch-arrow text-xs"></i>
+            <div class="arch-box active-box w-64"><i class="fa-solid fa-database mr-2 text-brand-500 text-xs"></i>Blob Storage: documents/{conversation_id}/{filename}</div>
+            <i class="fa-solid fa-arrow-down arch-arrow text-xs"></i>
+            <div class="arch-box w-72 !text-xs"><code class="text-brand-700">getStore("documents").get("path/to/file.pdf")</code></div>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-4">
+          <div>
+            <p class="text-xs font-semibold text-slate-400 uppercase mb-2">Frontend Upload</p>
+            <div class="code-block text-xs" style="max-height:160px;overflow-y:auto">
+<span class="kw">async function</span> <span class="fn">uploadFile</span>(file, convId) {
+  <span class="kw">const</span> fd = <span class="kw">new</span> <span class="type">FormData</span>();
+  fd.<span class="fn">append</span>(<span class="str">'file'</span>, file);
+  fd.<span class="fn">append</span>(<span class="str">'conversation_id'</span>, convId);
+
+  <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'/api/upload'</span>, {
+    <span class="prop">method</span>: <span class="str">'POST'</span>,
+    <span class="prop">body</span>: fd,
+  });
+  <span class="kw">return</span> res.<span class="fn">json</span>();
+}
+            </div>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-slate-400 uppercase mb-2">Backend Handler</p>
+            <div class="code-block text-xs" style="max-height:160px;overflow-y:auto">
+<span class="kw">import</span> { getStore } <span class="kw">from</span> <span class="str">"@tencent/pages-blob"</span>;
+
+<span class="kw">export default async function</span> <span class="fn">handler</span>(req) {
+  <span class="kw">const</span> fd = <span class="kw">await</span> req.<span class="fn">formData</span>();
+  <span class="kw">const</span> file = fd.<span class="fn">get</span>(<span class="str">'file'</span>);
+  <span class="kw">const</span> convId = fd.<span class="fn">get</span>(<span class="str">'conversation_id'</span>);
+
+  <span class="kw">const</span> store = <span class="fn">getStore</span>(<span class="str">"documents"</span>);
+  <span class="kw">const</span> path = <span class="str">`${convId}/${file.name}`</span>;
+  <span class="kw">await</span> store.<span class="fn">set</span>(path,
+    <span class="kw">await</span> file.<span class="fn">arrayBuffer</span>()
+  );
+
+  <span class="kw">return</span> <span class="type">Response</span>.<span class="fn">json</span>({
+    <span class="prop">success</span>: <span class="kw">true</span>, path,
+    <span class="prop">filename</span>: file.name
+  });
+}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 14: BLOB VS KV ===== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="14">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider">Sesi 6 — Lanjutan</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-8">Blob Storage vs KV Storage</h2>
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+          <table class="table-custom">
+            <thead>
+              <tr><th>Aspek</th><th><i class="fa-solid fa-database mr-1"></i> Blob</th><th><i class="fa-solid fa-key mr-1"></i> KV</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="font-medium">Tipe Data</td><td>File / binary / object</td><td>Key-value (string)</td></tr>
+              <tr><td class="font-medium">Max Size</td><td>25 MB per object</td><td>25 MB per value</td></tr>
+              <tr><td class="font-medium">Struktur</td><td>Directory-based (hierarki)</td><td>Flat namespace</td></tr>
+              <tr><td class="font-medium">Use Case</td><td>Dokumen, gambar, file</td><td>Config, counters, session</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-6 bg-blue-50 rounded-xl p-4 border border-blue-100">
+          <p class="text-sm text-slate-600"><i class="fa-solid fa-circle-info text-brand-500 mr-2"></i>Untuk RAG Agent, kita menggunakan <strong>Blob Storage</strong> karena menyimpan file PDF yang memiliki struktur hierarki berdasarkan conversation ID.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 15: PROMPT ENGINEERING RAG ===== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="15">
+      <div class="max-w-3xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 7 — 10 Menit</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Prompt Engineering untuk RAG</h2>
+        <p class="text-slate-500 mb-5">Mengatur system prompt agar jawaban agent lebih akurat</p>
+        <div class="code-block text-xs mb-5" style="max-height:310px;overflow-y:auto">
+<span class="kw">const</span> agent = <span class="kw">new</span> <span class="type">Agent</span>({
+  <span class="prop">name</span>: <span class="str">"DocumentAssistant"</span>,
+  <span class="prop">instructions</span>: <span class="str">`Kamu adalah asisten dokumen KelasFullstack.
+
+  ATURAN MAIN:
+  1. Jawab berdasarkan dokumen yang diupload — JANGAN mengarang
+  2. Kalau ditanya di luar dokumen, bilang "Maaf, info itu tidak ada di dokumen"
+  3. Sertakan nomor halaman kalau bisa
+  4. Jawab menggunakan Bahasa Indonesia santai
+  5. Kalau belum upload dokumen, arahkan user untuk upload dulu
+
+  POLA JAWABAN:
+  - Ringkasan: "Berdasarkan dokumen, poin utamanya adalah..."
+  - Detail: "Di halaman X disebutkan bahwa..."
+  - Luar dokumen: "Maaf, dokumen tidak mencakup informasi itu."</span>``,
+});
+        </div>
+        <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-lg bg-amber-400 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-pen-to-square text-white text-xs"></i></div>
+            <div>
+              <p class="text-sm font-semibold text-slate-800 mb-1">Tugas — 5 Menit</p>
+              <p class="text-sm text-slate-500">Tambahkan dua aturan berikut ke dalam instruksi agent:</p>
+              <ul class="text-sm text-slate-600 mt-2 space-y-1">
+                <li class="flex items-start gap-2"><i class="fa-solid fa-plus text-amber-500 text-xs mt-1"></i>Jika user bertanya dalam Bahasa Inggris, jawab dalam Bahasa Inggris</li>
+                <li class="flex items-start gap-2"><i class="fa-solid fa-plus text-amber-500 text-xs mt-1"></i>Jika jawaban memerlukan langkah-langkah, gunakan numbering</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 16: MINI PROJECT CHALLENGE ===== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="16">
+      <div class="max-w-2xl w-full text-center">
+        <div class="flex items-center justify-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 8 — 20 Menit</span>
+          <span class="tag-challenge"><i class="fa-solid fa-trophy mr-1"></i> Challenge</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Mini Project Challenge</h2>
+        <p class="text-slate-500 mb-6">Waktu: 15 menit ngoding, 5 menit demo</p>
+
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-lg p-6 text-left mb-6">
+          <div class="space-y-3">
+            <div class="flex items-start gap-3"><div class="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white text-xs font-bold">1</span></div><p class="text-slate-700 text-sm">Upload minimal <strong>1 file PDF</strong></p></div>
+            <div class="flex items-start gap-3"><div class="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white text-xs font-bold">2</span></div><p class="text-slate-700 text-sm">Bisa bertanya tentang <strong>isi dokumen</strong></p></div>
+            <div class="flex items-start gap-3"><div class="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white text-xs font-bold">3</span></div><p class="text-slate-700 text-sm">Jawaban menggunakan <strong>citation</strong></p></div>
+            <div class="flex items-start gap-3"><div class="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-white text-xs font-bold">4</span></div><p class="text-slate-700 text-sm">Frontend di-custom: <strong>judul, warna, logo</strong> KelasFullstack</p></div>
+            <div class="flex items-start gap-3"><div class="w-7 h-7 rounded-full bg-amber-400 flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fa-solid fa-star text-white text-xs"></i></div><p class="text-slate-700 text-sm">Bonus: Support <strong>lebih dari 1 file</strong> per sesi</p></div>
+          </div>
+        </div>
+
+        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Ide Use Case — Pilih Salah Satu</p>
+        <div class="grid grid-cols-2 gap-3 text-left mb-4">
+          <div class="p-3 bg-blue-50 rounded-lg border border-blue-100"><p class="text-sm text-slate-700"><i class="fa-solid fa-people-group text-brand-500 mr-2"></i>HR Policy Bot</p></div>
+          <div class="p-3 bg-blue-50 rounded-lg border border-blue-100"><p class="text-sm text-slate-700"><i class="fa-solid fa-graduation-cap text-brand-500 mr-2"></i>Materi Kuliah Assistant</p></div>
+          <div class="p-3 bg-blue-50 rounded-lg border border-blue-100"><p class="text-sm text-slate-700"><i class="fa-solid fa-scale-balanced text-brand-500 mr-2"></i>Kontrak Legal Checker</p></div>
+          <div class="p-3 bg-blue-50 rounded-lg border border-blue-100"><p class="text-sm text-slate-700"><i class="fa-solid fa-cart-shopping text-brand-500 mr-2"></i>Katalog Produk AI</p></div>
+        </div>
+        <p class="text-sm text-slate-400"><i class="fa-solid fa-gift text-amber-400 mr-1"></i> Peserta dengan hasil terbaik mendapat shoutout!</p>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 17: PRODUCTION NOTES ===== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="17">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 9 — 10 Menit</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-6">Catatan Produksi</h2>
+        <div class="space-y-4">
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center"><i class="fa-solid fa-key text-brand-600"></i></div>
+              <h3 class="font-semibold text-slate-800">Bring Your Own Key (BYOK)</h3>
+            </div>
+            <p class="text-sm text-slate-500">Built-in model hanya untuk testing (500K token gratis). Untuk produksi, gunakan API Key sendiri melalui <strong>Settings → Environment Variables → tambah OPENAI_API_KEY</strong></p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center"><i class="fa-solid fa-link text-brand-600"></i></div>
+              <h3 class="font-semibold text-slate-800">Custom Domain</h3>
+            </div>
+            <p class="text-sm text-slate-500">Ingin menggunakan domain sendiri? Melalui <strong>Settings → Domain → Add Custom Domain</strong>. SSL otomatis dari EdgeOne, tanpa biaya tambahan.</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center"><i class="fa-solid fa-chart-line text-brand-600"></i></div>
+              <h3 class="font-semibold text-slate-800">Monitoring</h3>
+            </div>
+            <p class="text-sm text-slate-500">Dashboard → Metrics untuk melihat jumlah request, latency, dan error rate. Trace viewer untuk melihat LLM calls, tool calls, dan durasi setiap proses.</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center"><i class="fa-solid fa-shield-halved text-brand-600"></i></div>
+              <h3 class="font-semibold text-slate-800">Keamanan</h3>
+            </div>
+            <div class="text-sm text-slate-500 space-y-1">
+              <p><i class="fa-solid fa-check text-green-500 mr-2 text-xs"></i>Jangan hardcode API Key di kode — gunakan <code class="bg-slate-100 px-1 py-0.5 rounded text-xs">context.env</code></p>
+              <p><i class="fa-solid fa-check text-green-500 mr-2 text-xs"></i>Lakukan input validation di frontend dan backend</p>
+              <p><i class="fa-solid fa-check text-green-500 mr-2 text-xs"></i>EdgeOne secara otomatis menangani DDoS protection</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 18: RANGKUMAN ===== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="18">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2"><span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 10 — 10 Menit</span></div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-8">Rangkuman Workshop</h2>
+        <div class="space-y-3 mb-8">
+          <div class="flex items-center gap-4 p-4 bg-green-50 rounded-xl border border-green-100">
+            <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-check text-white"></i></div>
+            <p class="text-slate-700 font-medium">Web + Agent dalam 1 project — arsitektur EdgeOne</p>
+          </div>
+          <div class="flex items-center gap-4 p-4 bg-green-50 rounded-xl border border-green-100">
+            <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-check text-white"></i></div>
+            <p class="text-slate-700 font-medium">Deploy Enterprise RAG Agent dari template</p>
+          </div>
+          <div class="flex items-center gap-4 p-4 bg-green-50 rounded-xl border border-green-100">
+            <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-check text-white"></i></div>
+            <p class="text-slate-700 font-medium">Blob Storage untuk manajemen file</p>
+          </div>
+          <div class="flex items-center gap-4 p-4 bg-green-50 rounded-xl border border-green-100">
+            <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-check text-white"></i></div>
+            <p class="text-slate-700 font-medium">Prompt engineering untuk akurasi jawaban RAG</p>
+          </div>
+          <div class="flex items-center gap-4 p-4 bg-green-50 rounded-xl border border-green-100">
+            <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-check text-white"></i></div>
+            <p class="text-slate-700 font-medium">Upload dan tanya dokumen — jawab dengan citation</p>
+          </div>
+        </div>
+        <div class="bg-gradient-to-r from-brand-50 to-blue-50 rounded-xl p-5 border border-blue-200">
+          <h3 class="font-semibold text-brand-800 mb-3"><i class="fa-solid fa-forward mr-2"></i>Sesi Berikutnya</h3>
+          <div class="space-y-2 text-sm text-slate-600">
+            <p><i class="fa-solid fa-check text-brand-500 mr-2"></i>Sandbox: browser, shell, code execution</p>
+            <p><i class="fa-solid fa-check text-brand-500 mr-2"></i>Research Agent yang bisa browsing</p>
+            <p><i class="fa-solid fa-check text-brand-500 mr-2"></i>Agent dengan memori lintas sesi</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 19: PESAN PENUTUP ===== -->
+    <div class="slide flex-col items-center justify-center h-full px-6 bg-gradient-to-br from-white via-blue-50 to-white" data-slide="19">
+      <div class="max-w-2xl w-full text-center">
+        <img src="https://avatars.githubusercontent.com/u/176978739?s=200&v=4" alt="EdgeOne Makers" class="w-16 h-16 rounded-2xl shadow-lg mx-auto mb-6 float-anim">
+        <h2 class="text-3xl font-bold text-brand-900 mb-6">Pesan Penutup</h2>
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-lg p-8 text-left mb-6">
+          <i class="fa-solid fa-quote-left text-blue-200 text-2xl mb-4 block"></i>
+          <p class="text-lg text-slate-700 leading-relaxed mb-5">Yang Anda pelajari hari ini adalah <strong>skill yang paling dicari</strong> di industri saat ini:</p>
+          <div class="bg-gradient-to-r from-brand-600 to-brand-800 rounded-xl p-5 text-white mb-5">
+            <p class="text-xl font-bold text-center">Full-Stack Developer + AI = Kombinasi Paling Diminati</p>
+          </div>
+          <p class="text-slate-600 leading-relaxed">Kemampuan untuk membangun aplikasi yang bisa upload file dan menjawab pertanyaan berdasarkan dokumen adalah <strong>use case nyata</strong> yang langsung bisa diterapkan untuk kebutuhan klien. Dari customer service otomatis hingga asisten hukum digital.</p>
+        </div>
+        <p class="text-2xl font-bold text-brand-700 mb-2">Terima kasih! Sampai jumpa di Sesi 3.</p>
+        <p class="text-sm text-slate-400">Rozak — Mentor KelasFullstack</p>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 20: TIMELINE ===== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="20">
+      <div class="max-w-2xl w-full">
+        <h2 class="text-3xl font-bold text-brand-900 mb-8 text-center">Timeline Workshop 2 Jam</h2>
         <div class="relative">
-          <svg class="w-8 h-8 text-brand-400" viewBox="0 0 32 32" fill="none">
-            <line x1="16" y1="4" x2="16" y2="28" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="animate-draw-line" style="stroke-dasharray: 24;"/>
-            <line x1="4" y1="16" x2="28" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="animate-draw-line delay-300" style="stroke-dasharray: 24;"/>
-          </svg>
+          <div class="absolute left-[18px] top-0 bottom-0 w-0.5 bg-blue-200"></div>
+          <div class="space-y-4">
+            <div class="flex items-start gap-4"><div class="w-9 h-9 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 z-10 shadow"><span class="text-white text-xs font-bold">1</span></div><div class="flex-1 bg-white rounded-xl border border-slate-200 p-3.5 shadow-sm flex items-center justify-between"><h3 class="font-semibold text-slate-800 text-sm">Recap + Bridge</h3><span class="text-xs font-mono text-slate-400">00:00 - 00:07</span></div></div>
+            <div class="flex items-start gap-4"><div class="w-9 h-9 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 z-10 shadow"><span class="text-white text-xs font-bold">2</span></div><div class="flex-1 bg-white rounded-xl border border-slate-200 p-3.5 shadow-sm flex items-center justify-between"><h3 class="font-semibold text-slate-800 text-sm">Arsitektur Web + Agent</h3><span class="text-xs font-mono text-slate-400">00:07 - 00:17</span></div></div>
+            <div class="flex items-start gap-4"><div class="w-9 h-9 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 z-10 shadow"><span class="text-white text-xs font-bold">3</span></div><div class="flex-1 bg-blue-50 rounded-xl border border-blue-200 p-3.5 flex items-center justify-between"><h3 class="font-semibold text-slate-800 text-sm">Deploy RAG Template <span class="tag-praktik ml-1">Praktik</span></h3><span class="text-xs font-mono text-slate-400">00:17 - 00:32</span></div></div>
+            <div class="flex items-start gap-4"><div class="w-9 h-9 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 z-10 shadow relative pulse-ring"><span class="text-white text-xs font-bold">4</span></div><div class="flex-1 bg-brand-50 rounded-xl border-2 border-brand-300 p-3.5 flex items-center justify-between"><h3 class="font-semibold text-brand-800 text-sm">Coba Fitur RAG <span class="tag-praktik ml-1">Praktik</span></h3><span class="text-xs font-mono text-brand-500 font-semibold">00:32 - 00:42</span></div></div>
+            <div class="flex items-start gap-4"><div class="w-9 h-9 rounded-full bg-slate-300 flex items-center justify-center flex-shrink-0 z-10"><span class="text-white text-xs font-bold">5</span></div><div class="flex-1 bg-blue-50 rounded-xl border border-blue-200 p-3.5 flex items-center justify-between"><h3 class="font-semibold text-slate-800 text-sm">Ngoprek Kode RAG <span class="tag-praktik ml-1">Praktik</span></h3><span class="text-xs font-mono text-slate-400">00:42 - 01:02</span></div></div>
+            <div class="flex items-start gap-4"><div class="w-9 h-9 rounded-full bg-slate-300 flex items-center justify-center flex-shrink-0 z-10"><span class="text-white text-xs font-bold">6</span></div><div class="flex-1 bg-white rounded-xl border border-slate-200 p-3.5 shadow-sm flex items-center justify-between"><h3 class="font-semibold text-slate-800 text-sm">Blob Storage Deep Dive</h3><span class="text-xs font-mono text-slate-400">01:02 - 01:17</span></div></div>
+            <div class="flex items-start gap-4"><div class="w-9 h-9 rounded-full bg-slate-300 flex items-center justify-center flex-shrink-0 z-10"><span class="text-white text-xs font-bold">7</span></div><div class="flex-1 bg-white rounded-xl border border-slate-200 p-3.5 shadow-sm flex items-center justify-between"><h3 class="font-semibold text-slate-800 text-sm">Prompt Engineering RAG</h3><span class="text-xs font-mono text-slate-400">01:17 - 01:27</span></div></div>
+            <div class="flex items-start gap-4"><div class="w-9 h-9 rounded-full bg-amber-400 flex items-center justify-center flex-shrink-0 z-10"><i class="fa-solid fa-trophy text-white text-xs"></i></div><div class="flex-1 bg-amber-50 rounded-xl border border-amber-200 p-3.5 flex items-center justify-between"><h3 class="font-semibold text-slate-800 text-sm">Mini Project Challenge</h3><span class="text-xs font-mono text-slate-400">01:27 - 01:47</span></div></div>
+            <div class="flex items-start gap-4"><div class="w-9 h-9 rounded-full bg-slate-300 flex items-center justify-center flex-shrink-0 z-10"><span class="text-white text-xs font-bold">9</span></div><div class="flex-1 bg-white rounded-xl border border-slate-200 p-3.5 shadow-sm flex items-center justify-between"><h3 class="font-semibold text-slate-800 text-sm">Production Notes</h3><span class="text-xs font-mono text-slate-400">01:47 - 01:57</span></div></div>
+            <div class="flex items-start gap-4"><div class="w-9 h-9 rounded-full bg-slate-300 flex items-center justify-center flex-shrink-0 z-10"><i class="fa-solid fa-flag-checkered text-white text-xs"></i></div><div class="flex-1 bg-white rounded-xl border border-slate-200 p-3.5 shadow-sm flex items-center justify-between"><h3 class="font-semibold text-slate-800 text-sm">Q&A & Wrap Up</h3><span class="text-xs font-mono text-slate-400">01:57 - 02:07</span></div></div>
+          </div>
         </div>
-
-        <!-- Agent Pill -->
-        <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-white card-glow">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/>
-          </svg>
-          <span class="text-gray-700 text-sm font-semibold">Agent</span>
-        </div>
-      </div>
-
-      <!-- Main Title -->
-      <div class="animate-fade-in-up delay-500 text-center max-w-4xl">
-        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.08] tracking-tight text-gray-900">
-          Full-Stack AI
-          <br/>
-          <span class="gradient-text">Web + Agent</span>
-          <br/>
-          <span class="text-gray-900">dalam</span>
-          <span class="relative inline-block mx-2">
-            <span class="gradient-text">Satu Project</span>
-            <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 260 12" fill="none">
-              <path d="M2 8 C60 2, 200 2, 258 8" stroke="#3b82f6" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
-            </svg>
-          </span>
-        </h1>
-      </div>
-
-      <!-- Subtitle -->
-      <div class="animate-fade-in-up delay-600 mt-8 text-center max-w-xl">
-        <p class="text-gray-500 text-lg font-light leading-relaxed">
-          Gabungkan frontend, backend, dan AI Agent ke dalam satu proyek utuh — siap deploy ke produksi.
-        </p>
-      </div>
-
-      <!-- CTA Buttons -->
-      <div class="animate-fade-in-up delay-700 mt-10 flex flex-wrap items-center justify-center gap-3">
-        <div class="flex items-center gap-2 px-5 py-2.5 bg-brand-600 text-white rounded-full font-medium text-sm shadow-lg shadow-brand-500/25 hover:bg-brand-700 transition-colors cursor-pointer">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-          Mulai Workshop
-        </div>
-        <div class="flex items-center gap-2 px-5 py-2.5 bg-white text-gray-600 rounded-full font-medium text-sm border border-gray-200 shadow-sm hover:border-brand-300 hover:text-brand-600 transition-colors cursor-pointer">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-          Lihat Repo
-        </div>
-      </div>
-
-      <!-- Bottom Tags -->
-      <div class="animate-fade-in-up delay-800 mt-14 flex flex-wrap items-center justify-center gap-2">
-        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">Next.js</span>
-        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">AI Agent</span>
-        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">EdgeOne</span>
-        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">Full-Stack</span>
-        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">Monorepo</span>
-        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">Production</span>
       </div>
     </div>
-
-    <!-- Bottom Bar -->
-    <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-400 via-brand-600 to-brand-400"></div>
 
   </div>
 
+  <!-- Navigation -->
+  <div class="fixed bottom-0 left-0 w-full z-40">
+    <div class="flex items-center justify-between px-6 py-4 bg-white/80 backdrop-blur-xl border-t border-slate-100">
+      <button id="prevBtn" onclick="changeSlide(-1)" class="nav-btn w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 disabled:opacity-30 disabled:cursor-not-allowed disabled:transform-none" disabled><i class="fa-solid fa-chevron-left text-sm"></i></button>
+      <div id="indicators" class="flex items-center gap-1.5"></div>
+      <button id="nextBtn" onclick="changeSlide(1)" class="nav-btn w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400"><i class="fa-solid fa-chevron-right text-sm"></i></button>
+    </div>
+  </div>
+
+  <!-- Keyboard Hint -->
+  <div id="keyHint" class="fixed bottom-20 right-6 z-30 bg-slate-900 text-white text-xs rounded-lg px-3 py-2 opacity-0 transition-opacity duration-500 pointer-events-none">
+    <i class="fa-solid fa-keyboard mr-1"></i> Gunakan <kbd class="bg-slate-700 px-1.5 py-0.5 rounded text-xs">&larr;</kbd> <kbd class="bg-slate-700 px-1.5 py-0.5 rounded text-xs">&rarr;</kbd> untuk navigasi
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 1;
+
+    const indicatorsContainer = document.getElementById('indicators');
+    for (let i = 1; i <= totalSlides; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'slide-indicator w-2 h-2 rounded-full bg-slate-300 cursor-pointer';
+      dot.dataset.slide = i;
+      dot.onclick = () => goToSlide(i);
+      indicatorsContainer.appendChild(dot);
+    }
+
+    function updateSlide() {
+      slides.forEach(s => s.classList.remove('active'));
+      const target = document.querySelector(`[data-slide="${currentSlide}"]`);
+      if (target) setTimeout(() => target.classList.add('active'), 50);
+
+      document.querySelectorAll('.slide-indicator').forEach((dot, idx) => {
+        dot.classList.remove('active');
+        if (idx + 1 === currentSlide) dot.classList.add('active');
+      });
+
+      document.getElementById('slideCounter').textContent = `${currentSlide} / ${totalSlides}`;
+      document.getElementById('progressBar').style.width = `${((currentSlide - 1) / (totalSlides - 1)) * 100}%`;
+      document.getElementById('prevBtn').disabled = currentSlide === 1;
+      document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+
+      const animEls = target?.querySelectorAll('.fade-in');
+      animEls?.forEach(el => { el.style.animation = 'none'; el.offsetHeight; el.style.animation = ''; });
+    }
+
+    function changeSlide(d) {
+      const n = currentSlide + d;
+      if (n >= 1 && n <= totalSlides) { currentSlide = n; updateSlide(); }
+    }
+    function goToSlide(n) {
+      if (n >= 1 && n <= totalSlides) { currentSlide = n; updateSlide(); }
+    }
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
+      else document.exitFullscreen().catch(()=>{});
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); changeSlide(1); }
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); changeSlide(-1); }
+      else if (e.key === 'Home') { e.preventDefault(); goToSlide(1); }
+      else if (e.key === 'End') { e.preventDefault(); goToSlide(totalSlides); }
+      else if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+    });
+
+    let touchX = 0, touchY = 0;
+    document.addEventListener('touchstart', (e) => { touchX = e.changedTouches[0].screenX; touchY = e.changedTouches[0].screenY; });
+    document.addEventListener('touchend', (e) => {
+      const dx = touchX - e.changedTouches[0].screenX;
+      const dy = touchY - e.changedTouches[0].screenY;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) { dx > 0 ? changeSlide(1) : changeSlide(-1); }
+    });
+
+    setTimeout(() => {
+      const h = document.getElementById('keyHint');
+      h.style.opacity = '1';
+      setTimeout(() => { h.style.opacity = '0'; }, 4000);
+    }, 2000);
+
+    updateSlide();
+  </script>
 </body>
 </html>
