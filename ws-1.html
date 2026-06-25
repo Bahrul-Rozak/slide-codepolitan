@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EdgeOne Makers — Workshop #1</title>
+  <title>Workshop 1 — Zero to Hero: Deploy AI Agent Pertama</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
@@ -13,16 +14,17 @@
           fontFamily: { sans: ['Inter', 'sans-serif'] },
           colors: {
             brand: {
-              50:  '#eff6ff',
-              100: '#dbeafe',
-              200: '#bfdbfe',
-              300: '#93c5fd',
-              400: '#60a5fa',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8',
-              800: '#1e40af',
-              900: '#1e3a8a',
+              50: '#EFF6FF',
+              100: '#DBEAFE',
+              200: '#BFDBFE',
+              300: '#93C5FD',
+              400: '#60A5FA',
+              500: '#3B82F6',
+              600: '#2563EB',
+              700: '#1D4ED8',
+              800: '#1E40AF',
+              900: '#1E3A8A',
+              950: '#172554',
             }
           }
         }
@@ -30,183 +32,1235 @@
     }
   </script>
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; }
+
+    .slide { 
+      display: none; 
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .slide.active { 
+      display: flex; 
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .code-block {
+      background: #0F172A;
+      color: #E2E8F0;
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .code-block .keyword { color: #93C5FD; }
+    .code-block .string { color: #86EFAC; }
+    .code-block .comment { color: #64748B; }
+    .code-block .property { color: #FCD34D; }
+    .code-block .type { color: #C4B5FD; }
+
+    .slide-indicator {
+      transition: all 0.3s ease;
+    }
+    .slide-indicator.active {
+      width: 24px;
+      border-radius: 9999px;
+      background: #2563EB;
+    }
+
+    .checklist-item {
+      position: relative;
+      padding-left: 32px;
+    }
+    .checklist-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 2px;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #BFDBFE;
+      border-radius: 4px;
+      background: white;
+    }
+    .checklist-item.checked::before {
+      background: #2563EB;
+      border-color: #2563EB;
+    }
+    .checklist-item.checked::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 5px;
+      width: 6px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      border-radius: 50%;
+      background: #2563EB;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .tree-line {
+      border-left: 2px solid #BFDBFE;
+      margin-left: 10px;
+      padding-left: 20px;
+    }
+
     @keyframes float {
       0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-12px); }
+      50% { transform: translateY(-8px); }
     }
+    .float-anim { animation: float 3s ease-in-out infinite; }
+
     @keyframes pulse-ring {
-      0% { transform: scale(1); opacity: 0.4; }
-      100% { transform: scale(1.8); opacity: 0; }
+      0% { transform: scale(1); opacity: 0.5; }
+      100% { transform: scale(1.5); opacity: 0; }
     }
-    @keyframes fade-in-up {
+    .pulse-ring::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid #2563EB;
+      animation: pulse-ring 2s ease-out infinite;
+    }
+
+    .nav-btn {
+      transition: all 0.2s ease;
+    }
+    .nav-btn:hover {
+      background: #2563EB;
+      color: white;
+      transform: scale(1.1);
+    }
+    .nav-btn:active {
+      transform: scale(0.95);
+    }
+
+    .progress-bar {
+      transition: width 0.5s ease;
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    @keyframes slide-in-right {
-      from { opacity: 0; transform: translateX(40px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-    .animate-float { animation: float 4s ease-in-out infinite; }
-    .animate-pulse-ring { animation: pulse-ring 2.5s ease-out infinite; }
-    .animate-fade-in-up { animation: fade-in-up 0.8s ease-out both; }
-    .animate-slide-in-right { animation: slide-in-right 0.8s ease-out both; }
-    .delay-100 { animation-delay: 0.1s; }
-    .delay-200 { animation-delay: 0.2s; }
-    .delay-300 { animation-delay: 0.3s; }
-    .delay-400 { animation-delay: 0.4s; }
-    .delay-500 { animation-delay: 0.5s; }
-    .delay-600 { animation-delay: 0.6s; }
-    .delay-700 { animation-delay: 0.7s; }
-    .delay-800 { animation-delay: 0.8s; }
 
-    .grid-bg {
-      background-image:
-        linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
-      background-size: 48px 48px;
+    .stagger-1 { animation-delay: 0.1s; opacity: 0; }
+    .stagger-2 { animation-delay: 0.2s; opacity: 0; }
+    .stagger-3 { animation-delay: 0.3s; opacity: 0; }
+    .stagger-4 { animation-delay: 0.4s; opacity: 0; }
+    .stagger-5 { animation-delay: 0.5s; opacity: 0; }
+
+    .tag-praktik {
+      background: linear-gradient(135deg, #2563EB, #1D4ED8);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
-    .gradient-text {
-      background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #2563eb 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .comparison-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .comparison-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(37, 99, 235, 0.15);
+    }
+
+    .url-box {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      padding: 8px 14px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: #2563EB;
+      display: inline-block;
     }
   </style>
 </head>
-<body class="font-sans antialiased">
+<body class="bg-white text-slate-800">
 
-  <div class="relative w-screen h-screen overflow-hidden bg-white grid-bg">
+  <!-- Progress Bar -->
+  <div class="fixed top-0 left-0 w-full h-1 bg-blue-100 z-50">
+    <div id="progressBar" class="progress-bar h-full bg-gradient-to-r from-blue-600 to-blue-400" style="width: 0%"></div>
+  </div>
 
-    <!-- Decorative Elements -->
-    <!-- Top-right blob -->
-    <div class="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-brand-100/60 blur-3xl pointer-events-none"></div>
-    <!-- Bottom-left blob -->
-    <div class="absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full bg-brand-50/80 blur-3xl pointer-events-none"></div>
-    <!-- Small accent blob -->
-    <div class="absolute top-1/3 right-1/4 w-[200px] h-[200px] rounded-full bg-brand-200/30 blur-2xl pointer-events-none"></div>
-
-    <!-- Dot pattern top-left -->
-    <div class="absolute top-8 left-8 flex gap-2 opacity-30">
-      <div class="w-1.5 h-1.5 rounded-full bg-brand-400"></div>
-      <div class="w-1.5 h-1.5 rounded-full bg-brand-400"></div>
-      <div class="w-1.5 h-1.5 rounded-full bg-brand-400"></div>
-      <div class="w-1.5 h-1.5 rounded-full bg-brand-300"></div>
-      <div class="w-1.5 h-1.5 rounded-full bg-brand-300"></div>
+  <!-- Top Bar -->
+  <div class="fixed top-1 left-0 w-full z-40 px-6 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <img src="https://avatars.githubusercontent.com/u/176978739?s=200&v=4" alt="EdgeOne" class="w-8 h-8 rounded-lg">
+      <span class="text-sm font-semibold text-brand-700 hidden sm:block">EdgeOne Makers Workshop</span>
     </div>
-    <div class="absolute top-[18px] left-8 flex gap-2 opacity-20">
-      <div class="w-1.5 h-1.5 rounded-full bg-brand-400"></div>
-      <div class="w-1.5 h-1.5 rounded-full bg-brand-300"></div>
-      <div class="w-1.5 h-1.5 rounded-full bg-brand-300"></div>
-      <div class="w-1.5 h-1.5 rounded-full bg-brand-200"></div>
-      <div class="w-1.5 h-1.5 rounded-full bg-brand-200"></div>
+    <div class="flex items-center gap-4">
+      <span id="slideCounter" class="text-xs font-medium text-slate-400">1 / 16</span>
+      <button onclick="toggleFullscreen()" class="text-slate-400 hover:text-brand-600 transition-colors">
+        <i class="fa-solid fa-expand text-sm"></i>
+      </button>
     </div>
+  </div>
 
-    <!-- Geometric lines -->
-    <svg class="absolute top-0 right-0 w-[45%] h-full opacity-[0.06] pointer-events-none" viewBox="0 0 800 900" fill="none">
-      <line x1="600" y1="0" x2="200" y2="900" stroke="#2563eb" stroke-width="1"/>
-      <line x1="700" y1="0" x2="300" y2="900" stroke="#2563eb" stroke-width="1"/>
-      <line x1="800" y1="0" x2="400" y2="900" stroke="#2563eb" stroke-width="1"/>
-      <circle cx="400" cy="450" r="200" stroke="#2563eb" stroke-width="1" stroke-dasharray="8 8"/>
-      <circle cx="400" cy="450" r="320" stroke="#2563eb" stroke-width="0.5" stroke-dasharray="4 12"/>
-    </svg>
+  <!-- Slide Container -->
+  <div id="slideContainer" class="w-full h-screen relative">
 
-    <!-- Corner bracket top-left -->
-    <div class="absolute top-6 left-6 w-12 h-12 border-l-2 border-t-2 border-brand-300/40 rounded-tl-lg"></div>
-    <!-- Corner bracket bottom-right -->
-    <div class="absolute bottom-6 right-6 w-12 h-12 border-r-2 border-b-2 border-brand-300/40 rounded-br-lg"></div>
-
-    <!-- Main Content -->
-    <div class="relative z-10 w-full h-full flex flex-col items-center justify-center px-6">
-
-      <!-- Workshop Badge -->
-      <div class="animate-fade-in-up delay-100 mb-8">
-        <div class="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-brand-50 border border-brand-200/80 shadow-sm shadow-brand-100">
-          <span class="relative flex h-2.5 w-2.5">
-            <span class="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-brand-500"></span>
-            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span>
-          </span>
-          <span class="text-brand-700 text-sm font-semibold tracking-wide uppercase">Workshop #1</span>
-        </div>
+    <!-- ==================== SLIDE 1: TITLE ==================== -->
+    <div class="slide active flex-col items-center justify-center h-full px-6 text-center bg-gradient-to-br from-white via-blue-50 to-white" data-slide="1">
+      <div class="fade-in-up stagger-1 mb-6">
+        <img src="https://avatars.githubusercontent.com/u/176978739?s=200&v=4" alt="EdgeOne Makers" class="w-20 h-20 rounded-2xl shadow-lg mx-auto float-anim">
       </div>
-
-      <!-- Logo -->
-      <div class="animate-fade-in-up delay-200 mb-8 relative">
-        <div class="absolute inset-0 bg-brand-400/20 rounded-full blur-2xl scale-150"></div>
-        <img
-          src="https://avatars.githubusercontent.com/u/176978739?s=200&v=4"
-          alt="EdgeOne Makers"
-          class="relative w-20 h-20 rounded-full shadow-lg shadow-brand-200/50 ring-4 ring-white"
-        />
+      <div class="fade-in-up stagger-2">
+        <span class="inline-flex items-center gap-2 bg-blue-100 text-brand-700 text-xs font-semibold px-4 py-1.5 rounded-full mb-6">
+          <i class="fa-solid fa-bolt"></i> Workshop 1 — Step by Step: Zero to Hero
+        </span>
       </div>
-
-      <!-- Community Name -->
-      <div class="animate-fade-in-up delay-300 mb-6">
-        <p class="text-brand-600 text-sm font-semibold tracking-[0.2em] uppercase">EdgeOne Makers</p>
+      <h1 class="fade-in-up stagger-3 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brand-900 leading-tight mb-6 max-w-4xl">
+        Deploy AI Agent Pertama<br>dalam 5 Menit
+      </h1>
+      <p class="fade-in-up stagger-4 text-lg text-slate-500 max-w-2xl mb-8">
+        Platform: <strong class="text-brand-700">EdgeOne Makers</strong> (Tencent Cloud) &middot; Durasi: 2 Jam
+      </p>
+      <div class="fade-in-up stagger-5 flex flex-wrap items-center justify-center gap-6 text-sm text-slate-500">
+        <span class="flex items-center gap-2"><i class="fa-solid fa-chalkboard-user text-brand-500"></i> Oleh: Rozak</span>
+        <span class="flex items-center gap-2"><i class="fa-solid fa-graduation-cap text-brand-500"></i> Mentor KelasFullstack</span>
       </div>
-
-      <!-- Main Title -->
-      <div class="animate-fade-in-up delay-400 text-center max-w-4xl">
-        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.08] tracking-tight text-gray-900">
-          Zero to Hero
-          <br/>
-          <span class="gradient-text">Deploy AI Agent</span>
-          <br/>
-          <span class="text-gray-900">Pertama dalam</span>
-          <span class="relative inline-block ml-3">
-            <span class="gradient-text">5 Menit</span>
-            <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2 8 C50 2, 150 2, 198 8" stroke="#3b82f6" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
-            </svg>
-          </span>
-        </h1>
-      </div>
-
-      <!-- Subtitle -->
-      <div class="animate-fade-in-up delay-500 mt-8 text-center max-w-xl">
-        <p class="text-gray-500 text-lg font-light leading-relaxed">
-          Pelajari cara membangun dan men-deploy AI Agent pertamamu dari nol — tanpa ribet, langsung jalan.
-        </p>
-      </div>
-
-      <!-- CTA / Info Pills -->
-      <div class="animate-fade-in-up delay-600 mt-10 flex flex-wrap items-center justify-center gap-3">
-        <div class="flex items-center gap-2 px-5 py-2.5 bg-brand-600 text-white rounded-full font-medium text-sm shadow-lg shadow-brand-500/25 hover:bg-brand-700 transition-colors cursor-pointer">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-          Mulai Workshop
-        </div>
-        <div class="flex items-center gap-2 px-5 py-2.5 bg-white text-gray-600 rounded-full font-medium text-sm border border-gray-200 shadow-sm hover:border-brand-300 hover:text-brand-600 transition-colors cursor-pointer">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-          Gratis & Open
-        </div>
-      </div>
-
-      <!-- Bottom Tags -->
-      <div class="animate-fade-in-up delay-700 mt-14 flex flex-wrap items-center justify-center gap-2">
-        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">EdgeOne</span>
-        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">AI Agent</span>
-        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">Serverless</span>
-        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">Beginner Friendly</span>
-        <span class="px-3 py-1 text-xs font-medium text-brand-600 bg-brand-50 rounded-md border border-brand-100">Hands-on</span>
+      <div class="absolute bottom-10 animate-bounce">
+        <i class="fa-solid fa-chevron-down text-brand-300 text-xl"></i>
       </div>
     </div>
 
-    <!-- Bottom Bar -->
-    <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-400 via-brand-600 to-brand-400"></div>
+    <!-- ==================== SLIDE 2: PERSIAPAN ==================== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="2">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider">Sebelum Memulai</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-8">Persiapan Workshop</h2>
+        
+        <div class="space-y-5">
+          <div class="flex items-start gap-4 p-4 bg-blue-50 rounded-xl border border-blue-100">
+            <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-laptop text-white text-sm"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-slate-800 mb-1">Laptop + Browser</h3>
+              <p class="text-sm text-slate-500">Pastikan setiap peserta memiliki laptop dengan browser terbaru (Chrome, Edge, atau Firefox)</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 p-4 bg-blue-50 rounded-xl border border-blue-100">
+            <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-wifi text-white text-sm"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-slate-800 mb-1">Koneksi Internet Stabil</h3>
+              <p class="text-sm text-slate-500">Workshop ini sepenuhnya berbasis cloud, koneksi yang stabil sangat diperlukan</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 p-4 bg-blue-50 rounded-xl border border-blue-100">
+            <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-file-lines text-white text-sm"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-slate-800 mb-1">Panduan Ini Siap</h3>
+              <p class="text-sm text-slate-500">Buka panduan ini di monitor atau ponsel sebagai referensi selama workshop</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 p-4 bg-brand-600 rounded-xl">
+            <div class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-globe text-white text-sm"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-white mb-1">Buka Platform</h3>
+              <p class="text-sm text-blue-100">Buka <span class="url-box !bg-white/15 !border-transparent text-white">pages.edgeone.ai</span> di browser</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <!-- Floating decorative elements -->
-    <div class="animate-float absolute top-[15%] left-[8%] w-3 h-3 rounded-full bg-brand-300/40"></div>
-    <div class="animate-float absolute top-[25%] right-[12%] w-2 h-2 rounded-full bg-brand-400/30" style="animation-delay: 1s;"></div>
-    <div class="animate-float absolute bottom-[20%] left-[15%] w-2.5 h-2.5 rounded-full bg-brand-200/50" style="animation-delay: 2s;"></div>
-    <div class="animate-float absolute bottom-[30%] right-[8%] w-3.5 h-3.5 rounded-sm rotate-45 border border-brand-300/30" style="animation-delay: 0.5s;"></div>
-    <div class="animate-float absolute top-[45%] left-[4%] w-4 h-4 rounded-sm rotate-12 border border-brand-200/40" style="animation-delay: 1.5s;"></div>
+    <!-- ==================== SLIDE 3: ICE BREAKER ==================== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="3">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 1 — 5 Menit</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Pembukaan & Ice Breaker</h2>
+        <p class="text-slate-500 mb-8">Mari kita kenali satu sama lain sebelum memulai</p>
+
+        <div class="space-y-4 mb-8">
+          <div class="flex items-center gap-4 p-5 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-comment-dots text-brand-600"></i>
+            </div>
+            <p class="text-slate-700">"Siapa yang sudah pernah mencoba <strong>ChatGPT</strong> atau <strong>Claude</strong>?"</p>
+          </div>
+          <div class="flex items-center gap-4 p-5 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-server text-brand-600"></i>
+            </div>
+            <p class="text-slate-700">"Siapa yang pernah <strong>deploy website</strong> sendiri?"</p>
+          </div>
+          <div class="flex items-center gap-4 p-5 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-robot text-brand-600"></i>
+            </div>
+            <p class="text-slate-700">"Siapa yang pernah <strong>membuat AI Agent</strong>?"</p>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-brand-600 to-brand-700 rounded-xl p-6 text-white">
+          <i class="fa-solid fa-quote-left text-blue-300 mb-2 text-lg"></i>
+          <p class="text-lg leading-relaxed">Hari ini kita akan membuat AI Agent pertama dalam 5 menit. <strong>Gratis. Tanpa kartu kredit. Tanpa instalasi apapun.</strong> Cukup modal browser saja.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 4: APA ITU EDGEONE MAKERS ==================== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="4">
+      <div class="max-w-3xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 2 — 10 Menit</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Apa Itu EdgeOne Makers?</h2>
+        <p class="text-slate-500 mb-8">Mengenal platform all-in-one dari Tencent Cloud</p>
+
+        <div class="grid sm:grid-cols-2 gap-4 mb-8">
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center mb-3">
+              <i class="fa-solid fa-cloud text-brand-600"></i>
+            </div>
+            <h3 class="font-semibold text-slate-800 mb-1">Hosting Web</h3>
+            <p class="text-sm text-slate-500">Deploy website frontend dengan CDN global terintegrasi</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center mb-3">
+              <i class="fa-solid fa-robot text-brand-600"></i>
+            </div>
+            <h3 class="font-semibold text-slate-800 mb-1">AI Agent</h3>
+            <p class="text-sm text-slate-500">Buat dan deploy AI Agent dalam satu project yang sama</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center mb-3">
+              <i class="fa-solid fa-network-wired text-brand-600"></i>
+            </div>
+            <h3 class="font-semibold text-slate-800 mb-1">CDN Global</h3>
+            <p class="text-sm text-slate-500">3.200+ Point of Presence di seluruh dunia</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center mb-3">
+              <i class="fa-solid fa-key text-brand-600"></i>
+            </div>
+            <h3 class="font-semibold text-slate-800 mb-1">AI Gateway</h3>
+            <p class="text-sm text-slate-500">Akses berbagai model AI dengan satu API Key terpadu</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 bg-blue-50 rounded-lg p-4 border border-blue-100">
+          <img src="https://avatars.githubusercontent.com/u/176978739?s=200&v=4" alt="EdgeOne" class="w-8 h-8 rounded-lg">
+          <p class="text-sm text-slate-600">Buka <span class="url-box">pages.edgeone.ai</span> — terdapat templates marketplace untuk memulai</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 5: KENAPA PAKE INI ==================== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="5">
+      <div class="max-w-3xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider">Sesi 2 — Lanjutan</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-8">Mengapa Memilih EdgeOne Makers?</h2>
+
+        <div class="grid sm:grid-cols-2 gap-5 mb-8">
+          <div class="comparison-card bg-white rounded-xl border-2 border-red-100 p-6">
+            <div class="flex items-center gap-2 mb-4">
+              <i class="fa-solid fa-xmark text-red-500"></i>
+              <h3 class="font-semibold text-slate-700">Cara Konvensional</h3>
+            </div>
+            <div class="space-y-2 text-sm text-slate-500">
+              <p><i class="fa-solid fa-arrow-right text-red-300 mr-2 text-xs"></i>Vercel untuk hosting</p>
+              <p><i class="fa-solid fa-arrow-right text-red-300 mr-2 text-xs"></i>OpenAI untuk AI</p>
+              <p><i class="fa-solid fa-arrow-right text-red-300 mr-2 text-xs"></i>Supabase untuk database</p>
+              <p><i class="fa-solid fa-arrow-right text-red-300 mr-2 text-xs"></i>LangSmith untuk monitoring</p>
+              <div class="mt-3 pt-3 border-t border-red-100">
+                <span class="font-semibold text-red-600">= 4 platform terpisah</span>
+              </div>
+            </div>
+          </div>
+          <div class="comparison-card bg-white rounded-xl border-2 border-blue-200 p-6 relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-brand-600 text-white text-xs font-semibold px-3 py-1 rounded-bl-lg">Rekomendasi</div>
+            <div class="flex items-center gap-2 mb-4">
+              <i class="fa-solid fa-check text-brand-600"></i>
+              <h3 class="font-semibold text-slate-700">EdgeOne Makers</h3>
+            </div>
+            <div class="space-y-2 text-sm text-slate-500">
+              <p><i class="fa-solid fa-arrow-right text-brand-400 mr-2 text-xs"></i>1 platform terpadu</p>
+              <p><i class="fa-solid fa-arrow-right text-brand-400 mr-2 text-xs"></i>1 domain</p>
+              <p><i class="fa-solid fa-arrow-right text-brand-400 mr-2 text-xs"></i>1 kali deploy</p>
+              <p><i class="fa-solid fa-arrow-right text-brand-400 mr-2 text-xs"></i>Semua sudah terintegrasi</p>
+              <div class="mt-3 pt-3 border-t border-blue-100">
+                <span class="font-semibold text-brand-700">= 1 platform, semua ter-cover</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4">
+          <div class="text-center p-4 bg-blue-50 rounded-xl">
+            <div class="text-2xl font-bold text-brand-700">500K</div>
+            <div class="text-xs text-slate-500 mt-1">Token/bulan gratis</div>
+          </div>
+          <div class="text-center p-4 bg-blue-50 rounded-xl">
+            <div class="text-2xl font-bold text-brand-700">200K</div>
+            <div class="text-xs text-slate-500 mt-1">Executions/bulan gratis</div>
+          </div>
+          <div class="text-center p-4 bg-blue-50 rounded-xl">
+            <div class="text-2xl font-bold text-brand-700"><i class="fa-solid fa-bolt text-lg"></i></div>
+            <div class="text-xs text-slate-500 mt-1">Latensi terbaik untuk Indonesia</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 6: SIGN UP ==================== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="6">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 3 — 15 Menit</span>
+          <span class="tag-praktik"><i class="fa-solid fa-hand-pointer mr-1"></i> Praktik</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Sign Up ke EdgeOne Makers</h2>
+        <p class="text-slate-500 mb-8">Ikuti langkah-langkah berikut secara berurutan</p>
+
+        <div class="space-y-5">
+          <div class="flex items-start gap-4">
+            <div class="step-number">1</div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-slate-800 mb-1">Buka Platform</h3>
+              <p class="text-sm text-slate-500">Buka <span class="url-box">pages.edgeone.ai</span> di browser</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="step-number">2</div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-slate-800 mb-2">Klik "Sign Up" di pojok kanan atas</h3>
+              <div class="grid sm:grid-cols-2 gap-3">
+                <div class="p-3 bg-white rounded-lg border border-slate-200">
+                  <div class="flex items-center gap-2 mb-1">
+                    <i class="fa-brands fa-github text-slate-700"></i>
+                    <span class="text-sm font-medium text-slate-700">Opsi 1: GitHub</span>
+                    <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">Disarankan</span>
+                  </div>
+                  <p class="text-xs text-slate-400">Paling cepat, satu klik login</p>
+                </div>
+                <div class="p-3 bg-white rounded-lg border border-slate-200">
+                  <div class="flex items-center gap-2 mb-1">
+                    <i class="fa-solid fa-envelope text-slate-700"></i>
+                    <span class="text-sm font-medium text-slate-700">Opsi 2: Email</span>
+                  </div>
+                  <p class="text-xs text-slate-400">Isi email + password + verifikasi</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="step-number">3</div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-slate-800 mb-1">Jelajahi Dashboard</h3>
+              <p class="text-sm text-slate-500">Kiri: Menu navigasi &middot; Tengah: Project list &middot; Kanan: Quick actions</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="step-number">4</div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-slate-800 mb-1">Cek API Keys di Settings</h3>
+              <p class="text-sm text-slate-500">API Key sudah ter-generate otomatis. Tidak perlu di-copy dulu, template akan meng-inject secara otomatis.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex items-center gap-2 bg-amber-50 border border-amber-200 rounded-lg p-3">
+          <i class="fa-solid fa-stopwatch text-amber-500"></i>
+          <span class="text-sm text-amber-700">Waktu maksimal: 10 menit. Yang sudah selesai, silakan membantu peserta lain.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 7: DEPLOY STEP 1-3 ==================== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="7">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 4 — 15 Menit</span>
+          <span class="tag-praktik"><i class="fa-solid fa-hand-pointer mr-1"></i> Praktik</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-2">Deploy AI Agent Pertama</h2>
+        <p class="text-slate-500 mb-8">Inilah momen yang ditunggu-tunggu — dari nol menjadi AI Agent live</p>
+
+        <div class="space-y-6">
+          <div class="flex items-start gap-4">
+            <div class="step-number">1</div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-slate-800 mb-1">Buka Halaman Templates</h3>
+              <p class="text-sm text-slate-500">Arahkan browser ke <span class="url-box">pages.edgeone.ai/templates</span></p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="step-number">2</div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-slate-800 mb-1">Pilih Kategori "Agent Templates"</h3>
+              <p class="text-sm text-slate-500">Klik pada kategori Agent Templates untuk melihat daftar template yang tersedia</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="step-number">3</div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-slate-800 mb-2">Cari "OpenAI Agents Starter (Node)"</h3>
+              <div class="bg-white rounded-xl border border-blue-200 p-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center">
+                    <i class="fa-solid fa-robot text-brand-600 text-lg"></i>
+                  </div>
+                  <div>
+                    <p class="font-semibold text-slate-800">OpenAI Agents Starter (Node)</p>
+                    <p class="text-xs text-slate-400">Template paling sederhana untuk memulai</p>
+                  </div>
+                  <span class="ml-auto bg-brand-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg">Use Template</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 8: DEPLOY STEP 4-7 ==================== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="8">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider">Sesi 4 — Lanjutan</span>
+          <span class="tag-praktik"><i class="fa-solid fa-hand-pointer mr-1"></i> Praktik</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-8">Deploy AI Agent Pertama</h2>
+
+        <div class="space-y-5">
+          <div class="flex items-start gap-4">
+            <div class="step-number">4</div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-slate-800 mb-2">Konfigurasi Project</h3>
+              <div class="grid sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="text-xs font-medium text-slate-500 mb-1 block">Project Name</label>
+                  <div class="url-box w-full">kelasfullstack-agent-nama</div>
+                </div>
+                <div>
+                  <label class="text-xs font-medium text-slate-500 mb-1 block">Region</label>
+                  <div class="url-box w-full">Singapore / Hong Kong</div>
+                </div>
+              </div>
+              <p class="text-xs text-slate-400 mt-2"><i class="fa-solid fa-circle-info mr-1"></i> Singapore dipilih karena latency terendah untuk pengguna Indonesia</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="step-number">5</div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-slate-800 mb-2">Klik "Create & Deploy"</h3>
+              <div class="bg-slate-900 rounded-lg p-4 flex items-center gap-3">
+                <div class="flex items-center gap-2">
+                  <i class="fa-solid fa-code-branch text-green-400 text-sm"></i>
+                  <span class="text-green-400 text-xs font-mono">Cloning</span>
+                </div>
+                <i class="fa-solid fa-chevron-right text-slate-600 text-xs"></i>
+                <div class="flex items-center gap-2">
+                  <i class="fa-solid fa-hammer text-yellow-400 text-sm"></i>
+                  <span class="text-yellow-400 text-xs font-mono">Building</span>
+                </div>
+                <i class="fa-solid fa-chevron-right text-slate-600 text-xs"></i>
+                <div class="flex items-center gap-2">
+                  <i class="fa-solid fa-rocket text-blue-400 text-sm"></i>
+                  <span class="text-blue-400 text-xs font-mono">Deploying</span>
+                </div>
+              </div>
+              <p class="text-xs text-slate-400 mt-2"><i class="fa-solid fa-stopwatch mr-1"></i> Tunggu 20-30 detik</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="step-number">6</div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-slate-800 mb-1">Buka URL Project</h3>
+              <p class="text-sm text-slate-500"><span class="url-box">kelasfullstack-agent-nama.edgeone.dev</span></p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="step-number">7</div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-slate-800 mb-2">Coba Chat dengan Agent</h3>
+              <div class="space-y-2 text-sm text-slate-600">
+                <p><i class="fa-solid fa-message text-brand-400 mr-2"></i>"Halo, siapa kamu?"</p>
+                <p><i class="fa-solid fa-message text-brand-400 mr-2"></i>"Apa yang bisa Anda bantu?"</p>
+                <p><i class="fa-solid fa-message text-brand-400 mr-2"></i>"Jelaskan EdgeOne Makers dalam 2 kalimat!"</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 bg-gradient-to-r from-brand-600 to-brand-700 rounded-xl p-5 text-white text-center">
+          <i class="fa-solid fa-party-horn text-2xl mb-2"></i>
+          <p class="text-lg font-semibold">AI Agent Anda sudah LIVE! Hanya dalam 5 menit.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 9: STRUKTUR PROJECT ==================== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="9">
+      <div class="max-w-3xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 5 — 10 Menit</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Struktur Project</h2>
+        <p class="text-slate-500 mb-8">Memahami bagaimana file-file dalam project disusun</p>
+
+        <div class="grid lg:grid-cols-2 gap-6">
+          <div class="code-block text-xs lg:text-sm">
+<span class="comment">project/</span>
+├── <span class="property">agents/</span>              <span class="comment">← INTI: Agent code</span>
+│   └── openai-agents-starter/
+│       ├── <span class="keyword">index.ts</span>      <span class="comment">← Main logic agent</span>
+│       └── <span class="keyword">stop.ts</span>       <span class="comment">← Stop handler</span>
+├── <span class="property">static/</span>              <span class="comment">← Frontend</span>
+│   ├── <span class="keyword">index.html</span>
+│   ├── <span class="keyword">style.css</span>
+│   └── <span class="keyword">app.js</span>
+├── <span class="keyword">edgeone.json</span>         <span class="comment">← Config project</span>
+└── <span class="keyword">package.json</span>
+          </div>
+
+          <div class="space-y-4">
+            <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+              <div class="flex items-center gap-2 mb-2">
+                <i class="fa-solid fa-folder text-brand-500"></i>
+                <h3 class="font-semibold text-slate-800">agents/</h3>
+              </div>
+              <p class="text-sm text-slate-500">Semua file di folder ini menjadi POST endpoint. Contoh: <code class="bg-slate-100 px-1.5 py-0.5 rounded text-xs">agents/chat/index.ts</code> menjadi <code class="bg-slate-100 px-1.5 py-0.5 rounded text-xs">POST /chat</code>. Setiap request memerlukan <strong>conversation_id</strong>.</p>
+            </div>
+            <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+              <div class="flex items-center gap-2 mb-2">
+                <i class="fa-solid fa-folder text-brand-500"></i>
+                <h3 class="font-semibold text-slate-800">static/</h3>
+              </div>
+              <p class="text-sm text-slate-500">File frontend yang di-serve secara otomatis. <code class="bg-slate-100 px-1.5 py-0.5 rounded text-xs">index.html</code> adalah halaman chat yang tampil di browser.</p>
+            </div>
+            <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+              <div class="flex items-center gap-2 mb-2">
+                <i class="fa-solid fa-gear text-brand-500"></i>
+                <h3 class="font-semibold text-slate-800">edgeone.json</h3>
+              </div>
+              <p class="text-sm text-slate-500">Konfigurasi project: framework, model AI, environment variables, dan pengaturan deploy.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 10: NGOPREK - UBAH INSTRUCTIONS ==================== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="10">
+      <div class="max-w-3xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 6 — 20 Menit</span>
+          <span class="tag-praktik"><i class="fa-solid fa-hand-pointer mr-1"></i> Praktik</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Mengubah Instruksi Agent</h2>
+        <p class="text-slate-500 mb-6">Membuat agent menjadi lebih personal dan sesuai kebutuhan</p>
+
+        <p class="text-sm text-slate-600 mb-4">Buka file <code class="bg-slate-100 px-2 py-1 rounded font-mono text-brand-700">agents/chat/index.ts</code>, temukan bagian berikut:</p>
+
+        <div class="grid lg:grid-cols-2 gap-4 mb-6">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="w-5 h-5 rounded bg-slate-200 flex items-center justify-center"><i class="fa-solid fa-arrow-left text-slate-500 text-xs"></i></span>
+              <span class="text-xs font-semibold text-slate-400 uppercase">Sebelum</span>
+            </div>
+            <div class="code-block text-xs">
+<span class="keyword">const</span> agent = <span class="keyword">new</span> <span class="type">Agent</span>({
+  <span class="property">name</span>: <span class="string">'Assistant'</span>,
+  <span class="property">instructions</span>: <span class="string">'Kamu adalah 
+  asisten...'</span>,
+  <span class="property">model</span>: <span class="string">'@makers/deepseek-v4-flash'</span>,
+});
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="w-5 h-5 rounded bg-brand-600 flex items-center justify-center"><i class="fa-solid fa-arrow-right text-white text-xs"></i></span>
+              <span class="text-xs font-semibold text-brand-600 uppercase">Sesudah</span>
+            </div>
+            <div class="code-block text-xs" style="border: 2px solid #2563EB;">
+<span class="keyword">const</span> agent = <span class="keyword">new</span> <span class="type">Agent</span>({
+  <span class="property">name</span>: <span class="string">'Mentor KF'</span>,
+  <span class="property">instructions</span>: <span class="string">`Kamu adalah 
+  mentor coding KelasFullstack.
+  Panggil user "kawan" atau "bro".
+  Jawab dengan Bahasa Indonesia 
+  santai. Kasih contoh kode kalau 
+  perlu. Jangan formal.`</span>,
+  <span class="property">model</span>: <span class="string">'@makers/deepseek-v4-flash'</span>,
+});
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 bg-blue-50 rounded-xl p-4 border border-blue-100">
+          <div class="step-number !w-8 !h-8 !text-xs !min-w-0">!</div>
+          <div>
+            <p class="text-sm text-slate-700 font-medium">Setelah mengubah kode, klik tombol <strong>"Deploy" / "Redeploy"</strong> di dashboard.</p>
+            <p class="text-xs text-slate-400 mt-1">Tunggu 20-30 detik, lalu refresh URL project dan coba chat kembali.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 11: NGOPREK - TAMBAH TOOL ==================== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="11">
+      <div class="max-w-3xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider">Sesi 6 — Lanjutan</span>
+          <span class="tag-praktik"><i class="fa-solid fa-hand-pointer mr-1"></i> Praktik</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Menambahkan Function Tool</h2>
+        <p class="text-slate-500 mb-6">Memberikan kemampuan baru kepada agent — contoh: kalkulator BMI</p>
+
+        <p class="text-sm text-slate-600 mb-4">Tambahkan kode berikut di file <code class="bg-slate-100 px-2 py-1 rounded font-mono text-brand-700">agents/_tools.ts</code>:</p>
+
+        <div class="code-block text-xs mb-6" style="max-height: 300px; overflow-y: auto;">
+<span class="keyword">export const</span> <span class="property">hitungBMI</span> = {
+  <span class="property">name</span>: <span class="string">"hitung_bmi"</span>,
+  <span class="property">description</span>: <span class="string">"Hitung BMI dari berat dan tinggi badan"</span>,
+  <span class="property">parameters</span>: {
+    <span class="property">type</span>: <span class="string">"object"</span>,
+    <span class="property">properties</span>: {
+      <span class="property">berat</span>: { <span class="property">type</span>: <span class="string">"number"</span>, <span class="property">desc</span>: <span class="string">"Berat dalam kg"</span> },
+      <span class="property">tinggi</span>: { <span class="property">type</span>: <span class="string">"number"</span>, <span class="property">desc</span>: <span class="string">"Tinggi dalam cm"</span> },
+    },
+    <span class="property">required</span>: [<span class="string">"berat"</span>, <span class="string">"tinggi"</span>],
+  },
+  <span class="property">handler</span>: <span class="keyword">async</span> ({ <span class="property">berat</span>, <span class="property">tinggi</span> }) => {
+    <span class="keyword">const</span> bmi = berat / ((tinggi / <span class="type">100</span>) ** <span class="type">2</span>);
+    <span class="keyword">let</span> kategori = <span class="string">""</span>;
+    <span class="keyword">if</span> (bmi < <span class="type">18.5</span>) kategori = <span class="string">"Kurus"</span>;
+    <span class="keyword">else if</span> (bmi < <span class="type">25</span>) kategori = <span class="string">"Normal"</span>;
+    <span class="keyword">else if</span> (bmi < <span class="type">30</span>) kategori = <span class="string">"Gemuk"</span>;
+    <span class="keyword">else</span> kategori = <span class="string">"Obesitas"</span>;
+    <span class="keyword">return</span> <span class="string">`BMI: ${bmi.toFixed(1)} — ${kategori}`</span>;
+  },
+};
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="flex items-center gap-2 bg-white rounded-lg border border-slate-200 px-4 py-2.5">
+            <i class="fa-solid fa-1 text-brand-500 text-xs w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center"></i>
+            <span class="text-sm text-slate-600">Redeploy project</span>
+          </div>
+          <i class="fa-solid fa-arrow-right text-slate-300"></i>
+          <div class="flex items-center gap-2 bg-white rounded-lg border border-slate-200 px-4 py-2.5">
+            <i class="fa-solid fa-2 text-brand-500 text-xs w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center"></i>
+            <span class="text-sm text-slate-600">Chat: "Hitung BMI saya 70kg 170cm"</span>
+          </div>
+          <i class="fa-solid fa-arrow-right text-slate-300"></i>
+          <div class="flex items-center gap-2 bg-green-50 rounded-lg border border-green-200 px-4 py-2.5">
+            <i class="fa-solid fa-check text-green-600 text-xs"></i>
+            <span class="text-sm text-green-700 font-medium">Agent menjawab dengan hasil perhitungan!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 12: GANTI MODEL AI ==================== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="12">
+      <div class="max-w-3xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 7 — 10 Menit</span>
+          <span class="tag-praktik"><i class="fa-solid fa-hand-pointer mr-1"></i> Praktik</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Mengganti Model AI</h2>
+        <p class="text-slate-500 mb-8">Salah satu keunggulan EdgeOne: ganti model cukup ubah 1 parameter</p>
+
+        <div class="bg-blue-50 rounded-xl p-5 border border-blue-100 mb-6">
+          <p class="text-sm text-slate-600 mb-2">Di <code class="bg-white px-1.5 py-0.5 rounded text-xs">agents/chat/index.ts</code>, ubah baris berikut:</p>
+          <div class="code-block text-xs !bg-white border border-slate-200">
+<span class="property">model</span>: <span class="string">'@makers/deepseek-v4-flash'</span>,
+          </div>
+          <p class="text-sm text-slate-500 mt-2"><i class="fa-solid fa-arrow-down text-brand-400 mr-1"></i> Ganti ke salah satu model di bawah ini:</p>
+        </div>
+
+        <div class="grid sm:grid-cols-3 gap-4 mb-6">
+          <div class="bg-white rounded-xl border-2 border-blue-200 p-4 text-center relative">
+            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-3">
+              <i class="fa-solid fa-bolt text-brand-600"></i>
+            </div>
+            <p class="font-mono text-xs text-brand-700 font-semibold mb-1">@makers/deepseek-v4-flash</p>
+            <p class="text-xs text-slate-400">To the point, teknis</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 text-center">
+            <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-3">
+              <i class="fa-solid fa-brain text-slate-500"></i>
+            </div>
+            <p class="font-mono text-xs text-slate-700 font-semibold mb-1">@makers/hy3-preview</p>
+            <p class="text-xs text-slate-400">Lebih panjang, detail</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 text-center">
+            <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-3">
+              <i class="fa-solid fa-comment text-slate-500"></i>
+            </div>
+            <p class="font-mono text-xs text-slate-700 font-semibold mb-1">@makers/minimax-m2.7</p>
+            <p class="text-xs text-slate-400">Santai, simpel</p>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-brand-600 to-brand-700 rounded-xl p-5 text-white">
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-lightbulb text-yellow-300 mt-0.5"></i>
+            <div>
+              <p class="font-semibold mb-1">Tantangan: Bandingkan Jawaban</p>
+              <p class="text-sm text-blue-100">Ajukan pertanyaan yang sama ke 3 model berbeda: <em>"Jelaskan konsep REST API dalam 3 kalimat"</em>. Perhatikan perbedaan gaya jawabannya.</p>
+              <p class="text-sm text-blue-200 mt-2 font-medium">Model apapun, API Key tetap sama. Inilah kekuatan AI Gateway!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 13: MINI CHALLENGE ==================== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="13">
+      <div class="max-w-2xl w-full text-center">
+        <div class="flex items-center justify-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 8 — 10 Menit</span>
+          <span class="bg-amber-100 text-amber-700 text-xs font-semibold px-3 py-1 rounded-full"><i class="fa-solid fa-trophy mr-1"></i> Challenge</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-3">Mini Challenge</h2>
+        <p class="text-slate-500 mb-8">Waktu: 5 menit. Buat agent versi Anda sendiri!</p>
+
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-lg p-6 text-left mb-6">
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-white text-xs font-bold">1</span>
+              </div>
+              <p class="text-slate-700">Nama agent: <strong>nama panggilan keren pilihan Anda</strong></p>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-white text-xs font-bold">2</span>
+              </div>
+              <p class="text-slate-700">Gunakan <strong>Bahasa Indonesia santai</strong></p>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-white text-xs font-bold">3</span>
+              </div>
+              <p class="text-slate-700">Model: <code class="bg-slate-100 px-1.5 py-0.5 rounded text-xs">@makers/deepseek-v4-flash</code></p>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-white text-xs font-bold">4</span>
+              </div>
+              <p class="text-slate-700">Tambah <strong>1 function tool sederhana</strong></p>
+            </div>
+            <div class="ml-10 space-y-1.5 text-sm text-slate-400">
+              <p><i class="fa-solid fa-angle-right mr-1"></i>Konversi suhu (Celsius ke Fahrenheit)</p>
+              <p><i class="fa-solid fa-angle-right mr-1"></i>Hitung diskon (harga - persentase)</p>
+              <p><i class="fa-solid fa-angle-right mr-1"></i>Cek jumlah huruf vokal dalam kata</p>
+              <p><i class="fa-solid fa-angle-right mr-1"></i>Atau ide lainnya</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-7 h-7 rounded-full bg-amber-400 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i class="fa-solid fa-star text-white text-xs"></i>
+              </div>
+              <p class="text-slate-700">Bonus: <strong>Instructions yang lucu/nyentrik</strong></p>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-sm text-slate-400"><i class="fa-solid fa-gift text-amber-400 mr-1"></i> Peserta dengan agent paling kreatif mendapat shoutout!</p>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 14: RANGKUMAN ==================== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="14">
+      <div class="max-w-2xl w-full">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xs font-semibold text-brand-500 uppercase tracking-wider"><i class="fa-regular fa-clock mr-1"></i> Sesi 9 — 10 Menit</span>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-900 mb-8">Rangkuman Workshop</h2>
+
+        <div class="space-y-4 mb-8">
+          <div class="flex items-center gap-4 p-4 bg-green-50 rounded-xl border border-green-100">
+            <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-check text-white"></i>
+            </div>
+            <p class="text-slate-700 font-medium">Sign up ke EdgeOne Makers</p>
+          </div>
+          <div class="flex items-center gap-4 p-4 bg-green-50 rounded-xl border border-green-100">
+            <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-check text-white"></i>
+            </div>
+            <p class="text-slate-700 font-medium">Deploy AI Agent dari template — hanya 5 menit</p>
+          </div>
+          <div class="flex items-center gap-4 p-4 bg-green-50 rounded-xl border border-green-100">
+            <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-check text-white"></i>
+            </div>
+            <p class="text-slate-700 font-medium">Mengubah instruksi agent sesuai kebutuhan</p>
+          </div>
+          <div class="flex items-center gap-4 p-4 bg-green-50 rounded-xl border border-green-100">
+            <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-check text-white"></i>
+            </div>
+            <p class="text-slate-700 font-medium">Menambahkan function tools</p>
+          </div>
+          <div class="flex items-center gap-4 p-4 bg-green-50 rounded-xl border border-green-100">
+            <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-check text-white"></i>
+            </div>
+            <p class="text-slate-700 font-medium">Mengganti model AI dengan 1 parameter</p>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-brand-50 to-blue-50 rounded-xl p-5 border border-blue-200">
+          <h3 class="font-semibold text-brand-800 mb-3"><i class="fa-solid fa-forward mr-2"></i>Sesi Berikutnya</h3>
+          <div class="space-y-2 text-sm text-slate-600">
+            <p><i class="fa-solid fa-check text-brand-500 mr-2"></i>Web (React) + Agent dalam 1 project</p>
+            <p><i class="fa-solid fa-check text-brand-500 mr-2"></i>Upload file dan tanya dokumen (RAG)</p>
+            <p><i class="fa-solid fa-check text-brand-500 mr-2"></i>Pasang API Key sendiri untuk performa lebih tinggi</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 15: PESAN PENUTUP ==================== -->
+    <div class="slide flex-col items-center justify-center h-full px-6 bg-gradient-to-br from-white via-blue-50 to-white" data-slide="15">
+      <div class="max-w-2xl w-full text-center">
+        <img src="https://avatars.githubusercontent.com/u/176978739?s=200&v=4" alt="EdgeOne Makers" class="w-16 h-16 rounded-2xl shadow-lg mx-auto mb-6 float-anim">
+        
+        <h2 class="text-3xl font-bold text-brand-900 mb-6">Pesan Penutup</h2>
+
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-lg p-8 text-left mb-8">
+          <i class="fa-solid fa-quote-left text-blue-200 text-2xl mb-4 block"></i>
+          <p class="text-lg text-slate-700 leading-relaxed mb-4">
+            Yang Anda pelajari hari ini dapat langsung diterapkan untuk:
+          </p>
+          <div class="space-y-3 mb-6">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-headset text-brand-600 text-sm"></i>
+              </div>
+              <span class="text-slate-700">Membuat customer service berbasis AI</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-magnifying-glass text-brand-600 text-sm"></i>
+              </div>
+              <span class="text-slate-700">Membuat research assistant pribadi</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-user-tie text-brand-600 text-sm"></i>
+              </div>
+              <span class="text-slate-700">Membuat chatbot portfolio profesional</span>
+            </div>
+          </div>
+          <div class="bg-brand-600 rounded-xl p-5 text-white">
+            <p class="text-lg font-semibold leading-relaxed">Yang penting adalah <strong>MULAI DULU</strong>. Dalam 5 menit, Anda sudah memiliki AI Agent live di domain publik. Itu lebih dari 90% orang yang hanya menonton tutorial saja.</p>
+          </div>
+        </div>
+
+        <p class="text-2xl font-bold text-brand-700 mb-2">Terima kasih!</p>
+        <p class="text-sm text-slate-400">Rozak — Mentor KelasFullstack</p>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 16: TIMELINE ==================== -->
+    <div class="slide flex-col items-center justify-center h-full px-6" data-slide="16">
+      <div class="max-w-2xl w-full">
+        <h2 class="text-3xl font-bold text-brand-900 mb-8 text-center">Timeline Workshop 2 Jam</h2>
+
+        <div class="relative">
+          <div class="absolute left-[18px] top-0 bottom-0 w-0.5 bg-blue-200"></div>
+          
+          <div class="space-y-5">
+            <div class="flex items-start gap-4">
+              <div class="w-9 h-9 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 z-10 shadow">
+                <span class="text-white text-xs font-bold">1</span>
+              </div>
+              <div class="flex-1 bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+                <div class="flex items-center justify-between mb-1">
+                  <h3 class="font-semibold text-slate-800">Pembukaan + Ice Breaker</h3>
+                  <span class="text-xs font-mono text-slate-400">00:00 - 00:05</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-9 h-9 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 z-10 shadow">
+                <span class="text-white text-xs font-bold">2</span>
+              </div>
+              <div class="flex-1 bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+                <div class="flex items-center justify-between mb-1">
+                  <h3 class="font-semibold text-slate-800">Apa itu EdgeOne Makers</h3>
+                  <span class="text-xs font-mono text-slate-400">00:05 - 00:15</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-9 h-9 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 z-10 shadow">
+                <span class="text-white text-xs font-bold">3</span>
+              </div>
+              <div class="flex-1 bg-blue-50 rounded-xl border border-blue-200 p-4">
+                <div class="flex items-center justify-between mb-1">
+                  <h3 class="font-semibold text-slate-800">Sign Up <span class="tag-praktik ml-2">Praktik</span></h3>
+                  <span class="text-xs font-mono text-slate-400">00:15 - 00:30</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-9 h-9 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0 z-10 shadow relative pulse-ring">
+                <span class="text-white text-xs font-bold">4</span>
+              </div>
+              <div class="flex-1 bg-brand-50 rounded-xl border-2 border-brand-300 p-4">
+                <div class="flex items-center justify-between mb-1">
+                  <h3 class="font-semibold text-brand-800">Deploy AI Agent <span class="tag-praktik ml-2">Praktik</span></h3>
+                  <span class="text-xs font-mono text-brand-500 font-semibold">00:30 - 00:45</span>
+                </div>
+                <p class="text-xs text-brand-600"><i class="fa-solid fa-star mr-1"></i> Momen utama workshop!</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-9 h-9 rounded-full bg-slate-300 flex items-center justify-center flex-shrink-0 z-10">
+                <span class="text-white text-xs font-bold">5</span>
+              </div>
+              <div class="flex-1 bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+                <div class="flex items-center justify-between mb-1">
+                  <h3 class="font-semibold text-slate-800">Struktur Project</h3>
+                  <span class="text-xs font-mono text-slate-400">00:45 - 00:55</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-9 h-9 rounded-full bg-slate-300 flex items-center justify-center flex-shrink-0 z-10">
+                <span class="text-white text-xs font-bold">6</span>
+              </div>
+              <div class="flex-1 bg-blue-50 rounded-xl border border-blue-200 p-4">
+                <div class="flex items-center justify-between mb-1">
+                  <h3 class="font-semibold text-slate-800">Ngoprek Kode <span class="tag-praktik ml-2">Praktik</span></h3>
+                  <span class="text-xs font-mono text-slate-400">00:55 - 01:15</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-9 h-9 rounded-full bg-slate-300 flex items-center justify-center flex-shrink-0 z-10">
+                <span class="text-white text-xs font-bold">7</span>
+              </div>
+              <div class="flex-1 bg-blue-50 rounded-xl border border-blue-200 p-4">
+                <div class="flex items-center justify-between mb-1">
+                  <h3 class="font-semibold text-slate-800">Ganti Model <span class="tag-praktik ml-2">Praktik</span></h3>
+                  <span class="text-xs font-mono text-slate-400">01:15 - 01:25</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-9 h-9 rounded-full bg-amber-400 flex items-center justify-center flex-shrink-0 z-10">
+                <i class="fa-solid fa-trophy text-white text-xs"></i>
+              </div>
+              <div class="flex-1 bg-amber-50 rounded-xl border border-amber-200 p-4">
+                <div class="flex items-center justify-between mb-1">
+                  <h3 class="font-semibold text-slate-800">Mini Challenge</h3>
+                  <span class="text-xs font-mono text-slate-400">01:25 - 01:35</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-9 h-9 rounded-full bg-slate-300 flex items-center justify-center flex-shrink-0 z-10">
+                <i class="fa-solid fa-flag-checkered text-white text-xs"></i>
+              </div>
+              <div class="flex-1 bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+                <div class="flex items-center justify-between mb-1">
+                  <h3 class="font-semibold text-slate-800">Wrap Up + Q&A</h3>
+                  <span class="text-xs font-mono text-slate-400">01:35 - 01:45</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 
+  <!-- Navigation -->
+  <div class="fixed bottom-0 left-0 w-full z-40">
+    <div class="flex items-center justify-between px-6 py-4 bg-white/80 backdrop-blur-xl border-t border-slate-100">
+      <button id="prevBtn" onclick="changeSlide(-1)" class="nav-btn w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 disabled:opacity-30 disabled:cursor-not-allowed disabled:transform-none" disabled>
+        <i class="fa-solid fa-chevron-left text-sm"></i>
+      </button>
+      <div id="indicators" class="flex items-center gap-1.5"></div>
+      <button id="nextBtn" onclick="changeSlide(1)" class="nav-btn w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400">
+        <i class="fa-solid fa-chevron-right text-sm"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Keyboard Hint -->
+  <div id="keyHint" class="fixed bottom-20 right-6 z-30 bg-slate-900 text-white text-xs rounded-lg px-3 py-2 opacity-0 transition-opacity duration-500 pointer-events-none">
+    <i class="fa-solid fa-keyboard mr-1"></i> Gunakan <kbd class="bg-slate-700 px-1.5 py-0.5 rounded text-xs">&larr;</kbd> <kbd class="bg-slate-700 px-1.5 py-0.5 rounded text-xs">&rarr;</kbd> untuk navigasi
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 1;
+
+    // Build indicators
+    const indicatorsContainer = document.getElementById('indicators');
+    for (let i = 1; i <= totalSlides; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'slide-indicator w-2 h-2 rounded-full bg-slate-300 cursor-pointer';
+      dot.dataset.slide = i;
+      dot.onclick = () => goToSlide(i);
+      indicatorsContainer.appendChild(dot);
+    }
+
+    function updateSlide() {
+      slides.forEach(s => {
+        s.classList.remove('active');
+      });
+      
+      const target = document.querySelector(`[data-slide="${currentSlide}"]`);
+      if (target) {
+        // Small delay for transition effect
+        setTimeout(() => {
+          target.classList.add('active');
+        }, 50);
+      }
+
+      // Update indicators
+      document.querySelectorAll('.slide-indicator').forEach((dot, idx) => {
+        dot.classList.remove('active');
+        if (idx + 1 === currentSlide) {
+          dot.classList.add('active');
+        }
+      });
+
+      // Update counter
+      document.getElementById('slideCounter').textContent = `${currentSlide} / ${totalSlides}`;
+
+      // Update progress bar
+      const progress = ((currentSlide - 1) / (totalSlides - 1)) * 100;
+      document.getElementById('progressBar').style.width = `${progress}%`;
+
+      // Update nav buttons
+      document.getElementById('prevBtn').disabled = currentSlide === 1;
+      document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+
+      // Re-trigger animations
+      const animElements = target?.querySelectorAll('.fade-in-up');
+      animElements?.forEach(el => {
+        el.style.animation = 'none';
+        el.offsetHeight; // trigger reflow
+        el.style.animation = '';
+      });
+    }
+
+    function changeSlide(direction) {
+      const next = currentSlide + direction;
+      if (next >= 1 && next <= totalSlides) {
+        currentSlide = next;
+        updateSlide();
+      }
+    }
+
+    function goToSlide(num) {
+      if (num >= 1 && num <= totalSlides) {
+        currentSlide = num;
+        updateSlide();
+      }
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+        e.preventDefault();
+        changeSlide(1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        changeSlide(-1);
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        goToSlide(1);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        goToSlide(totalSlides);
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+      }
+    });
+
+    // Touch support
+    let touchStartX = 0;
+    let touchStartY = 0;
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    });
+    document.addEventListener('touchend', (e) => {
+      const diffX = touchStartX - e.changedTouches[0].screenX;
+      const diffY = touchStartY - e.changedTouches[0].screenY;
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+        if (diffX > 0) changeSlide(1);
+        else changeSlide(-1);
+      }
+    });
+
+    // Show keyboard hint briefly
+    setTimeout(() => {
+      const hint = document.getElementById('keyHint');
+      hint.style.opacity = '1';
+      setTimeout(() => { hint.style.opacity = '0'; }, 4000);
+    }, 2000);
+
+    // Initialize
+    updateSlide();
+  </script>
 </body>
 </html>
