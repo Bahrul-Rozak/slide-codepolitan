@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script>
         tailwind.config = {
@@ -41,14 +41,6 @@
         .flow-arrow{color:#d4d4d4;font-size:18px}
         .arch-card{transition:all .3s ease;border:2px solid transparent}
         .arch-card:hover{border-color:#f97316;transform:scale(1.03)}
-        .img-accent{position:absolute;border-radius:24px;overflow:hidden;pointer-events:none}
-        .img-accent img{width:100%;height:100%;object-fit:cover}
-        .stat-ring{position:relative;width:80px;height:80px}
-        .stat-ring svg{transform:rotate(-90deg)}
-        .stat-ring .value{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px}
-        .img-side{border-radius:20px;overflow:hidden}
-        .img-side img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
-        .img-side:hover img{transform:scale(1.05)}
         ::-webkit-scrollbar{width:0;height:0}
     </style>
 </head>
@@ -64,7 +56,9 @@
         </div>
         <div class="flex items-center gap-3">
             <span class="text-xs font-medium text-neutral-400 tracking-wide" id="slideCounter">01 / 18</span>
-            <button onclick="toggleFullscreen()" class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-neutral-100 transition-colors text-neutral-400 hover:text-dark"><i class="fa-solid fa-expand text-xs"></i></button>
+            <button onclick="toggleFullscreen()" class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-neutral-100 transition-colors text-neutral-400 hover:text-dark">
+                <i class="fa-solid fa-expand text-xs"></i>
+            </button>
         </div>
     </nav>
 
@@ -73,14 +67,19 @@
         <!-- SLIDE 1: COVER -->
         <section class="slide active flex-col items-center justify-center h-full px-6 md:px-16 relative overflow-hidden" data-slide="1">
             <div class="absolute inset-0 opacity-[0.03]" style="background-image:radial-gradient(circle at 1px 1px,#000 1px,transparent 0);background-size:40px 40px"></div>
-            <div class="img-accent top-8 right-8 w-72 h-96 opacity-10 hidden lg:block" style="filter:grayscale(100%)"><img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=60" alt=""></div>
-            <div class="img-accent bottom-8 left-8 w-64 h-80 opacity-10 hidden lg:block" style="filter:grayscale(100%)"><img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=600&q=60" alt=""></div>
             <div class="absolute top-1/4 right-0 w-96 h-96 bg-accent-100 rounded-full blur-3xl opacity-30"></div>
             <div class="absolute bottom-0 left-0 w-80 h-80 bg-accent-50 rounded-full blur-3xl opacity-50"></div>
             <div class="relative z-10 max-w-4xl mx-auto text-center">
-                <div class="tag bg-accent-50 text-accent-600 mx-auto mb-8"><i class="fa-solid fa-bolt text-[10px]"></i>Studi Kasus: RAG Technology</div>
-                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] mb-6">AI Assistant yang <span class="gradient-text">Benar-Benar Mengerti</span> Bisnis Kamu</h1>
-                <p class="text-lg md:text-xl text-neutral-500 font-light max-w-2xl mx-auto mb-10 leading-relaxed">Dari Chatbot Ngawur ke AI yang Jawab Berdasarkan Data Perusahaan Sendiri</p>
+                <div class="tag bg-accent-50 text-accent-600 mx-auto mb-8">
+                    <i class="fa-solid fa-bolt text-[10px]"></i>
+                    Studi Kasus: RAG Technology
+                </div>
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] mb-6">
+                    AI Assistant yang <span class="gradient-text">Benar-Benar Mengerti</span> Bisnis Kamu
+                </h1>
+                <p class="text-lg md:text-xl text-neutral-500 font-light max-w-2xl mx-auto mb-10 leading-relaxed">
+                    Dari Chatbot Ngawur ke AI yang Jawab Berdasarkan Data Perusahaan Sendiri
+                </p>
                 <div class="flex items-center justify-center gap-4">
                     <div class="flex items-center gap-2 text-sm text-neutral-400">
                         <img src="https://pageindex.ai/_next/image?url=%2Fstatic%2Fimages%2Flogo.png&w=48&q=75" alt="PageIndex" class="h-5">
@@ -98,38 +97,28 @@
         <!-- SLIDE 2: MASALAH NYATA -->
         <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="2">
             <div class="max-w-5xl mx-auto w-full">
-                <div class="tag bg-red-50 text-red-500 mb-6"><i class="fa-solid fa-triangle-exclamation text-[10px]"></i>Realita</div>
-                <div class="flex flex-col md:flex-row gap-8 items-start">
-                    <div class="flex-1">
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Punya Website, Tapi...</h2>
-                        <p class="text-neutral-500 text-base mb-8 max-w-xl">Masalahnya bukan teknologi, tapi bagaimana informasi disampaikan</p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <div class="card-hover bg-neutral-50 rounded-xl p-4 border border-neutral-100 flex items-start gap-3">
-                                <div class="w-9 h-9 rounded-lg bg-red-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-clock text-red-400 text-xs"></i></div>
-                                <div><h3 class="font-semibold text-xs mb-0.5">Respons Lambat</h3><p class="text-neutral-400 text-[11px] leading-relaxed">CS jawabnya lama</p></div>
-                            </div>
-                            <div class="card-hover bg-neutral-50 rounded-xl p-4 border border-neutral-100 flex items-start gap-3">
-                                <div class="w-9 h-9 rounded-lg bg-red-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-file-lines text-red-400 text-xs"></i></div>
-                                <div><h3 class="font-semibold text-xs mb-0.5">Pencarian Manual</h3><p class="text-neutral-400 text-[11px] leading-relaxed">Harus cari dokumen dulu</p></div>
-                            </div>
-                            <div class="card-hover bg-neutral-50 rounded-xl p-4 border border-neutral-100 flex items-start gap-3">
-                                <div class="w-9 h-9 rounded-lg bg-red-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-moon text-red-400 text-xs"></i></div>
-                                <div><h3 class="font-semibold text-xs mb-0.5">Offline Malam Hari</h3><p class="text-neutral-400 text-[11px] leading-relaxed">Gak ada yang jawab</p></div>
-                            </div>
-                            <div class="card-hover bg-neutral-50 rounded-xl p-4 border border-neutral-100 flex items-start gap-3">
-                                <div class="w-9 h-9 rounded-lg bg-red-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-robot text-red-400 text-xs"></i></div>
-                                <div><h3 class="font-semibold text-xs mb-0.5">Jawaban Ngawur</h3><p class="text-neutral-400 text-[11px] leading-relaxed">Info menyesatkan</p></div>
-                            </div>
-                        </div>
+                <div class="tag bg-red-50 text-red-500 mb-6">
+                    <i class="fa-solid fa-triangle-exclamation text-[10px]"></i>
+                    Realita
+                </div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Punya Website, Tapi...</h2>
+                <p class="text-neutral-500 text-lg mb-12 max-w-2xl">Masalahnya bukan teknologi, tapi bagaimana informasi disampaikan</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="card-hover bg-neutral-50 rounded-2xl p-6 border border-neutral-100 flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-clock text-red-400 text-sm"></i></div>
+                        <div><h3 class="font-semibold text-sm mb-1">Respons Lambat</h3><p class="text-neutral-500 text-sm leading-relaxed">Customer tanya harga, CS jawabnya lama</p></div>
                     </div>
-                    <div class="w-full md:w-64 lg:w-72 shrink-0">
-                        <div class="img-side h-48 md:h-full relative">
-                            <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=600&q=60" alt="Customer Service">
-                            <div class="absolute inset-0 bg-gradient-to-t from-white via-white/60 to-transparent"></div>
-                            <div class="absolute bottom-4 left-4 right-4">
-                                <div class="bg-red-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5"><i class="fa-solid fa-chart-simple"></i>73% customer frustrasi dengan chatbot saat ini</div>
-                            </div>
-                        </div>
+                    <div class="card-hover bg-neutral-50 rounded-2xl p-6 border border-neutral-100 flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-file-lines text-red-400 text-sm"></i></div>
+                        <div><h3 class="font-semibold text-sm mb-1">Pencarian Manual</h3><p class="text-neutral-500 text-sm leading-relaxed">Harus cari dokumen manual dulu untuk jawab spesifikasi</p></div>
+                    </div>
+                    <div class="card-hover bg-neutral-50 rounded-2xl p-6 border border-neutral-100 flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-moon text-red-400 text-sm"></i></div>
+                        <div><h3 class="font-semibold text-sm mb-1">Offline di Malam Hari</h3><p class="text-neutral-500 text-sm leading-relaxed">Di luar jam kerja, gak ada yang jawab</p></div>
+                    </div>
+                    <div class="card-hover bg-neutral-50 rounded-2xl p-6 border border-neutral-100 flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-robot text-red-400 text-sm"></i></div>
+                        <div><h3 class="font-semibold text-sm mb-1">Jawaban Ngawur</h3><p class="text-neutral-500 text-sm leading-relaxed">Chatbot malah kasih info yang menyesatkan</p></div>
                     </div>
                 </div>
             </div>
@@ -137,38 +126,30 @@
 
         <!-- SLIDE 3: KENAPA CHATBOT GAGAL -->
         <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="3">
-            <div class="img-accent top-20 right-0 w-56 h-72 opacity-[0.06] hidden md:block"><img src="https://images.unsplash.com/photo-1546776310-eef45dd6d63c?w=400&q=60" alt=""></div>
-            <div class="max-w-5xl mx-auto w-full relative z-10">
-                <div class="tag bg-red-50 text-red-500 mb-6"><i class="fa-solid fa-xmark text-[10px]"></i>Akar Masalah</div>
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Kenapa Chatbot Gagal</h2>
-                <p class="text-neutral-500 text-base mb-10 max-w-3xl">Yang dibutuhkan bukan chatbot pintar, tapi yang <strong class="text-dark">tahu apa yang kita tahu</strong></p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="max-w-5xl mx-auto w-full">
+                <div class="tag bg-red-50 text-red-500 mb-6"><i class="fa-solid fa-xmark text-[10px]"></i> Akar Masalah</div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Kenapa Chatbot Gagal</h2>
+                <p class="text-neutral-500 text-lg mb-12 max-w-3xl">Yang dibutuhkan bukan chatbot pintar, tapi yang <strong class="text-dark">tahu apa yang kita tahu</strong></p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-4">
                         <div class="flex items-start gap-4 p-5 rounded-xl border border-red-100 bg-red-50/50">
-                            <div class="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-database text-red-400 text-sm"></i></div>
+                            <div class="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-database text-red-400 text-xs"></i></div>
                             <div><h3 class="font-semibold text-sm mb-1">Data Training Lawas</h3><p class="text-neutral-500 text-sm">Jawab dari data lama, bukan data perusahaan terkini</p></div>
                         </div>
                         <div class="flex items-start gap-4 p-5 rounded-xl border border-red-100 bg-red-50/50">
-                            <div class="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-ghost text-red-400 text-sm"></i></div>
+                            <div class="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-ghost text-red-400 text-xs"></i></div>
                             <div><h3 class="font-semibold text-sm mb-1">Hallucination</h3><p class="text-neutral-500 text-sm">Bikin jawaban yang kedengeran masuk akal tapi salah</p></div>
                         </div>
                     </div>
                     <div class="space-y-4">
                         <div class="flex items-start gap-4 p-5 rounded-xl border border-red-100 bg-red-50/50">
-                            <div class="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-ban text-red-400 text-sm"></i></div>
+                            <div class="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-ban text-red-400 text-xs"></i></div>
                             <div><h3 class="font-semibold text-sm mb-1">Gak Bisa Spesifik</h3><p class="text-neutral-500 text-sm">Gak bisa jawab pertanyaan tentang produk kita</p></div>
                         </div>
                         <div class="flex items-start gap-4 p-5 rounded-xl border border-red-100 bg-red-50/50">
-                            <div class="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-face-frown text-red-400 text-sm"></i></div>
+                            <div class="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-face-frown text-red-400 text-xs"></i></div>
                             <div><h3 class="font-semibold text-sm mb-1">Kepercayaan Hilang</h3><p class="text-neutral-500 text-sm">Customer kehilangan trust karena jawaban tidak akurat</p></div>
                         </div>
-                    </div>
-                </div>
-                <div class="mt-8 p-5 bg-neutral-50 rounded-2xl border border-neutral-100 flex items-center gap-6">
-                    <div class="img-side w-20 h-20 shrink-0 rounded-xl"><img src="https://images.unsplash.com/photo-1531746790095-e5995af1c4c8?w=200&q=60" alt=""></div>
-                    <div>
-                        <p class="text-sm font-semibold mb-1">LLM tanpa RAG seperti mahasiswa ujian tanpa buku</p>
-                        <p class="text-neutral-400 text-xs">Bisa jawab banyak hal, tapi gak bisa dijamin benar untuk kasus spesifik kamu</p>
                     </div>
                 </div>
             </div>
@@ -176,43 +157,36 @@
 
         <!-- SLIDE 4: SOLUSI -->
         <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="4">
-            <div class="img-accent bottom-0 left-0 w-80 h-48 opacity-[0.07] hidden md:block"><img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&q=60" alt=""></div>
             <div class="absolute top-1/3 left-0 w-72 h-72 bg-green-50 rounded-full blur-3xl opacity-40"></div>
             <div class="max-w-5xl mx-auto w-full relative z-10">
-                <div class="tag bg-green-50 text-green-600 mb-6"><i class="fa-solid fa-lightbulb text-[10px]"></i>Solusi</div>
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">AI yang Baca Dokumen Perusahaan</h2>
-                <p class="text-neutral-500 text-base mb-10 max-w-2xl">Bayangkan punya asisten yang selalu siap dan selalu benar</p>
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
-                    <div class="card-hover bg-white rounded-2xl p-5 border border-neutral-100 text-center">
-                        <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center mx-auto mb-3"><i class="fa-solid fa-book-open text-green-500"></i></div>
-                        <h3 class="font-semibold text-xs mb-1">Baca Semua Dokumen</h3>
-                        <p class="text-neutral-400 text-[10px] leading-relaxed">Katalog, price list, manual</p>
+                <div class="tag bg-green-50 text-green-600 mb-6"><i class="fa-solid fa-lightbulb text-[10px]"></i> Solusi</div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">AI yang Baca Dokumen Perusahaan</h2>
+                <p class="text-neutral-500 text-lg mb-12 max-w-2xl">Bayangkan punya asisten yang selalu siap dan selalu benar</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100 text-center">
+                        <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-book-open text-green-500"></i></div>
+                        <h3 class="font-semibold text-sm mb-2">Baca Semua Dokumen</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">Katalog, price list, manual teknis</p>
                     </div>
-                    <div class="card-hover bg-white rounded-2xl p-5 border border-neutral-100 text-center">
-                        <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center mx-auto mb-3"><i class="fa-solid fa-file-shield text-green-500"></i></div>
-                        <h3 class="font-semibold text-xs mb-1">Jawab dari Sumber Resmi</h3>
-                        <p class="text-neutral-400 text-[10px] leading-relaxed">Dokumen resmi perusahaan</p>
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100 text-center">
+                        <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-file-shield text-green-500"></i></div>
+                        <h3 class="font-semibold text-sm mb-2">Jawab dari Sumber Resmi</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">Berdasarkan dokumen resmi</p>
                     </div>
-                    <div class="card-hover bg-white rounded-2xl p-5 border border-neutral-100 text-center">
-                        <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center mx-auto mb-3"><i class="fa-solid fa-check-double text-green-500"></i></div>
-                        <h3 class="font-semibold text-xs mb-1">Tidak Pernah Ngarang</h3>
-                        <p class="text-neutral-400 text-[10px] leading-relaxed">Merujuk ke sumber jelas</p>
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100 text-center">
+                        <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-check-double text-green-500"></i></div>
+                        <h3 class="font-semibold text-sm mb-2">Tidak Pernah Ngarang</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">Selalu merujuk ke sumber jelas</p>
                     </div>
-                    <div class="card-hover bg-white rounded-2xl p-5 border border-neutral-100 text-center">
-                        <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center mx-auto mb-3"><i class="fa-solid fa-clock-rotate-left text-green-500"></i></div>
-                        <h3 class="font-semibold text-xs mb-1">Tersedia 24/7</h3>
-                        <p class="text-neutral-400 text-[10px] leading-relaxed">Konsistensi jawaban sama</p>
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100 text-center">
+                        <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-clock-rotate-left text-green-500"></i></div>
+                        <h3 class="font-semibold text-sm mb-2">Tersedia 24/7</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">Konsistensi jawaban sama</p>
                     </div>
                 </div>
-                <div class="mt-8 flex flex-col md:flex-row gap-4 items-stretch">
-                    <div class="flex-1 p-5 bg-green-50 rounded-2xl border border-green-100 flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center shrink-0"><i class="fa-solid fa-wand-magic-sparkles text-white text-sm"></i></div>
-                        <p class="text-green-700 font-medium text-sm">Ini bukan mimpi, ini sudah bisa dibangun hari ini</p>
-                    </div>
-                    <div class="img-side w-full md:w-48 h-28 md:h-auto shrink-0 relative">
-                        <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&q=60" alt="AI Technology">
-                        <div class="absolute inset-0 bg-gradient-to-r from-green-50/80 to-transparent md:block hidden"></div>
-                    </div>
+                <div class="mt-10 p-5 bg-green-50 rounded-2xl border border-green-100 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center shrink-0"><i class="fa-solid fa-wand-magic-sparkles text-white text-sm"></i></div>
+                    <p class="text-green-700 font-medium text-sm">Ini bukan mimpi, ini sudah bisa dibangun hari ini</p>
                 </div>
             </div>
         </section>
@@ -220,29 +194,36 @@
         <!-- SLIDE 5: APA ITU RAG -->
         <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="5">
             <div class="max-w-5xl mx-auto w-full">
-                <div class="tag bg-accent-50 text-accent-600 mb-6"><i class="fa-solid fa-microchip text-[10px]"></i>Teknologi</div>
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-2">Apa Itu <span class="gradient-text">RAG</span>?</h2>
-                <p class="text-neutral-400 text-sm mb-10">Retrieval Augmented Generation</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-                    <div class="space-y-4">
-                        <div class="img-side h-40 rounded-2xl relative"><img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&q=60" alt="AI Neural"><div class="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent"></div></div>
+                <div class="tag bg-accent-50 text-accent-600 mb-6"><i class="fa-solid fa-microchip text-[10px]"></i> Teknologi</div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-2">Apa Itu <span class="gradient-text">RAG</span>?</h2>
+                <p class="text-neutral-400 text-base mb-12">Retrieval Augmented Generation</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-5">
                         <div class="p-5 bg-neutral-50 rounded-2xl border border-neutral-100">
-                            <p class="text-sm text-neutral-600 leading-relaxed">RAG menggabungkan <strong>pencarian informasi</strong> dengan <strong>generasi teks</strong>. AI mengakses <strong>sumber data eksternal</strong> langsung sebelum menjawab.</p>
+                            <p class="text-sm text-neutral-600 leading-relaxed">RAG adalah teknik AI yang <strong>menggabungkan kemampuan pencarian informasi</strong> dengan <strong>generasi teks</strong>. Alih-alih hanya mengandalkan pengetahuan yang sudah ada di dalam model, RAG memungkinkan AI mengakses <strong>sumber data eksternal</strong> secara langsung sebelum menjawab.</p>
                         </div>
-                        <div class="p-4 bg-accent-50 rounded-xl border border-accent-100">
-                            <p class="text-xs text-accent-700 leading-relaxed font-medium"><i class="fa-solid fa-quote-left mr-2 opacity-50"></i>AI tidak menjawab dari ingatannya sendiri, tapi mencari fakta dulu di dokumen kamu, baru menjawab.<i class="fa-solid fa-quote-right ml-2 opacity-50"></i></p>
+                        <div class="p-5 bg-accent-50 rounded-2xl border border-accent-100">
+                            <p class="text-sm text-accent-700 leading-relaxed font-medium"><i class="fa-solid fa-quote-left mr-2 opacity-50"></i>Intinya: AI tidak menjawab dari ingatannya sendiri, tapi mencari fakta dulu di dokumen kamu, baru menjawab.<i class="fa-solid fa-quote-right ml-2 opacity-50"></i></p>
                         </div>
                     </div>
-                    <div class="bg-neutral-50 rounded-2xl p-5 border border-neutral-100">
-                        <div class="flex items-center gap-2 mb-4"><div class="w-3 h-3 rounded-full bg-red-300"></div><div class="w-3 h-3 rounded-full bg-yellow-300"></div><div class="w-3 h-3 rounded-full bg-green-300"></div></div>
-                        <div class="space-y-3">
-                            <div class="flex items-start gap-3"><div class="w-7 h-7 rounded-full bg-accent-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-user text-accent-600 text-[10px]"></i></div><div class="bg-white rounded-xl rounded-tl-sm p-3 text-xs text-neutral-600 border border-neutral-100">Berapa harga produk X?</div></div>
-                            <div class="flex items-start gap-3"><div class="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-robot text-green-600 text-[10px]"></i></div><div class="bg-green-50 rounded-xl rounded-tl-sm p-3 text-xs text-neutral-700 border border-green-100">Berdasarkan Price List 2024 (hal. 3), harga Produk X adalah Rp 2.500.000.<div class="mt-2 pt-2 border-t border-green-200 text-[10px] text-green-600"><i class="fa-solid fa-link mr-1"></i> Sumber: Price_List_2024.pdf - Halaman 3</div></div></div>
+                    <div class="bg-neutral-50 rounded-2xl p-6 border border-neutral-100">
+                        <div class="flex items-center gap-2 mb-4">
+                            <div class="w-3 h-3 rounded-full bg-red-300"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-300"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-300"></div>
                         </div>
-                        <div class="mt-5 pt-4 border-t border-neutral-100 grid grid-cols-3 gap-2 text-center">
-                            <div class="p-2 bg-white rounded-lg border border-neutral-100"><i class="fa-solid fa-magnifying-glass text-blue-400 text-xs mb-1 block"></i><p class="text-[9px] text-neutral-500">Retrieve</p></div>
-                            <div class="p-2 bg-white rounded-lg border border-neutral-100"><i class="fa-solid fa-puzzle-piece text-purple-400 text-xs mb-1 block"></i><p class="text-[9px] text-neutral-500">Augment</p></div>
-                            <div class="p-2 bg-white rounded-lg border border-neutral-100"><i class="fa-solid fa-pen-nib text-green-400 text-xs mb-1 block"></i><p class="text-[9px] text-neutral-500">Generate</p></div>
+                        <div class="space-y-3">
+                            <div class="flex items-start gap-3">
+                                <div class="w-7 h-7 rounded-full bg-accent-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-user text-accent-600 text-[10px]"></i></div>
+                                <div class="bg-white rounded-xl rounded-tl-sm p-3 text-xs text-neutral-600 border border-neutral-100">Berapa harga produk X?</div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-robot text-green-600 text-[10px]"></i></div>
+                                <div class="bg-green-50 rounded-xl rounded-tl-sm p-3 text-xs text-neutral-700 border border-green-100">
+                                    Berdasarkan Price List 2024 (hal. 3), harga Produk X adalah Rp 2.500.000.
+                                    <div class="mt-2 pt-2 border-t border-green-200 text-[10px] text-green-600"><i class="fa-solid fa-link mr-1"></i> Sumber: Price_List_2024.pdf - Halaman 3</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -251,49 +232,48 @@
 
         <!-- SLIDE 6: ARSITEKTUR RAG -->
         <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="6">
-            <div class="img-accent bottom-0 right-0 w-72 h-44 opacity-[0.05] hidden md:block"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=500&q=60" alt=""></div>
-            <div class="max-w-5xl mx-auto w-full relative z-10">
-                <div class="tag bg-accent-50 text-accent-600 mb-6"><i class="fa-solid fa-cubes text-[10px]"></i>Arsitektur</div>
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Arsitektur RAG</h2>
-                <p class="text-neutral-500 text-base mb-10">4 Komponen Utama yang Bekerja Bersama</p>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    <div class="arch-card bg-neutral-50 rounded-2xl p-5 border border-neutral-100 text-center">
-                        <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center mx-auto mb-3"><i class="fa-solid fa-arrow-right-arrow-left text-blue-500 text-lg"></i></div>
-                        <h3 class="font-bold text-xs mb-1">Embedding Model</h3>
-                        <p class="text-neutral-400 text-[10px] leading-relaxed mb-2">Teks jadi vector angka</p>
-                        <div class="text-[9px] font-mono text-blue-400 bg-blue-50 rounded-lg px-2 py-1">text -> [0.23, -0.41...]</div>
+            <div class="max-w-5xl mx-auto w-full">
+                <div class="tag bg-accent-50 text-accent-600 mb-6"><i class="fa-solid fa-cubes text-[10px]"></i> Arsitektur</div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Arsitektur RAG</h2>
+                <p class="text-neutral-500 text-lg mb-12">4 Komponen Utama yang Bekerja Bersama</p>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="arch-card bg-neutral-50 rounded-2xl p-6 border border-neutral-100 text-center">
+                        <div class="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-arrow-right-arrow-left text-blue-500 text-xl"></i></div>
+                        <h3 class="font-bold text-sm mb-2">Embedding Model</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed mb-3">Mengubah teks menjadi representasi angka (vector) yang bisa dibandingkan</p>
+                        <div class="text-[10px] font-mono text-blue-400 bg-blue-50 rounded-lg px-3 py-1.5">text -> [0.23, -0.41, ...]</div>
                     </div>
-                    <div class="arch-card bg-neutral-50 rounded-2xl p-5 border border-neutral-100 text-center">
-                        <div class="w-12 h-12 rounded-2xl bg-purple-50 flex items-center justify-center mx-auto mb-3"><i class="fa-solid fa-hard-drive text-purple-500 text-lg"></i></div>
-                        <h3 class="font-bold text-xs mb-1">Vector Database</h3>
-                        <p class="text-neutral-400 text-[10px] leading-relaxed mb-2">Simpan & cari vector</p>
-                        <div class="text-[9px] font-mono text-purple-400 bg-purple-50 rounded-lg px-2 py-1">Pinecone / Weaviate</div>
+                    <div class="arch-card bg-neutral-50 rounded-2xl p-6 border border-neutral-100 text-center">
+                        <div class="w-14 h-14 rounded-2xl bg-purple-50 flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-hard-drive text-purple-500 text-xl"></i></div>
+                        <h3 class="font-bold text-sm mb-2">Vector Database</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed mb-3">Menyimpan dan mencari vector secara efisien dengan similarity search</p>
+                        <div class="text-[10px] font-mono text-purple-400 bg-purple-50 rounded-lg px-3 py-1.5">Pinecone / Weaviate</div>
                     </div>
-                    <div class="arch-card bg-neutral-50 rounded-2xl p-5 border border-neutral-100 text-center">
-                        <div class="w-12 h-12 rounded-2xl bg-accent-50 flex items-center justify-center mx-auto mb-3"><i class="fa-solid fa-brain text-accent-500 text-lg"></i></div>
-                        <h3 class="font-bold text-xs mb-1">LLM</h3>
-                        <p class="text-neutral-400 text-[10px] leading-relaxed mb-2">Generate jawaban</p>
-                        <div class="text-[9px] font-mono text-accent-400 bg-accent-50 rounded-lg px-2 py-1">GPT-4 / Claude</div>
+                    <div class="arch-card bg-neutral-50 rounded-2xl p-6 border border-neutral-100 text-center">
+                        <div class="w-14 h-14 rounded-2xl bg-accent-50 flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-brain text-accent-500 text-xl"></i></div>
+                        <h3 class="font-bold text-sm mb-2">Large Language Model</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed mb-3">Menghasilkan jawaban natural berdasarkan konteks yang diberikan</p>
+                        <div class="text-[10px] font-mono text-accent-400 bg-accent-50 rounded-lg px-3 py-1.5">GPT-4 / Claude / Llama</div>
                     </div>
-                    <div class="arch-card bg-neutral-50 rounded-2xl p-5 border border-neutral-100 text-center">
-                        <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center mx-auto mb-3"><i class="fa-solid fa-gears text-green-500 text-lg"></i></div>
-                        <h3 class="font-bold text-xs mb-1">Orchestrator</h3>
-                        <p class="text-neutral-400 text-[10px] leading-relaxed mb-2">Koordinasi alur</p>
-                        <div class="text-[9px] font-mono text-green-400 bg-green-50 rounded-lg px-2 py-1">LangChain</div>
+                    <div class="arch-card bg-neutral-50 rounded-2xl p-6 border border-neutral-100 text-center">
+                        <div class="w-14 h-14 rounded-2xl bg-green-50 flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-gears text-green-500 text-xl"></i></div>
+                        <h3 class="font-bold text-sm mb-2">Orchestrator</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed mb-3">Mengoordinasikan seluruh alur dari query sampai jawaban</p>
+                        <div class="text-[10px] font-mono text-green-400 bg-green-50 rounded-lg px-3 py-1.5">LangChain / LlamaIndex</div>
                     </div>
                 </div>
-                <div class="mt-6 bg-neutral-50 rounded-2xl p-4 border border-neutral-100">
-                    <div class="flex flex-wrap items-center justify-center gap-2 text-xs">
-                        <span class="bg-accent-100 text-accent-700 px-3 py-1.5 rounded-lg font-medium text-[11px]"><i class="fa-solid fa-comment mr-1"></i>Query</span>
-                        <i class="fa-solid fa-arrow-right text-[10px] text-neutral-300"></i>
-                        <span class="bg-blue-100 text-blue-700 px-3 py-1.5 rounded-lg font-medium text-[11px]"><i class="fa-solid fa-arrow-right-arrow-left mr-1"></i>Embed</span>
-                        <i class="fa-solid fa-arrow-right text-[10px] text-neutral-300"></i>
-                        <span class="bg-purple-100 text-purple-700 px-3 py-1.5 rounded-lg font-medium text-[11px]"><i class="fa-solid fa-magnifying-glass mr-1"></i>Retrieve</span>
-                        <i class="fa-solid fa-arrow-right text-[10px] text-neutral-300"></i>
-                        <span class="bg-accent-100 text-accent-700 px-3 py-1.5 rounded-lg font-medium text-[11px]"><i class="fa-solid fa-puzzle-piece mr-1"></i>Augment</span>
-                        <i class="fa-solid fa-arrow-right text-[10px] text-neutral-300"></i>
-                        <span class="bg-green-100 text-green-700 px-3 py-1.5 rounded-lg font-bold text-[11px]"><i class="fa-solid fa-check mr-1"></i>Jawaban</span>
-                    </div>
+                <div class="mt-8 flex items-center justify-center gap-3 text-neutral-400 text-xs">
+                    <span>Query masuk</span>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    <span>Embed</span>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    <span>Retrieve</span>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    <span>Augment</span>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    <span>Generate</span>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    <span class="text-green-500 font-semibold">Jawaban</span>
                 </div>
             </div>
         </section>
@@ -301,51 +281,50 @@
         <!-- SLIDE 7: STEP 1 - INDEXING -->
         <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="7">
             <div class="max-w-5xl mx-auto w-full">
-                <div class="tag bg-blue-50 text-blue-600 mb-6"><i class="fa-solid fa-1 text-[10px]"></i>Step 1</div>
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Indexing: Bangun Knowledge Base</h2>
-                <p class="text-neutral-500 text-base mb-8">Dokumen diubah menjadi bentuk yang bisa dicari AI</p>
-                <div class="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-3 mb-8">
-                    <div class="bg-white rounded-2xl overflow-hidden border border-neutral-100 w-full md:w-48 card-hover">
-                        <div class="h-24 relative"><img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=300&q=60" alt="" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-white to-transparent"></div></div>
-                        <div class="p-4 text-center"><i class="fa-solid fa-file-pdf text-2xl text-red-300 mb-2 block"></i><p class="text-xs font-semibold mb-0.5">Dokumen Mentah</p><p class="text-[10px] text-neutral-400">PDF, DOCX, HTML</p></div>
+                <div class="tag bg-blue-50 text-blue-600 mb-6"><i class="fa-solid fa-1 text-[10px]"></i> Step 1</div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Indexing: Bangun Knowledge Base</h2>
+                <p class="text-neutral-500 text-lg mb-12">Fase persiapan - dokumen diubah menjadi bentuk yang bisa dicari AI</p>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4 mb-10">
+                    <div class="bg-white rounded-2xl p-5 border border-neutral-100 text-center w-full md:w-44 card-hover">
+                        <i class="fa-solid fa-file-pdf text-3xl text-red-300 mb-3 block"></i>
+                        <p class="text-xs font-semibold mb-1">Dokumen Mentah</p>
+                        <p class="text-[10px] text-neutral-400">PDF, DOCX, HTML, TXT</p>
                     </div>
-                    <i class="fa-solid fa-arrow-right flow-arrow hidden md:block"></i><i class="fa-solid fa-arrow-down flow-arrow md:hidden"></i>
-                    <div class="bg-white rounded-2xl p-5 border border-neutral-100 text-center w-full md:w-48 card-hover">
-                        <div class="w-full h-24 bg-yellow-50 rounded-xl mb-3 flex items-center justify-center relative overflow-hidden">
-                            <div class="absolute top-2 left-3 w-16 h-2 bg-yellow-200 rounded"></div>
-                            <div class="absolute top-6 left-3 w-20 h-2 bg-yellow-200 rounded"></div>
-                            <div class="absolute top-10 left-3 w-14 h-2 bg-yellow-200 rounded"></div>
-                            <div class="absolute top-2 right-3 w-16 h-2 bg-yellow-300 rounded"></div>
-                            <div class="absolute top-6 right-3 w-20 h-2 bg-yellow-300 rounded"></div>
-                            <div class="absolute top-10 right-3 w-14 h-2 bg-yellow-300 rounded"></div>
-                            <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-yellow-400"></div>
-                            <i class="fa-solid fa-scissors text-yellow-500 text-lg absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white w-8 h-8 rounded-full flex items-center justify-center"></i>
-                        </div>
-                        <p class="text-xs font-semibold mb-0.5">Chunking</p><p class="text-[10px] text-neutral-400">Pecah 500-1000 token</p>
+                    <i class="fa-solid fa-arrow-right flow-arrow hidden md:block"></i>
+                    <i class="fa-solid fa-arrow-down flow-arrow md:hidden"></i>
+                    <div class="bg-white rounded-2xl p-5 border border-neutral-100 text-center w-full md:w-44 card-hover">
+                        <i class="fa-solid fa-scissors text-3xl text-yellow-400 mb-3 block"></i>
+                        <p class="text-xs font-semibold mb-1">Chunking</p>
+                        <p class="text-[10px] text-neutral-400">Pecah jadi potongan kecil (500-1000 token)</p>
                     </div>
-                    <i class="fa-solid fa-arrow-right flow-arrow hidden md:block"></i><i class="fa-solid fa-arrow-down flow-arrow md:hidden"></i>
-                    <div class="bg-white rounded-2xl p-5 border border-neutral-100 text-center w-full md:w-48 card-hover">
-                        <div class="w-full h-24 bg-purple-50 rounded-xl mb-3 flex items-center justify-center">
-                            <div class="space-y-1">
-                                <div class="text-[8px] font-mono text-purple-300">[0.12, -0.34, 0.56, 0.78, -0.91]</div>
-                                <div class="text-[8px] font-mono text-purple-300">[0.45, 0.23, -0.67, 0.11, -0.33]</div>
-                                <div class="text-[8px] font-mono text-purple-300">[-0.28, 0.89, 0.44, -0.55, 0.72]</div>
-                            </div>
-                        </div>
-                        <p class="text-xs font-semibold mb-0.5">Embedding</p><p class="text-[10px] text-neutral-400">Ubah jadi vector angka</p>
+                    <i class="fa-solid fa-arrow-right flow-arrow hidden md:block"></i>
+                    <i class="fa-solid fa-arrow-down flow-arrow md:hidden"></i>
+                    <div class="bg-white rounded-2xl p-5 border border-neutral-100 text-center w-full md:w-44 card-hover">
+                        <i class="fa-solid fa-arrows-turn-to-dots text-3xl text-purple-400 mb-3 block"></i>
+                        <p class="text-xs font-semibold mb-1">Embedding</p>
+                        <p class="text-[10px] text-neutral-400">Ubah jadi vector angka</p>
                     </div>
-                    <i class="fa-solid fa-arrow-right flow-arrow hidden md:block"></i><i class="fa-solid fa-arrow-down flow-arrow md:hidden"></i>
-                    <div class="bg-blue-50 rounded-2xl p-5 border border-blue-100 text-center w-full md:w-48 card-hover">
-                        <div class="w-full h-24 bg-white rounded-xl mb-3 flex items-center justify-center border border-blue-100">
-                            <i class="fa-solid fa-hard-drive text-3xl text-blue-300"></i>
-                        </div>
-                        <p class="text-xs font-semibold mb-0.5 text-blue-700">Vector Database</p><p class="text-[10px] text-blue-400">Siap dicari</p>
+                    <i class="fa-solid fa-arrow-right flow-arrow hidden md:block"></i>
+                    <i class="fa-solid fa-arrow-down flow-arrow md:hidden"></i>
+                    <div class="bg-blue-50 rounded-2xl p-5 border border-blue-100 text-center w-full md:w-44 card-hover">
+                        <i class="fa-solid fa-hard-drive text-3xl text-blue-400 mb-3 block"></i>
+                        <p class="text-xs font-semibold mb-1 text-blue-700">Vector Database</p>
+                        <p class="text-[10px] text-blue-400">Siap dicari</p>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <div class="p-3 bg-neutral-50 rounded-xl border border-neutral-100"><div class="flex items-center gap-2 mb-1.5"><i class="fa-solid fa-circle-info text-blue-400 text-[10px]"></i><h4 class="text-[11px] font-semibold">Apa itu Chunking?</h4></div><p class="text-[10px] text-neutral-500 leading-relaxed">Dokumen dipecah jadi potongan kecil agar bisa di-embed individual</p></div>
-                    <div class="p-3 bg-neutral-50 rounded-xl border border-neutral-100"><div class="flex items-center gap-2 mb-1.5"><i class="fa-solid fa-circle-info text-purple-400 text-[10px]"></i><h4 class="text-[11px] font-semibold">Apa itu Embedding?</h4></div><p class="text-[10px] text-neutral-500 leading-relaxed">Teks jadi vektor. Teks mirip punya vektor berdekatan di ruang angka</p></div>
-                    <div class="p-3 bg-neutral-50 rounded-xl border border-neutral-100"><div class="flex items-center gap-2 mb-1.5"><i class="fa-solid fa-circle-info text-green-400 text-[10px]"></i><h4 class="text-[11px] font-semibold">Kapan Dilakukan?</h4></div><p class="text-[10px] text-neutral-500 leading-relaxed">Sekali saat setup. Update hanya saat ada dokumen baru</p></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-neutral-50 rounded-xl border border-neutral-100">
+                        <div class="flex items-center gap-2 mb-2"><i class="fa-solid fa-circle-info text-blue-400 text-xs"></i><h4 class="text-xs font-semibold">Apa itu Chunking?</h4></div>
+                        <p class="text-[11px] text-neutral-500 leading-relaxed">Dokumen dipecah menjadi potongan-potongan kecil agar bisa di-embed secara individual dan dicari pada level granular</p>
+                    </div>
+                    <div class="p-4 bg-neutral-50 rounded-xl border border-neutral-100">
+                        <div class="flex items-center gap-2 mb-2"><i class="fa-solid fa-circle-info text-purple-400 text-xs"></i><h4 class="text-xs font-semibold">Apa itu Embedding?</h4></div>
+                        <p class="text-[11px] text-neutral-500 leading-relaxed">Proses mengubah teks menjadi vektor angka berdimensi tinggi. Teks yang mirip punya vektor yang berdekatan di ruang angka</p>
+                    </div>
+                    <div class="p-4 bg-neutral-50 rounded-xl border border-neutral-100">
+                        <div class="flex items-center gap-2 mb-2"><i class="fa-solid fa-circle-info text-green-400 text-xs"></i><h4 class="text-xs font-semibold">Kapan Dilakukan?</h4></div>
+                        <p class="text-[11px] text-neutral-500 leading-relaxed">Sekali saat setup awal. Update hanya saat ada dokumen baru atau perubahan, tidak perlu retrain seluruh model</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -353,19 +332,31 @@
         <!-- SLIDE 8: STEP 2 - RETRIEVAL -->
         <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="8">
             <div class="max-w-5xl mx-auto w-full">
-                <div class="tag bg-purple-50 text-purple-600 mb-6"><i class="fa-solid fa-2 text-[10px]"></i>Step 2</div>
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Retrieval: Cari Konteks Relevan</h2>
-                <p class="text-neutral-500 text-base mb-8">Saat user bertanya, sistem mencari info paling relevan</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                    <div class="space-y-4">
-                        <div class="flex items-start gap-3"><div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center shrink-0 text-purple-600 text-xs font-bold">A</div><div><h3 class="font-semibold text-xs mb-0.5">User Ajukan Pertanyaan</h3><p class="text-neutral-500 text-xs">"Berapa harga produk X?"</p></div></div>
-                        <div class="flex items-start gap-3"><div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center shrink-0 text-purple-600 text-xs font-bold">B</div><div><h3 class="font-semibold text-xs mb-0.5">Query Di-embed</h3><p class="text-neutral-500 text-xs">Konversi ke vector dengan model yang <strong class="text-dark">sama</strong></p></div></div>
-                        <div class="flex items-start gap-3"><div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center shrink-0 text-purple-600 text-xs font-bold">C</div><div><h3 class="font-semibold text-xs mb-0.5">Similarity Search</h3><p class="text-neutral-500 text-xs">Bandingkan dengan <strong class="text-dark">cosine similarity</strong></p></div></div>
-                        <div class="flex items-start gap-3"><div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center shrink-0 text-green-600 text-xs font-bold">D</div><div><h3 class="font-semibold text-xs mb-0.5">Ambil Top-K Results</h3><p class="text-neutral-500 text-xs">3-5 chunk dengan skor tertinggi</p></div></div>
+                <div class="tag bg-purple-50 text-purple-600 mb-6"><i class="fa-solid fa-2 text-[10px]"></i> Step 2</div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Retrieval: Cari Konteks Relevan</h2>
+                <p class="text-neutral-500 text-lg mb-12">Saat user bertanya, sistem mencari informasi paling relevan dari knowledge base</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-5">
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center shrink-0 text-purple-600 text-xs font-bold">A</div>
+                            <div><h3 class="font-semibold text-sm mb-1">User Ajukan Pertanyaan</h3><p class="text-neutral-500 text-sm mt-1">"Berapa harga produk X?"</p></div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center shrink-0 text-purple-600 text-xs font-bold">B</div>
+                            <div><h3 class="font-semibold text-sm mb-1">Query Di-embed</h3><p class="text-neutral-500 text-sm mt-1">Pertanyaan dikonversi ke vector menggunakan model embedding yang <strong class="text-dark">sama</strong> dengan saat indexing</p></div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center shrink-0 text-purple-600 text-xs font-bold">C</div>
+                            <div><h3 class="font-semibold text-sm mb-1">Similarity Search</h3><p class="text-neutral-500 text-sm mt-1">Vector query dibandingkan dengan semua vector di database menggunakan <strong class="text-dark">cosine similarity</strong></p></div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center shrink-0 text-green-600 text-xs font-bold">D</div>
+                            <div><h3 class="font-semibold text-sm mb-1">Ambil Top-K Results</h3><p class="text-neutral-500 text-sm mt-1">Chunk dengan skor tertinggi diambil sebagai konteks (biasanya 3-5 chunk)</p></div>
+                        </div>
                     </div>
-                    <div class="bg-neutral-50 rounded-2xl p-5 border border-neutral-100">
-                        <p class="text-[9px] font-semibold uppercase tracking-widest text-neutral-400 mb-3">Visualisasi Similarity Search</p>
-                        <div class="relative bg-white rounded-xl border border-neutral-100 h-48 flex items-center justify-center">
+                    <div class="bg-neutral-50 rounded-2xl p-6 border border-neutral-100">
+                        <p class="text-[10px] font-semibold uppercase tracking-widest text-neutral-400 mb-4">Visualisasi Similarity Search</p>
+                        <div class="relative bg-white rounded-xl border border-neutral-100 p-5 h-52 flex items-center justify-center">
                             <div class="absolute top-4 left-4 w-3 h-3 rounded-full bg-neutral-200"></div>
                             <div class="absolute top-8 right-10 w-2 h-2 rounded-full bg-neutral-200"></div>
                             <div class="absolute bottom-6 left-12 w-2.5 h-2.5 rounded-full bg-neutral-200"></div>
@@ -373,49 +364,67 @@
                             <div class="absolute top-12 left-1/3 w-2 h-2 rounded-full bg-neutral-200"></div>
                             <div class="absolute top-16 right-1/3 w-3 h-3 rounded-full bg-purple-400 opacity-60"></div>
                             <div class="absolute bottom-14 left-1/2 w-3 h-3 rounded-full bg-purple-400 opacity-80"></div>
-                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-purple-500 shadow-lg shadow-purple-200 flex items-center justify-center relative pulse-ring"><i class="fa-solid fa-question text-white text-[8px]"></i></div>
-                            <div class="absolute top-10 left-1/2 -translate-x-4 w-5 h-5 rounded-full bg-green-400 shadow-lg shadow-green-200 border-2 border-white"></div>
-                            <div class="absolute bottom-8 right-1/4 w-5 h-5 rounded-full bg-green-400 shadow-lg shadow-green-200 border-2 border-white"></div>
-                            <div class="absolute top-1/3 right-8 w-4 h-4 rounded-full bg-green-300 shadow-lg shadow-green-100 border-2 border-white"></div>
-                            <svg class="absolute inset-0 w-full h-full pointer-events-none" style="opacity:0.3"><line x1="50%" y1="50%" x2="42%" y2="28%" stroke="#f97316" stroke-width="1" stroke-dasharray="4,3"/><line x1="50%" y1="50%" x2="70%" y2="68%" stroke="#f97316" stroke-width="1" stroke-dasharray="4,3"/><line x1="50%" y1="50%" x2="72%" y2="36%" stroke="#f97316" stroke-width="1" stroke-dasharray="4,3"/></svg>
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-purple-500 shadow-lg shadow-purple-200 flex items-center justify-center">
+                                <i class="fa-solid fa-question text-white text-[7px]"></i>
+                            </div>
+                            <div class="absolute top-10 left-1/2 -translate-x-4 w-4 h-4 rounded-full bg-green-400 shadow-lg shadow-green-200"></div>
+                            <div class="absolute bottom-8 right-1/4 w-4 h-4 rounded-full bg-green-400 shadow-lg shadow-green-200"></div>
+                            <div class="absolute top-1/3 right-8 w-3.5 h-3.5 rounded-full bg-green-300 shadow-lg shadow-green-100"></div>
                         </div>
-                        <div class="mt-3 flex items-center justify-center gap-4 text-[9px]">
-                            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-purple-500 inline-block"></span>Query</span>
-                            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-green-400 inline-block"></span>Top-K</span>
-                            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-neutral-200 inline-block"></span>Lainnya</span>
+                        <div class="mt-3 flex items-center justify-center gap-4 text-[10px]">
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-purple-500 inline-block"></span> Query</span>
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-green-400 inline-block"></span> Top-K Hasil</span>
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-neutral-200 inline-block"></span> Lainnya</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SLIDE 9: STEP 3 & 4 -->
+        <!-- SLIDE 9: STEP 3 & 4 - AUGMENTASI & GENERASI -->
         <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="9">
             <div class="max-w-5xl mx-auto w-full">
                 <div class="flex items-center gap-3 mb-6">
-                    <div class="tag bg-accent-50 text-accent-600"><i class="fa-solid fa-3 text-[10px]"></i>Step 3</div>
-                    <div class="tag bg-green-50 text-green-600"><i class="fa-solid fa-4 text-[10px]"></i>Step 4</div>
+                    <div class="tag bg-accent-50 text-accent-600"><i class="fa-solid fa-3 text-[10px]"></i> Step 3</div>
+                    <div class="tag bg-green-50 text-green-600"><i class="fa-solid fa-4 text-[10px]"></i> Step 4</div>
                 </div>
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Augmentasi dan Generasi</h2>
-                <p class="text-neutral-500 text-base mb-8">Konteks + Pertanyaan dikirim ke LLM, dijawab berdasarkan fakta</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div class="bg-accent-50/50 rounded-2xl p-5 border border-accent-100">
-                        <div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 rounded-xl bg-accent-100 flex items-center justify-center"><i class="fa-solid fa-puzzle-piece text-accent-500"></i></div><div><h3 class="font-bold text-sm">Augmentasi</h3><p class="text-[10px] text-accent-500 font-medium">Gabungkan Konteks</p></div></div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Augmentasi dan Generasi</h2>
+                <p class="text-neutral-500 text-lg mb-10">Konteks + Pertanyaan dikirim ke LLM untuk dijawab berdasarkan fakta</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-accent-50/50 rounded-2xl p-6 border border-accent-100">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-accent-100 flex items-center justify-center"><i class="fa-solid fa-puzzle-piece text-accent-500"></i></div>
+                            <div><h3 class="font-bold text-sm">Augmentasi</h3><p class="text-[10px] text-accent-500 font-medium">Menggabungkan Konteks</p></div>
+                        </div>
                         <div class="bg-white rounded-xl p-4 border border-accent-100 text-xs font-mono text-neutral-600 leading-relaxed">
                             <p class="text-neutral-400 mb-2">// Augmented Prompt</p>
-                            <p class="text-accent-600">Kamu adalah asisten CS.</p>
-                            <p class="text-accent-600">Jawab berdasarkan konteks:</p>
-                            <p class="mt-2 p-2 bg-accent-50 rounded border border-accent-100 text-[11px]">[Chunk 1, Chunk 3, Chunk 7...]</p>
-                            <p class="mt-2 text-green-600">Q: Berapa harga produk X?</p>
-                            <p class="mt-1 text-neutral-400">Jika tidak ada, katakan tidak tahu.</p>
+                            <p class="text-accent-600">Kamu adalah asisten customer service.</p>
+                            <p class="text-accent-600">Jawab berdasarkan konteks berikut:</p>
+                            <p class="mt-2 p-2 bg-accent-50 rounded border border-accent-100 text-[11px]">[Konteks dari Retrieval: Chunk 1, Chunk 3, Chunk 7...]</p>
+                            <p class="mt-2 text-green-600">Pertanyaan: Berapa harga produk X?</p>
+                            <p class="mt-1 text-neutral-400">Jika tidak ada di konteks, katakan tidak tahu.</p>
                         </div>
                     </div>
-                    <div class="bg-green-50/50 rounded-2xl p-5 border border-green-100">
-                        <div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center"><i class="fa-solid fa-pen-nib text-green-500"></i></div><div><h3 class="font-bold text-sm">Generasi</h3><p class="text-[10px] text-green-500 font-medium">LLM Menghasilkan Jawaban</p></div></div>
-                        <div class="bg-white rounded-xl p-4 border border-green-100">
-                            <div class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-robot text-green-600 text-[8px]"></i></div><div class="text-xs text-neutral-700 leading-relaxed"><p>Harga Produk X: <strong>Rp 2.500.000</strong> (standar) dan <strong>Rp 3.200.000</strong> (premium).</p><div class="mt-3 pt-3 border-t border-green-100 flex items-center gap-2"><div class="flex items-center gap-1 text-[10px] text-green-600 bg-green-50 px-2 py-1 rounded-md"><i class="fa-solid fa-file-lines"></i>Price_List_2024.pdf</div><div class="flex items-center gap-1 text-[10px] text-green-600 bg-green-50 px-2 py-1 rounded-md"><i class="fa-solid fa-hashtag"></i>Hal. 3</div></div></div></div>
+                    <div class="bg-green-50/50 rounded-2xl p-6 border border-green-100">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center"><i class="fa-solid fa-pen-nib text-green-500"></i></div>
+                            <div><h3 class="font-bold text-sm">Generasi</h3><p class="text-[10px] text-green-500 font-medium">LLM Menghasilkan Jawaban</p></div>
                         </div>
-                        <div class="mt-3 p-3 bg-green-100/50 rounded-lg"><p class="text-[10px] text-green-700"><i class="fa-solid fa-shield-check mr-1"></i><strong>Grounded</strong> - jawaban sepenuhnya berdasarkan konteks</p></div>
+                        <div class="bg-white rounded-xl p-4 border border-green-100">
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-robot text-green-600 text-[8px]"></i></div>
+                                <div class="text-xs text-neutral-700 leading-relaxed">
+                                    <p>Berdasarkan Price List 2024, harga Produk X adalah <strong>Rp 2.500.000</strong> untuk varian standar dan <strong>Rp 3.200.000</strong> untuk varian premium.</p>
+                                    <div class="mt-3 pt-3 border-t border-green-100 flex items-center gap-3">
+                                        <div class="flex items-center gap-1 text-[10px] text-green-600 bg-green-50 px-2 py-1 rounded-md"><i class="fa-solid fa-file-lines"></i> Price_List_2024.pdf</div>
+                                        <div class="flex items-center gap-1 text-[10px] text-green-600 bg-green-50 px-2 py-1 rounded-md"><i class="fa-solid fa-hashtag"></i> Halaman 3</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3 p-3 bg-green-100/50 rounded-lg">
+                            <p class="text-[10px] text-green-700"><i class="fa-solid fa-shield-check mr-1"></i><strong>Grounded</strong> - jawaban sepenuhnya berdasarkan konteks, bukan khayalan model</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -423,59 +432,41 @@
 
         <!-- SLIDE 10: MANFAAT RAG -->
         <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="10">
-            <div class="img-accent top-16 right-0 w-52 h-64 opacity-[0.06] hidden md:block"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=60" alt=""></div>
             <div class="absolute bottom-0 right-0 w-80 h-80 bg-green-50 rounded-full blur-3xl opacity-30"></div>
             <div class="max-w-5xl mx-auto w-full relative z-10">
-                <div class="tag bg-green-50 text-green-600 mb-6"><i class="fa-solid fa-star text-[10px]"></i>Keunggulan</div>
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-8">Manfaat RAG</h2>
-                <div class="grid grid-cols-2 lg:grid-cols-3 gap-3">
-                    <div class="card-hover bg-white rounded-2xl p-5 border border-neutral-100">
-                        <div class="flex items-center gap-3 mb-3">
-                            <div class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center"><i class="fa-solid fa-ghost text-red-400"></i></div>
-                            <div class="stat-ring" style="width:44px;height:44px"><svg viewBox="0 0 36 36" class="w-full h-full"><path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831 15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="#fecaca" stroke-width="3"/><path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831 15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="#ef4444" stroke-width="3" stroke-dasharray="85, 100" stroke-linecap="round"/></svg><div class="value text-[10px] text-red-500">85%</div></div>
-                        </div>
-                        <h3 class="font-semibold text-xs mb-1">Kurangi Hallucination</h3>
-                        <p class="text-neutral-400 text-[10px] leading-relaxed">AI di-grounding pada data nyata</p>
+                <div class="tag bg-green-50 text-green-600 mb-6"><i class="fa-solid fa-star text-[10px]"></i> Keunggulan</div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Manfaat RAG</h2>
+                <p class="text-neutral-500 text-lg mb-12">Mengapa RAG menjadi standar baru untuk AI di enterprise</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100">
+                        <div class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center mb-4"><i class="fa-solid fa-ghost text-red-400"></i></div>
+                        <h3 class="font-semibold text-sm mb-2">Kurangi Hallucination</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">AI di-grounding pada data nyata, bukan khayalan model. Jawaban yang salah berkurang drastis.</p>
                     </div>
-                    <div class="card-hover bg-white rounded-2xl p-5 border border-neutral-100">
-                        <div class="flex items-center gap-3 mb-3">
-                            <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center"><i class="fa-solid fa-link text-blue-400"></i></div>
-                            <div class="stat-ring" style="width:44px;height:44px"><svg viewBox="0 0 36 36" class="w-full h-full"><path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831 15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="#bfdbfe" stroke-width="3"/><path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831 15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="#3b82f6" stroke-width="3" stroke-dasharray="100, 100" stroke-linecap="round"/></svg><div class="value text-[10px] text-blue-500">100%</div></div>
-                        </div>
-                        <h3 class="font-semibold text-xs mb-1">Source Attribution</h3>
-                        <p class="text-neutral-400 text-[10px] leading-relaxed">Setiap jawaban bisa dilacak sumbernya</p>
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center mb-4"><i class="fa-solid fa-link text-blue-400"></i></div>
+                        <h3 class="font-semibold text-sm mb-2">Source Attribution</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">Setiap jawaban bisa dilacak sumbernya. User bisa verifikasi kebenaran sendiri.</p>
                     </div>
-                    <div class="card-hover bg-white rounded-2xl p-5 border border-neutral-100">
-                        <div class="flex items-center gap-3 mb-3">
-                            <div class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center"><i class="fa-solid fa-piggy-bank text-green-400"></i></div>
-                            <div class="stat-ring" style="width:44px;height:44px"><svg viewBox="0 0 36 36" class="w-full h-full"><path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831 15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="#bbf7d0" stroke-width="3"/><path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831 15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="#22c55e" stroke-width="3" stroke-dasharray="30, 100" stroke-linecap="round"/></svg><div class="value text-[10px] text-green-500">3x</div></div>
-                        </div>
-                        <h3 class="font-semibold text-xs mb-1">Lebih Murah</h3>
-                        <p class="text-neutral-400 text-[10px] leading-relaxed">Dibanding fine-tuning model</p>
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100">
+                        <div class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center mb-4"><i class="fa-solid fa-piggy-bank text-green-400"></i></div>
+                        <h3 class="font-semibold text-sm mb-2">Lebih Murah dari Fine-Tuning</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">Tidak perlu biaya besar untuk training ulang model. Cukup siapkan dokumen.</p>
                     </div>
-                    <div class="card-hover bg-white rounded-2xl p-5 border border-neutral-100">
-                        <div class="flex items-center gap-3 mb-3">
-                            <div class="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center"><i class="fa-solid fa-rotate text-purple-400"></i></div>
-                            <div class="w-11 h-11 rounded-full bg-purple-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-bolt text-purple-500 text-sm"></i></div>
-                        </div>
-                        <h3 class="font-semibold text-xs mb-1">Mudah Diupdate</h3>
-                        <p class="text-neutral-400 text-[10px] leading-relaxed">Ganti dokumen, tanpa retrain</p>
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100">
+                        <div class="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center mb-4"><i class="fa-solid fa-rotate text-purple-400"></i></div>
+                        <h3 class="font-semibold text-sm mb-2">Mudah Diupdate</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">Cukup tambah atau ganti dokumen baru. Tidak perlu retrain model dari awal.</p>
                     </div>
-                    <div class="card-hover bg-white rounded-2xl p-5 border border-neutral-100">
-                        <div class="flex items-center gap-3 mb-3">
-                            <div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center"><i class="fa-solid fa-eye text-accent-400"></i></div>
-                            <div class="w-11 h-11 rounded-full bg-accent-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-shield-halved text-accent-500 text-sm"></i></div>
-                        </div>
-                        <h3 class="font-semibold text-xs mb-1">Transparan</h3>
-                        <p class="text-neutral-400 text-[10px] leading-relaxed">User tahu asal jawaban</p>
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100">
+                        <div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center mb-4"><i class="fa-solid fa-eye text-accent-400"></i></div>
+                        <h3 class="font-semibold text-sm mb-2">Transparan</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">User tahu dari mana jawaban berasal. Meningkatkan kepercayaan dan akuntabilitas.</p>
                     </div>
-                    <div class="card-hover bg-white rounded-2xl p-5 border border-neutral-100">
-                        <div class="flex items-center gap-3 mb-3">
-                            <div class="w-10 h-10 rounded-xl bg-teal-50 flex items-center justify-center"><i class="fa-solid fa-building text-teal-400"></i></div>
-                            <div class="w-11 h-11 rounded-full bg-teal-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-crosshairs text-teal-500 text-sm"></i></div>
-                        </div>
-                        <h3 class="font-semibold text-xs mb-1">Domain-Specific</h3>
-                        <p class="text-neutral-400 text-[10px] leading-relaxed">Produk, SOP, regulasi internal</p>
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100">
+                        <div class="w-10 h-10 rounded-xl bg-teal-50 flex items-center justify-center mb-4"><i class="fa-solid fa-building text-teal-400"></i></div>
+                        <h3 class="font-semibold text-sm mb-2">Domain-Specific</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">Bisa diisi pengetahuan spesifik perusahaan: produk, SOP, regulasi internal.</p>
                     </div>
                 </div>
             </div>
@@ -483,65 +474,79 @@
 
         <!-- SLIDE 11: VECTOR DB -->
         <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="11">
-            <div class="img-accent bottom-0 right-0 w-64 h-44 opacity-[0.06] hidden md:block"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&q=60" alt=""></div>
-            <div class="max-w-5xl mx-auto w-full relative z-10">
-                <div class="tag bg-neutral-100 text-neutral-500 mb-6"><i class="fa-solid fa-database text-[10px]"></i>Pendekatan Tradisional</div>
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Vector DB: Cara Lama</h2>
-                <p class="text-neutral-500 text-base mb-8">Implementasi RAG konvensional yang kompleks</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                    <div class="space-y-3">
-                        <div class="flex items-start gap-3 p-4 bg-neutral-50 rounded-xl border border-neutral-100"><i class="fa-solid fa-scissors text-neutral-400 mt-0.5"></i><p class="text-sm text-neutral-600">Pecah dokumen jadi <strong>chunk kecil</strong></p></div>
-                        <div class="flex items-start gap-3 p-4 bg-neutral-50 rounded-xl border border-neutral-100"><i class="fa-solid fa-arrows-turn-to-dots text-neutral-400 mt-0.5"></i><p class="text-sm text-neutral-600">Ubah setiap chunk jadi <strong>vector embedding</strong></p></div>
-                        <div class="flex items-start gap-3 p-4 bg-neutral-50 rounded-xl border border-neutral-100"><i class="fa-solid fa-hard-drive text-neutral-400 mt-0.5"></i><p class="text-sm text-neutral-600">Simpan di <strong>database terpisah</strong></p></div>
-                        <div class="flex items-start gap-3 p-4 bg-neutral-50 rounded-xl border border-neutral-100"><i class="fa-solid fa-crosshairs text-neutral-400 mt-0.5"></i><p class="text-sm text-neutral-600">Cari dengan <strong>similarity search</strong></p></div>
-                    </div>
-                    <div class="bg-neutral-50 rounded-2xl p-5 border border-neutral-100">
-                        <div class="text-center mb-3"><div class="img-side w-16 h-16 mx-auto mb-2 rounded-xl"><img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=100&q=60" alt=""></div><span class="text-xs font-medium text-neutral-400">DOKUMEN UTUH</span></div>
-                        <div class="flex items-center justify-center mb-3"><i class="fa-solid fa-arrow-down text-neutral-300"></i></div>
-                        <div class="grid grid-cols-3 gap-2 mb-3">
-                            <div class="bg-white rounded-lg p-2 border border-neutral-200 text-center"><div class="w-full h-1 bg-neutral-200 rounded mb-1.5"></div><div class="w-full h-1 bg-neutral-200 rounded mb-1.5"></div><div class="w-3/4 h-1 bg-neutral-200 rounded"></div><p class="text-[8px] text-neutral-400 mt-1.5">Chunk 1</p></div>
-                            <div class="bg-white rounded-lg p-2 border border-neutral-200 text-center"><div class="w-full h-1 bg-neutral-200 rounded mb-1.5"></div><div class="w-3/4 h-1 bg-neutral-200 rounded mb-1.5"></div><div class="w-full h-1 bg-neutral-200 rounded"></div><p class="text-[8px] text-neutral-400 mt-1.5">Chunk 2</p></div>
-                            <div class="bg-white rounded-lg p-2 border border-neutral-200 text-center"><div class="w-3/4 h-1 bg-neutral-200 rounded mb-1.5"></div><div class="w-full h-1 bg-neutral-200 rounded mb-1.5"></div><div class="w-1/2 h-1 bg-neutral-200 rounded"></div><p class="text-[8px] text-neutral-400 mt-1.5">Chunk 3</p></div>
+            <div class="max-w-5xl mx-auto w-full">
+                <div class="tag bg-neutral-100 text-neutral-500 mb-6"><i class="fa-solid fa-database text-[10px]"></i> Pendekatan Tradisional</div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Vector DB: Cara Lama</h2>
+                <p class="text-neutral-500 text-lg mb-12">Implementasi RAG konvensional yang kompleks</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3 p-4 bg-neutral-50 rounded-xl border border-neutral-100">
+                            <i class="fa-solid fa-scissors text-neutral-400 mt-0.5"></i>
+                            <p class="text-sm text-neutral-600">Pecah dokumen jadi <strong>chunk kecil</strong> (500-1000 token)</p>
                         </div>
-                        <div class="flex items-center justify-center mb-3"><i class="fa-solid fa-arrow-down text-neutral-300"></i></div>
-                        <div class="bg-white rounded-lg p-2.5 border border-neutral-200 text-center"><span class="text-[8px] font-mono text-neutral-400">[0.12, -0.34, 0.56, ...]</span><p class="text-[8px] text-neutral-400 mt-0.5">Vector Embeddings di DB</p></div>
+                        <div class="flex items-start gap-3 p-4 bg-neutral-50 rounded-xl border border-neutral-100">
+                            <i class="fa-solid fa-arrows-turn-to-dots text-neutral-400 mt-0.5"></i>
+                            <p class="text-sm text-neutral-600">Ubah setiap chunk jadi <strong>vector embedding</strong></p>
+                        </div>
+                        <div class="flex items-start gap-3 p-4 bg-neutral-50 rounded-xl border border-neutral-100">
+                            <i class="fa-solid fa-hard-drive text-neutral-400 mt-0.5"></i>
+                            <p class="text-sm text-neutral-600">Simpan di <strong>database terpisah</strong> (Pinecone, Weaviate, Chroma)</p>
+                        </div>
+                        <div class="flex items-start gap-3 p-4 bg-neutral-50 rounded-xl border border-neutral-100">
+                            <i class="fa-solid fa-crosshairs text-neutral-400 mt-0.5"></i>
+                            <p class="text-sm text-neutral-600">Cari chunk paling mirip dengan <strong>similarity search</strong></p>
+                        </div>
+                    </div>
+                    <div class="bg-neutral-50 rounded-2xl p-6 border border-neutral-100">
+                        <div class="text-center mb-4"><i class="fa-solid fa-file-pdf text-4xl text-red-300 mb-3 block"></i><span class="text-xs font-medium text-neutral-400">DOKUMEN UTUH</span></div>
+                        <div class="flex items-center justify-center mb-4"><i class="fa-solid fa-arrow-down text-neutral-300"></i></div>
+                        <div class="grid grid-cols-3 gap-2 mb-4">
+                            <div class="bg-white rounded-lg p-3 border border-neutral-200 text-center"><div class="w-full h-1.5 bg-neutral-200 rounded mb-2"></div><div class="w-full h-1.5 bg-neutral-200 rounded mb-2"></div><div class="w-3/4 h-1.5 bg-neutral-200 rounded"></div><p class="text-[9px] text-neutral-400 mt-2">Chunk 1</p></div>
+                            <div class="bg-white rounded-lg p-3 border border-neutral-200 text-center"><div class="w-full h-1.5 bg-neutral-200 rounded mb-2"></div><div class="w-3/4 h-1.5 bg-neutral-200 rounded mb-2"></div><div class="w-full h-1.5 bg-neutral-200 rounded"></div><p class="text-[9px] text-neutral-400 mt-2">Chunk 2</p></div>
+                            <div class="bg-white rounded-lg p-3 border border-neutral-200 text-center"><div class="w-3/4 h-1.5 bg-neutral-200 rounded mb-2"></div><div class="w-full h-1.5 bg-neutral-200 rounded mb-2"></div><div class="w-1/2 h-1.5 bg-neutral-200 rounded"></div><p class="text-[9px] text-neutral-400 mt-2">Chunk 3</p></div>
+                        </div>
+                        <div class="flex items-center justify-center mb-4"><i class="fa-solid fa-arrow-down text-neutral-300"></i></div>
+                        <div class="bg-white rounded-lg p-3 border border-neutral-200 text-center"><span class="text-[9px] font-mono text-neutral-400">[0.12, -0.34, 0.56, ...]</span><p class="text-[9px] text-neutral-400 mt-1">Vector Embeddings di DB</p></div>
                     </div>
                 </div>
-                <div class="mt-6 p-4 bg-yellow-50 rounded-xl border border-yellow-100 flex items-center gap-3"><i class="fa-solid fa-triangle-exclamation text-yellow-500"></i><p class="text-yellow-700 text-sm font-medium">Masalahnya: chunking menghilangkan konteks dan struktur dokumen</p></div>
+                <div class="mt-8 p-4 bg-yellow-50 rounded-xl border border-yellow-100 flex items-center gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-yellow-500"></i>
+                    <p class="text-yellow-700 text-sm font-medium">Masalahnya: chunking menghilangkan konteks dan struktur dokumen</p>
+                </div>
             </div>
         </section>
 
         <!-- SLIDE 12: MASALAH VECTOR DB -->
         <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="12">
             <div class="max-w-5xl mx-auto w-full">
-                <div class="tag bg-red-50 text-red-500 mb-6"><i class="fa-solid fa-bug text-[10px]"></i>Problem</div>
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Masalah Vector DB</h2>
-                <p class="text-neutral-500 text-base mb-8">Kita butuh pendekatan lebih sederhana dan akurat</p>
-                <div class="space-y-3">
-                    <div class="flex items-center gap-5 p-4 bg-white rounded-xl border border-neutral-100 card-hover">
-                        <div class="w-11 h-11 rounded-xl bg-red-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-puzzle-piece text-red-400"></i></div>
-                        <div class="flex-1"><h3 class="font-semibold text-xs mb-0.5">Kehilangan Konteks</h3><p class="text-neutral-500 text-xs">Chunk kecil kehilangan hubungan dengan bagian lain</p></div>
-                        <div class="hidden md:flex items-center gap-2"><div class="w-20 h-2 bg-red-100 rounded-full overflow-hidden"><div class="h-full bg-red-400 rounded-full" style="width:90%"></div></div><span class="text-red-500 text-xs font-bold">90%</span></div>
+                <div class="tag bg-red-50 text-red-500 mb-6"><i class="fa-solid fa-bug text-[10px]"></i> Problem</div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Masalah Vector DB</h2>
+                <p class="text-neutral-500 text-lg mb-12">Kita butuh pendekatan yang lebih sederhana dan akurat</p>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-6 p-5 bg-white rounded-2xl border border-neutral-100 card-hover">
+                        <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-puzzle-piece text-red-400"></i></div>
+                        <div class="flex-1"><h3 class="font-semibold text-sm mb-1">Kehilangan Konteks</h3><p class="text-neutral-500 text-sm">Chunk kecil kehilangan hubungan dengan bagian lain dokumen</p></div>
+                        <div class="hidden md:block w-24 h-2 bg-red-100 rounded-full overflow-hidden"><div class="h-full bg-red-400 rounded-full" style="width:90%"></div></div>
                     </div>
-                    <div class="flex items-center gap-5 p-4 bg-white rounded-xl border border-neutral-100 card-hover">
-                        <div class="w-11 h-11 rounded-xl bg-red-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-wrench text-red-400"></i></div>
-                        <div class="flex-1"><h3 class="font-semibold text-xs mb-0.5">Setup Kompleks</h3><p class="text-neutral-500 text-xs">Manage embedding, vector DB, chunking sekaligus</p></div>
-                        <div class="hidden md:flex items-center gap-2"><div class="w-20 h-2 bg-red-100 rounded-full overflow-hidden"><div class="h-full bg-red-400 rounded-full" style="width:85%"></div></div><span class="text-red-500 text-xs font-bold">85%</span></div>
+                    <div class="flex items-center gap-6 p-5 bg-white rounded-2xl border border-neutral-100 card-hover">
+                        <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-wrench text-red-400"></i></div>
+                        <div class="flex-1"><h3 class="font-semibold text-sm mb-1">Setup Kompleks</h3><p class="text-neutral-500 text-sm">Manage embedding model, vector DB, chunking strategy sekaligus</p></div>
+                        <div class="hidden md:block w-24 h-2 bg-red-100 rounded-full overflow-hidden"><div class="h-full bg-red-400 rounded-full" style="width:85%"></div></div>
                     </div>
-                    <div class="flex items-center gap-5 p-4 bg-white rounded-xl border border-neutral-100 card-hover">
-                        <div class="w-11 h-11 rounded-xl bg-red-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-rotate text-red-400"></i></div>
-                        <div class="flex-1"><h3 class="font-semibold text-xs mb-0.5">Maintenance Tinggi</h3><p class="text-neutral-500 text-xs">Update dokumen = re-embed semua chunk</p></div>
-                        <div class="hidden md:flex items-center gap-2"><div class="w-20 h-2 bg-red-100 rounded-full overflow-hidden"><div class="h-full bg-red-400 rounded-full" style="width:75%"></div></div><span class="text-red-500 text-xs font-bold">75%</span></div>
+                    <div class="flex items-center gap-6 p-5 bg-white rounded-2xl border border-neutral-100 card-hover">
+                        <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-rotate text-red-400"></i></div>
+                        <div class="flex-1"><h3 class="font-semibold text-sm mb-1">Maintenance Tinggi</h3><p class="text-neutral-500 text-sm">Update dokumen berarti re-embed semua chunk terkait</p></div>
+                        <div class="hidden md:block w-24 h-2 bg-red-100 rounded-full overflow-hidden"><div class="h-full bg-red-400 rounded-full" style="width:75%"></div></div>
                     </div>
-                    <div class="flex items-center gap-5 p-4 bg-white rounded-xl border border-neutral-100 card-hover">
-                        <div class="w-11 h-11 rounded-xl bg-red-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-money-bill-wave text-red-400"></i></div>
-                        <div class="flex-1"><h3 class="font-semibold text-xs mb-0.5">Biaya Infrastruktur</h3><p class="text-neutral-500 text-xs">Vector DB punya biaya sendiri di luar LLM</p></div>
-                        <div class="hidden md:flex items-center gap-2"><div class="w-20 h-2 bg-red-100 rounded-full overflow-hidden"><div class="h-full bg-red-400 rounded-full" style="width:70%"></div></div><span class="text-red-500 text-xs font-bold">70%</span></div>
+                    <div class="flex items-center gap-6 p-5 bg-white rounded-2xl border border-neutral-100 card-hover">
+                        <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-money-bill-wave text-red-400"></i></div>
+                        <div class="flex-1"><h3 class="font-semibold text-sm mb-1">Biaya Infrastruktur</h3><p class="text-neutral-500 text-sm">Vector DB punya biaya sendiri di luar biaya LLM</p></div>
+                        <div class="hidden md:block w-24 h-2 bg-red-100 rounded-full overflow-hidden"><div class="h-full bg-red-400 rounded-full" style="width:70%"></div></div>
                     </div>
-                    <div class="flex items-center gap-5 p-4 bg-white rounded-xl border border-neutral-100 card-hover">
-                        <div class="w-11 h-11 rounded-xl bg-red-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-eye-slash text-red-400"></i></div>
-                        <div class="flex-1"><h3 class="font-semibold text-xs mb-0.5">Traceability Buruk</h3><p class="text-neutral-500 text-xs">Susah melacak jawaban dari halaman mana</p></div>
-                        <div class="hidden md:flex items-center gap-2"><div class="w-20 h-2 bg-red-100 rounded-full overflow-hidden"><div class="h-full bg-red-400 rounded-full" style="width:80%"></div></div><span class="text-red-500 text-xs font-bold">80%</span></div>
+                    <div class="flex items-center gap-6 p-5 bg-white rounded-2xl border border-neutral-100 card-hover">
+                        <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-eye-slash text-red-400"></i></div>
+                        <div class="flex-1"><h3 class="font-semibold text-sm mb-1">Traceability Buruk</h3><p class="text-neutral-500 text-sm">Susah melacak jawaban berasal dari halaman mana</p></div>
+                        <div class="hidden md:block w-24 h-2 bg-red-100 rounded-full overflow-hidden"><div class="h-full bg-red-400 rounded-full" style="width:80%"></div></div>
                     </div>
                 </div>
             </div>
@@ -551,26 +556,39 @@
         <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="13">
             <div class="absolute top-1/4 right-1/4 w-80 h-80 bg-accent-50 rounded-full blur-3xl opacity-40"></div>
             <div class="max-w-5xl mx-auto w-full relative z-10">
-                <div class="flex items-center gap-3 mb-6"><img src="https://pageindex.ai/_next/image?url=%2Fstatic%2Fimages%2Flogo.png&w=48&q=75" alt="PageIndex" class="h-5"><div class="tag bg-accent-50 text-accent-600"><i class="fa-solid fa-star text-[10px]"></i>Pendekatan Baru</div></div>
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-2">PageIndex: Vectorless RAG</h2>
-                <p class="text-neutral-400 text-base mb-8">RAG Tanpa Vector Database</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                    <div class="space-y-4">
-                        <div class="flex items-start gap-3"><div class="w-8 h-8 rounded-lg bg-accent-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-ban text-accent-500 text-xs"></i></div><div><h3 class="font-semibold text-xs mb-0.5">Tanpa Vector Database</h3><p class="text-neutral-500 text-xs">Eliminasi kompleksitas infrastruktur</p></div></div>
-                        <div class="flex items-start gap-3"><div class="w-8 h-8 rounded-lg bg-accent-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-ban text-accent-500 text-xs"></i></div><div><h3 class="font-semibold text-xs mb-0.5">Tanpa Chunking</h3><p class="text-neutral-500 text-xs">Dokumen tetap utuh</p></div></div>
-                        <div class="flex items-start gap-3"><div class="w-8 h-8 rounded-lg bg-accent-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-sitemap text-accent-500 text-xs"></i></div><div><h3 class="font-semibold text-xs mb-0.5">Tree Structure Hierarkis</h3><p class="text-neutral-500 text-xs">Hierarki dokumen dipertahankan</p></div></div>
-                        <div class="flex items-start gap-3"><div class="w-8 h-8 rounded-lg bg-accent-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-brain text-accent-500 text-xs"></i></div><div><h3 class="font-semibold text-xs mb-0.5">LLM Reasoning Langsung</h3><p class="text-neutral-500 text-xs">Reasoning over tree structure</p></div></div>
+                <div class="flex items-center gap-3 mb-6">
+                    <img src="https://pageindex.ai/_next/image?url=%2Fstatic%2Fimages%2Flogo.png&w=48&q=75" alt="PageIndex" class="h-5">
+                    <div class="tag bg-accent-50 text-accent-600"><i class="fa-solid fa-star text-[10px]"></i> Pendekatan Baru</div>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-2">PageIndex: Vectorless RAG</h2>
+                <p class="text-neutral-400 text-lg mb-12">RAG Tanpa Vector Database</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-5">
+                        <div class="flex items-start gap-4"><div class="w-8 h-8 rounded-lg bg-accent-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-ban text-accent-500 text-xs"></i></div><div><h3 class="font-semibold text-sm">Tanpa Vector Database</h3><p class="text-neutral-500 text-sm mt-1">Eliminasi kompleksitas infrastruktur vector DB</p></div></div>
+                        <div class="flex items-start gap-4"><div class="w-8 h-8 rounded-lg bg-accent-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-ban text-accent-500 text-xs"></i></div><div><h3 class="font-semibold text-sm">Tanpa Chunking</h3><p class="text-neutral-500 text-sm mt-1">Dokumen tetap utuh, tidak dipotong-potong</p></div></div>
+                        <div class="flex items-start gap-4"><div class="w-8 h-8 rounded-lg bg-accent-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-sitemap text-accent-500 text-xs"></i></div><div><h3 class="font-semibold text-sm">Tree Structure Hierarkis</h3><p class="text-neutral-500 text-sm mt-1">Hierarki dokumen dipertahankan untuk pemahaman lebih baik</p></div></div>
+                        <div class="flex items-start gap-4"><div class="w-8 h-8 rounded-lg bg-accent-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-brain text-accent-500 text-xs"></i></div><div><h3 class="font-semibold text-sm">LLM Reasoning Langsung</h3><p class="text-neutral-500 text-sm mt-1">Reasoning langsung over tree structure</p></div></div>
                     </div>
-                    <div class="bg-neutral-50 rounded-2xl p-5 border border-neutral-100">
-                        <div class="text-center mb-4"><span class="text-[9px] font-semibold uppercase tracking-widest text-neutral-400">Tree Structure</span></div>
+                    <div class="bg-neutral-50 rounded-2xl p-6 border border-neutral-100">
+                        <div class="text-center mb-5"><span class="text-[10px] font-semibold uppercase tracking-widest text-neutral-400">Tree Structure</span></div>
                         <div class="flex flex-col items-center gap-2">
-                            <div class="bg-accent-500 text-white text-xs font-semibold px-5 py-2.5 rounded-xl shadow-lg shadow-accent-100"><i class="fa-solid fa-file-lines mr-1.5"></i>Dokumen Utuh</div>
+                            <div class="bg-accent-500 text-white text-xs font-semibold px-5 py-2.5 rounded-xl">Dokumen Utuh</div>
                             <div class="w-px h-4 bg-neutral-300"></div>
-                            <div class="flex gap-2"><div class="bg-accent-100 text-accent-700 text-[10px] font-medium px-3 py-1.5 rounded-lg">Bab 1</div><div class="bg-accent-100 text-accent-700 text-[10px] font-medium px-3 py-1.5 rounded-lg">Bab 2</div><div class="bg-accent-100 text-accent-700 text-[10px] font-medium px-3 py-1.5 rounded-lg">Bab 3</div></div>
+                            <div class="flex gap-3">
+                                <div class="bg-accent-100 text-accent-700 text-xs font-medium px-4 py-2 rounded-lg">Bab 1</div>
+                                <div class="bg-accent-100 text-accent-700 text-xs font-medium px-4 py-2 rounded-lg">Bab 2</div>
+                                <div class="bg-accent-100 text-accent-700 text-xs font-medium px-4 py-2 rounded-lg">Bab 3</div>
+                            </div>
                             <div class="w-px h-4 bg-neutral-300"></div>
-                            <div class="flex gap-1.5 flex-wrap justify-center"><div class="bg-white text-neutral-500 text-[9px] font-medium px-2 py-1 rounded-md border border-neutral-200">Hal 1</div><div class="bg-white text-neutral-500 text-[9px] font-medium px-2 py-1 rounded-md border border-neutral-200">Hal 2</div><div class="bg-white text-neutral-500 text-[9px] font-medium px-2 py-1 rounded-md border border-neutral-200">Hal 3</div><div class="bg-white text-neutral-500 text-[9px] font-medium px-2 py-1 rounded-md border border-neutral-200">Hal 4</div><div class="bg-white text-neutral-500 text-[9px] font-medium px-2 py-1 rounded-md border border-neutral-200">Hal 5</div></div>
+                            <div class="flex gap-2">
+                                <div class="bg-white text-neutral-500 text-[10px] font-medium px-3 py-1.5 rounded-md border border-neutral-200">Hal 1</div>
+                                <div class="bg-white text-neutral-500 text-[10px] font-medium px-3 py-1.5 rounded-md border border-neutral-200">Hal 2</div>
+                                <div class="bg-white text-neutral-500 text-[10px] font-medium px-3 py-1.5 rounded-md border border-neutral-200">Hal 3</div>
+                                <div class="bg-white text-neutral-500 text-[10px] font-medium px-3 py-1.5 rounded-md border border-neutral-200">Hal 4</div>
+                                <div class="bg-white text-neutral-500 text-[10px] font-medium px-3 py-1.5 rounded-md border border-neutral-200">Hal 5</div>
+                            </div>
                         </div>
-                        <div class="mt-5 p-3 bg-green-50 rounded-lg border border-green-100 text-center"><p class="text-green-700 text-[10px] font-medium"><i class="fa-solid fa-check mr-1"></i>Lebih simple, akurat, mudah di-maintain</p></div>
+                        <div class="mt-5 p-3 bg-green-50 rounded-lg border border-green-100 text-center"><p class="text-green-700 text-xs font-medium"><i class="fa-solid fa-check mr-1"></i>Lebih simple, lebih akurat, lebih mudah di-maintain</p></div>
                     </div>
                 </div>
             </div>
@@ -579,36 +597,36 @@
         <!-- SLIDE 14: PERBANDINGAN -->
         <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="14">
             <div class="max-w-5xl mx-auto w-full">
-                <div class="tag bg-accent-50 text-accent-600 mb-6"><i class="fa-solid fa-code-compare text-[10px]"></i>Perbandingan</div>
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-8">Vector DB vs PageIndex</h2>
+                <div class="tag bg-accent-50 text-accent-600 mb-6"><i class="fa-solid fa-code-compare text-[10px]"></i> Perbandingan</div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-12">Vector DB vs PageIndex</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-0 relative vs-divider">
-                    <div class="bg-red-50/50 rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none p-6 border border-red-100">
-                        <div class="flex items-center gap-3 mb-5"><div class="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center"><i class="fa-solid fa-database text-red-400"></i></div><div><h3 class="font-bold text-sm">Vector Database</h3><p class="text-[9px] text-red-400 font-medium uppercase tracking-wider">Cara Lama</p></div></div>
-                        <ul class="space-y-2.5">
-                            <li class="flex items-start gap-2.5 text-xs text-neutral-600"><i class="fa-solid fa-xmark text-red-400 mt-0.5 shrink-0"></i>Pecah dokumen jadi chunk kecil</li>
-                            <li class="flex items-start gap-2.5 text-xs text-neutral-600"><i class="fa-solid fa-xmark text-red-400 mt-0.5 shrink-0"></i>Convert ke vector embedding</li>
-                            <li class="flex items-start gap-2.5 text-xs text-neutral-600"><i class="fa-solid fa-xmark text-red-400 mt-0.5 shrink-0"></i>Simpan di database terpisah</li>
-                            <li class="flex items-start gap-2.5 text-xs text-neutral-600"><i class="fa-solid fa-xmark text-red-400 mt-0.5 shrink-0"></i>Cari berdasarkan similarity</li>
-                            <li class="flex items-start gap-2.5 text-xs text-neutral-600"><i class="fa-solid fa-xmark text-red-400 mt-0.5 shrink-0"></i>Butuh infra tambahan</li>
-                        </ul>
-                        <div class="mt-5 p-2.5 bg-red-100/50 rounded-lg text-center flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-cubes text-red-400 text-xs"></i>
-                            <span class="text-red-600 text-[10px] font-bold">3 KOMPONEN</span>
+                    <div class="bg-red-50/50 rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none p-6 md:p-8 border border-red-100">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center"><i class="fa-solid fa-database text-red-400"></i></div>
+                            <div><h3 class="font-bold text-sm">Vector Database</h3><p class="text-[10px] text-red-400 font-medium uppercase tracking-wider">Cara Lama</p></div>
                         </div>
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3 text-sm text-neutral-600"><i class="fa-solid fa-xmark text-red-400 mt-0.5 shrink-0"></i>Pecah dokumen jadi chunk kecil</li>
+                            <li class="flex items-start gap-3 text-sm text-neutral-600"><i class="fa-solid fa-xmark text-red-400 mt-0.5 shrink-0"></i>Convert ke vector embedding</li>
+                            <li class="flex items-start gap-3 text-sm text-neutral-600"><i class="fa-solid fa-xmark text-red-400 mt-0.5 shrink-0"></i>Simpan di database terpisah</li>
+                            <li class="flex items-start gap-3 text-sm text-neutral-600"><i class="fa-solid fa-xmark text-red-400 mt-0.5 shrink-0"></i>Cari berdasarkan similarity</li>
+                            <li class="flex items-start gap-3 text-sm text-neutral-600"><i class="fa-solid fa-xmark text-red-400 mt-0.5 shrink-0"></i>Butuh infrastructure tambahan</li>
+                        </ul>
+                        <div class="mt-6 p-3 bg-red-100/50 rounded-lg text-center"><span class="text-red-600 text-xs font-bold">3 KOMPONEN DIBUTUHKAN</span></div>
                     </div>
-                    <div class="bg-green-50/50 rounded-b-2xl md:rounded-r-2xl md:rounded-bl-none p-6 border border-green-100">
-                        <div class="flex items-center gap-3 mb-5"><img src="https://pageindex.ai/_next/image?url=%2Fstatic%2Fimages%2Flogo.png&w=48&q=75" alt="PageIndex" class="h-10"><div><h3 class="font-bold text-sm">PageIndex</h3><p class="text-[9px] text-green-500 font-medium uppercase tracking-wider">Cara Baru</p></div></div>
-                        <ul class="space-y-2.5">
-                            <li class="flex items-start gap-2.5 text-xs text-neutral-600"><i class="fa-solid fa-check text-green-500 mt-0.5 shrink-0"></i>Pertahankan struktur dokumen utuh</li>
-                            <li class="flex items-start gap-2.5 text-xs text-neutral-600"><i class="fa-solid fa-check text-green-500 mt-0.5 shrink-0"></i>Bangun tree hierarchy</li>
-                            <li class="flex items-start gap-2.5 text-xs text-neutral-600"><i class="fa-solid fa-check text-green-500 mt-0.5 shrink-0"></i>Reasoning langsung di cloud</li>
-                            <li class="flex items-start gap-2.5 text-xs text-neutral-600"><i class="fa-solid fa-check text-green-500 mt-0.5 shrink-0"></i>Cari berdasarkan semantic</li>
-                            <li class="flex items-start gap-2.5 text-xs text-neutral-600"><i class="fa-solid fa-check text-green-500 mt-0.5 shrink-0"></i>Semua handled by PageIndex</li>
-                        </ul>
-                        <div class="mt-5 p-2.5 bg-green-100/50 rounded-lg text-center flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-cube text-green-500 text-xs"></i>
-                            <span class="text-green-600 text-[10px] font-bold">1 SERVICE</span>
+                    <div class="bg-green-50/50 rounded-b-2xl md:rounded-r-2xl md:rounded-bl-none p-6 md:p-8 border border-green-100">
+                        <div class="flex items-center gap-3 mb-6">
+                            <img src="https://pageindex.ai/_next/image?url=%2Fstatic%2Fimages%2Flogo.png&w=48&q=75" alt="PageIndex" class="h-10">
+                            <div><h3 class="font-bold text-sm">PageIndex</h3><p class="text-[10px] text-green-500 font-medium uppercase tracking-wider">Cara Baru</p></div>
                         </div>
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3 text-sm text-neutral-600"><i class="fa-solid fa-check text-green-500 mt-0.5 shrink-0"></i>Pertahankan struktur dokumen utuh</li>
+                            <li class="flex items-start gap-3 text-sm text-neutral-600"><i class="fa-solid fa-check text-green-500 mt-0.5 shrink-0"></i>Bangun tree hierarchy</li>
+                            <li class="flex items-start gap-3 text-sm text-neutral-600"><i class="fa-solid fa-check text-green-500 mt-0.5 shrink-0"></i>Reasoning langsung di cloud</li>
+                            <li class="flex items-start gap-3 text-sm text-neutral-600"><i class="fa-solid fa-check text-green-500 mt-0.5 shrink-0"></i>Cari berdasarkan semantic understanding</li>
+                            <li class="flex items-start gap-3 text-sm text-neutral-600"><i class="fa-solid fa-check text-green-500 mt-0.5 shrink-0"></i>Semua handled by PageIndex</li>
+                        </ul>
+                        <div class="mt-6 p-3 bg-green-100/50 rounded-lg text-center"><span class="text-green-600 text-xs font-bold">CUKUP 1 SERVICE</span></div>
                     </div>
                 </div>
             </div>
@@ -618,15 +636,43 @@
         <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="15">
             <div class="absolute bottom-0 right-0 w-96 h-96 bg-accent-50 rounded-full blur-3xl opacity-30"></div>
             <div class="max-w-5xl mx-auto w-full relative z-10">
-                <div class="flex items-center gap-3 mb-6"><img src="https://pageindex.ai/_next/image?url=%2Fstatic%2Fimages%2Flogo.png&w=48&q=75" alt="PageIndex" class="h-5"><div class="tag bg-accent-50 text-accent-600"><i class="fa-solid fa-trophy text-[10px]"></i>Keunggulan</div></div>
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-8">Kenapa PageIndex Lebih Praktis</h2>
-                <div class="grid grid-cols-2 lg:grid-cols-3 gap-3">
-                    <div class="card-hover bg-white rounded-2xl p-5 border border-neutral-100"><div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center mb-3"><i class="fa-solid fa-plug-circle-xmark text-accent-500"></i></div><h3 class="font-semibold text-xs mb-1">No Vector DB</h3><p class="text-neutral-400 text-[10px] leading-relaxed">Gak perlu setup database terpisah</p></div>
-                    <div class="card-hover bg-white rounded-2xl p-5 border border-neutral-100"><div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center mb-3"><i class="fa-solid fa-scissors text-accent-500"></i></div><h3 class="font-semibold text-xs mb-1">No Chunking</h3><p class="text-neutral-400 text-[10px] leading-relaxed">Konteks tidak hilang</p></div>
-                    <div class="card-hover bg-white rounded-2xl p-5 border border-neutral-100"><div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center mb-3"><i class="fa-solid fa-sitemap text-accent-500"></i></div><h3 class="font-semibold text-xs mb-1">Tree Structure</h3><p class="text-neutral-400 text-[10px] leading-relaxed">Hierarki dipertahankan utuh</p></div>
-                    <div class="card-hover bg-white rounded-2xl p-5 border border-neutral-100"><div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center mb-3"><i class="fa-solid fa-eye text-accent-500"></i></div><h3 class="font-semibold text-xs mb-1">Traceable</h3><p class="text-neutral-400 text-[10px] leading-relaxed">Bisa lihat dari halaman berapa</p></div>
-                    <div class="card-hover bg-white rounded-2xl p-5 border border-neutral-100"><div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center mb-3"><i class="fa-solid fa-rocket text-accent-500"></i></div><h3 class="font-semibold text-xs mb-1">Fast Setup</h3><p class="text-neutral-400 text-[10px] leading-relaxed">Upload dokumen, langsung chat</p></div>
-                    <div class="card-hover bg-white rounded-2xl p-5 border border-neutral-100"><div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center mb-3"><i class="fa-solid fa-piggy-bank text-accent-500"></i></div><h3 class="font-semibold text-xs mb-1">Cost Effective</h3><p class="text-neutral-400 text-[10px] leading-relaxed">Satu service untuk semua RAG</p></div>
+                <div class="flex items-center gap-3 mb-6">
+                    <img src="https://pageindex.ai/_next/image?url=%2Fstatic%2Fimages%2Flogo.png&w=48&q=75" alt="PageIndex" class="h-5">
+                    <div class="tag bg-accent-50 text-accent-600"><i class="fa-solid fa-trophy text-[10px]"></i> Keunggulan</div>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Kenapa PageIndex Lebih Praktis</h2>
+                <p class="text-neutral-500 text-lg mb-12">Fokus ke bisnis, bukan ke infrastruktur</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100">
+                        <div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center mb-4"><i class="fa-solid fa-plug-circle-xmark text-accent-500"></i></div>
+                        <h3 class="font-semibold text-sm mb-2">No Vector DB</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">Gak perlu setup dan maintain database terpisah</p>
+                    </div>
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100">
+                        <div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center mb-4"><i class="fa-solid fa-scissors text-accent-500"></i></div>
+                        <h3 class="font-semibold text-sm mb-2">No Chunking</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">Dokumen tetap utuh, konteks tidak hilang</p>
+                    </div>
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100">
+                        <div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center mb-4"><i class="fa-solid fa-sitemap text-accent-500"></i></div>
+                        <h3 class="font-semibold text-sm mb-2">Tree Structure</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">Hierarki dokumen dipertahankan utuh</p>
+                    </div>
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100">
+                        <div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center mb-4"><i class="fa-solid fa-eye text-accent-500"></i></div>
+                        <h3 class="font-semibold text-sm mb-2">Traceable</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">Bisa lihat jawaban dari halaman berapa</p>
+                    </div>
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100">
+                        <div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center mb-4"><i class="fa-solid fa-rocket text-accent-500"></i></div>
+                        <h3 class="font-semibold text-sm mb-2">Fast Setup</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">Upload dokumen, langsung bisa chat</p>
+                    </div>
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100">
+                        <div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center mb-4"><i class="fa-solid fa-piggy-bank text-accent-500"></i></div>
+                        <h3 class="font-semibold text-sm mb-2">Cost Effective</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">Satu service untuk semua kebutuhan RAG</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -634,60 +680,74 @@
         <!-- SLIDE 16: USE CASE -->
         <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="16">
             <div class="max-w-5xl mx-auto w-full">
-                <div class="tag bg-accent-50 text-accent-600 mb-6"><i class="fa-solid fa-industry text-[10px]"></i>Implementasi</div>
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-8">Use Case di Berbagai Industri</h2>
+                <div class="tag bg-accent-50 text-accent-600 mb-6"><i class="fa-solid fa-industry text-[10px]"></i> Implementasi</div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Use Case di Berbagai Industri</h2>
+                <p class="text-neutral-500 text-lg mb-12">Apapun industrinya, RAG bisa diterapkan</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="card-hover bg-white rounded-2xl overflow-hidden border border-neutral-100 flex items-stretch">
-                        <div class="img-side w-24 shrink-0"><img src="https://images.unsplash.com/photo-1565043666747-69f6646db940?w=200&q=60" alt="Manufacturing"></div>
-                        <div class="p-4 flex flex-col justify-center"><h3 class="font-bold text-xs mb-1">Manufacturing</h3><p class="text-neutral-500 text-[10px] leading-relaxed mb-2">AI assistant katalog produk dan spesifikasi teknis</p><span class="text-[9px] text-blue-500 font-medium bg-blue-50 px-2 py-0.5 rounded-md self-start"><i class="fa-solid fa-clock mr-1"></i>24/7 product inquiry</span></div>
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100 flex items-start gap-5">
+                        <div class="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-industry text-blue-500 text-xl"></i></div>
+                        <div><h3 class="font-bold text-sm mb-2">Manufacturing</h3><p class="text-neutral-500 text-xs leading-relaxed mb-2">AI assistant untuk katalog produk dan spesifikasi teknis</p><span class="text-[10px] text-blue-500 font-medium">Customer tanya detail produk 24/7</span></div>
                     </div>
-                    <div class="card-hover bg-white rounded-2xl overflow-hidden border border-neutral-100 flex items-stretch">
-                        <div class="img-side w-24 shrink-0"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=200&q=60" alt="Professional"></div>
-                        <div class="p-4 flex flex-col justify-center"><h3 class="font-bold text-xs mb-1">Professional Services</h3><p class="text-neutral-500 text-[10px] leading-relaxed mb-2">Knowledge base konsultan dan lawyer</p><span class="text-[9px] text-purple-500 font-medium bg-purple-50 px-2 py-0.5 rounded-md self-start"><i class="fa-solid fa-bolt mr-1"></i>Akses cepat regulasi</span></div>
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100 flex items-start gap-5">
+                        <div class="w-14 h-14 rounded-2xl bg-purple-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-briefcase text-purple-500 text-xl"></i></div>
+                        <div><h3 class="font-bold text-sm mb-2">Professional Services</h3><p class="text-neutral-500 text-xs leading-relaxed mb-2">Knowledge base untuk konsultan dan lawyer</p><span class="text-[10px] text-purple-500 font-medium">Akses cepat ke dokumen dan regulasi</span></div>
                     </div>
-                    <div class="card-hover bg-white rounded-2xl overflow-hidden border border-neutral-100 flex items-stretch">
-                        <div class="img-side w-24 shrink-0"><img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=200&q=60" alt="Healthcare"></div>
-                        <div class="p-4 flex flex-col justify-center"><h3 class="font-bold text-xs mb-1">Healthcare</h3><p class="text-neutral-500 text-[10px] leading-relaxed mb-2">AI assistant informasi obat dan prosedur</p><span class="text-[9px] text-green-500 font-medium bg-green-50 px-2 py-0.5 rounded-md self-start"><i class="fa-solid fa-heart-pulse mr-1"></i>Referensi cepat medis</span></div>
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100 flex items-start gap-5">
+                        <div class="w-14 h-14 rounded-2xl bg-green-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-heart-pulse text-green-500 text-xl"></i></div>
+                        <div><h3 class="font-bold text-sm mb-2">Healthcare</h3><p class="text-neutral-500 text-xs leading-relaxed mb-2">AI assistant untuk informasi obat dan prosedur</p><span class="text-[10px] text-green-500 font-medium">Referensi cepat untuk tenaga medis</span></div>
                     </div>
-                    <div class="card-hover bg-white rounded-2xl overflow-hidden border border-neutral-100 flex items-stretch">
-                        <div class="img-side w-24 shrink-0"><img src="https://images.unsplash.com/photo-1523050854058-8df90110c476?w=200&q=60" alt="Education"></div>
-                        <div class="p-4 flex flex-col justify-center"><h3 class="font-bold text-xs mb-1">Education</h3><p class="text-neutral-500 text-[10px] leading-relaxed mb-2">Tutor AI berdasarkan materi kursus</p><span class="text-[9px] text-accent-500 font-medium bg-accent-50 px-2 py-0.5 rounded-md self-start"><i class="fa-solid fa-graduation-cap mr-1"></i>Kurikulum resmi</span></div>
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100 flex items-start gap-5">
+                        <div class="w-14 h-14 rounded-2xl bg-accent-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-graduation-cap text-accent-500 text-xl"></i></div>
+                        <div><h3 class="font-bold text-sm mb-2">Education</h3><p class="text-neutral-500 text-xs leading-relaxed mb-2">Tutor AI berdasarkan materi kursus</p><span class="text-[10px] text-accent-500 font-medium">Jawaban berdasarkan kurikulum resmi</span></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SLIDE 17: ROI & IMPLEMENTASI -->
+        <!-- SLIDE 17: BUSINESS VALUE & IMPLEMENTASI -->
         <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="17">
-            <div class="img-accent bottom-0 left-0 w-72 h-40 opacity-[0.06] hidden md:block"><img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&q=60" alt=""></div>
-            <div class="max-w-5xl mx-auto w-full relative z-10">
-                <div class="tag bg-green-50 text-green-600 mb-6"><i class="fa-solid fa-chart-line text-[10px]"></i>Value & Build</div>
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-8">ROI dan Implementasi</h2>
-                <div class="grid grid-cols-1 lg:grid-cols-5 gap-5">
-                    <div class="lg:col-span-3 space-y-3">
-                        <div class="flex items-center gap-4 p-4 bg-white rounded-xl border border-neutral-100">
-                            <div class="stat-ring shrink-0" style="width:52px;height:52px"><svg viewBox="0 0 36 36" class="w-full h-full"><path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831 15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="#bfdbfe" stroke-width="3"/><path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831 15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="#3b82f6" stroke-width="3" stroke-dasharray="55, 100" stroke-linecap="round"/></svg><div class="value text-xs text-blue-500">55%</div></div>
-                            <div><h3 class="font-semibold text-xs">Efisiensi Operasional</h3><p class="text-neutral-400 text-[10px]">Kurangi beban CS, jawab rutin otomatis</p></div>
+            <div class="max-w-5xl mx-auto w-full">
+                <div class="tag bg-green-50 text-green-600 mb-6"><i class="fa-solid fa-chart-line text-[10px]"></i> Value & Build</div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-10">ROI dan Implementasi</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+                    <div class="lg:col-span-3 space-y-4">
+                        <div class="flex items-center gap-5 p-4 bg-white rounded-2xl border border-neutral-100">
+                            <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-gauge-high text-blue-500"></i></div>
+                            <div class="flex-1"><h3 class="font-semibold text-sm">Efisiensi Operasional</h3><p class="text-neutral-400 text-xs">Kurangi beban CS 40-60%, jawab rutin otomatis</p></div>
                         </div>
-                        <div class="flex items-center gap-4 p-4 bg-white rounded-xl border border-neutral-100">
-                            <div class="stat-ring shrink-0" style="width:52px;height:52px"><svg viewBox="0 0 36 36" class="w-full h-full"><path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831 15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="#bbf7d0" stroke-width="3"/><path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831 15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="#22c55e" stroke-width="3" stroke-dasharray="40, 100" stroke-linecap="round"/></svg><div class="value text-xs text-green-500">40%</div></div>
-                            <div><h3 class="font-semibold text-xs">Peningkatan Sales</h3><p class="text-neutral-400 text-[10px]">Response cepat = konversi tinggi, 24/7</p></div>
+                        <div class="flex items-center gap-5 p-4 bg-white rounded-2xl border border-neutral-100">
+                            <div class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-arrow-trend-up text-green-500"></i></div>
+                            <div class="flex-1"><h3 class="font-semibold text-sm">Peningkatan Sales</h3><p class="text-neutral-400 text-xs">Response cepat = konversi tinggi, 24/7 tanpa kehilangan lead</p></div>
                         </div>
-                        <div class="flex items-center gap-4 p-4 bg-white rounded-xl border border-neutral-100">
-                            <div class="stat-ring shrink-0" style="width:52px;height:52px"><svg viewBox="0 0 36 36" class="w-full h-full"><path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831 15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="#ffedd5" stroke-width="3"/><path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831 15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="#f97316" stroke-width="3" stroke-dasharray="65, 100" stroke-linecap="round"/></svg><div class="value text-xs text-accent-500">65%</div></div>
-                            <div><h3 class="font-semibold text-xs">Cost Reduction</h3><p class="text-neutral-400 text-[10px]">Kurangi headcount, training cost, scale tanpa biaya proporsional</p></div>
+                        <div class="flex items-center gap-5 p-4 bg-white rounded-2xl border border-neutral-100">
+                            <div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-coins text-accent-500"></i></div>
+                            <div class="flex-1"><h3 class="font-semibold text-sm">Cost Reduction</h3><p class="text-neutral-400 text-xs">Kurangi headcount CS, kurangi training cost, scale tanpa biaya proporsional</p></div>
                         </div>
                     </div>
                     <div class="lg:col-span-2">
-                        <div class="bg-neutral-50 rounded-2xl p-5 border border-neutral-100 h-full flex flex-col">
-                            <h3 class="font-bold text-xs mb-3 flex items-center gap-2"><i class="fa-solid fa-layer-group text-accent-500"></i>Tech Stack</h3>
-                            <div class="space-y-2 flex-1">
-                                <div class="flex items-center gap-3 p-2.5 bg-white rounded-lg border border-neutral-100"><i class="fa-brands fa-python text-green-500 text-sm w-5 text-center"></i><span class="text-xs font-medium">Flask (Python)</span></div>
-                                <div class="flex items-center gap-3 p-2.5 bg-white rounded-lg border border-neutral-100"><i class="fa-brands fa-css3-alt text-blue-500 text-sm w-5 text-center"></i><span class="text-xs font-medium">Tailwind CSS</span></div>
-                                <div class="flex items-center gap-3 p-2.5 bg-white rounded-lg border border-neutral-100"><img src="https://pageindex.ai/_next/image?url=%2Fstatic%2Fimages%2Flogo.png&w=48&q=75" alt="PI" class="h-4 w-5 object-contain"><span class="text-xs font-medium">PageIndex</span></div>
-                                <div class="flex items-center gap-3 p-2.5 bg-white rounded-lg border border-neutral-100"><i class="fa-brands fa-github text-neutral-500 text-sm w-5 text-center"></i><span class="text-xs font-medium">Ngrok + GitHub</span></div>
+                        <div class="bg-neutral-50 rounded-2xl p-5 border border-neutral-100 h-full">
+                            <h3 class="font-bold text-sm mb-4 flex items-center gap-2"><i class="fa-solid fa-layer-group text-accent-500"></i>Tech Stack</h3>
+                            <div class="space-y-2.5">
+                                <div class="flex items-center gap-3 p-2.5 bg-white rounded-lg border border-neutral-100">
+                                    <i class="fa-brands fa-python text-green-500 text-sm w-5 text-center"></i>
+                                    <span class="text-xs font-medium">Flask (Python)</span>
+                                </div>
+                                <div class="flex items-center gap-3 p-2.5 bg-white rounded-lg border border-neutral-100">
+                                    <i class="fa-brands fa-css3-alt text-blue-500 text-sm w-5 text-center"></i>
+                                    <span class="text-xs font-medium">Tailwind CSS</span>
+                                </div>
+                                <div class="flex items-center gap-3 p-2.5 bg-white rounded-lg border border-neutral-100">
+                                    <img src="https://pageindex.ai/_next/image?url=%2Fstatic%2Fimages%2Flogo.png&w=48&q=75" alt="PI" class="h-4 w-5 object-contain">
+                                    <span class="text-xs font-medium">PageIndex</span>
+                                </div>
+                                <div class="flex items-center gap-3 p-2.5 bg-white rounded-lg border border-neutral-100">
+                                    <i class="fa-brands fa-github text-neutral-500 text-sm w-5 text-center"></i>
+                                    <span class="text-xs font-medium">Ngrok + GitHub</span>
+                                </div>
                             </div>
-                            <div class="mt-3 img-side h-20 rounded-xl relative"><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=300&q=60" alt="Code"><div class="absolute inset-0 bg-gradient-to-t from-neutral-50 via-neutral-50/60 to-transparent"></div><div class="absolute bottom-2 left-2 right-2"><p class="text-[9px] font-semibold text-accent-600 bg-white/90 px-2 py-1 rounded-md inline-block">Konsep ke production dalam jam</p></div></div>
+                            <div class="mt-4 p-3 bg-accent-50 rounded-lg border border-accent-100 text-center">
+                                <p class="text-accent-700 text-[10px] font-semibold">Dari konsep ke production dalam beberapa jam</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -696,25 +756,26 @@
 
         <!-- SLIDE 18: CLOSING -->
         <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative overflow-hidden" data-slide="18">
-            <div class="absolute inset-0"><img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=60" alt="" class="w-full h-full object-cover opacity-[0.06]" style="filter:grayscale(100%)"></div>
             <div class="absolute inset-0 opacity-[0.03]" style="background-image:radial-gradient(circle at 1px 1px,#000 1px,transparent 0);background-size:40px 40px"></div>
             <div class="absolute top-1/3 left-1/4 w-96 h-96 bg-accent-100 rounded-full blur-3xl opacity-20"></div>
             <div class="absolute bottom-1/4 right-1/4 w-72 h-72 bg-accent-50 rounded-full blur-3xl opacity-40"></div>
             <div class="relative z-10 max-w-4xl mx-auto text-center">
-                <div class="tag bg-accent-50 text-accent-600 mx-auto mb-8"><i class="fa-solid fa-flag-checkered text-[10px]"></i>Penutup</div>
-                <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6">Dari Chatbot Ngawur ke <span class="gradient-text">AI yang Benar-Benar Membantu</span></h2>
-                <div class="grid grid-cols-5 gap-2 mb-8 max-w-lg mx-auto">
-                    <div class="p-2 bg-white/80 backdrop-blur rounded-xl border border-neutral-100"><i class="fa-solid fa-robot text-neutral-400 text-sm mb-1 block"></i><p class="text-[8px] text-neutral-500">Masalah</p></div>
-                    <div class="p-2 bg-white/80 backdrop-blur rounded-xl border border-neutral-100"><i class="fa-solid fa-microchip text-neutral-400 text-sm mb-1 block"></i><p class="text-[8px] text-neutral-500">RAG</p></div>
-                    <div class="p-2 bg-white/80 backdrop-blur rounded-xl border border-neutral-100"><i class="fa-solid fa-code-compare text-neutral-400 text-sm mb-1 block"></i><p class="text-[8px] text-neutral-500">Compare</p></div>
-                    <div class="p-2 bg-white/80 backdrop-blur rounded-xl border border-neutral-100"><i class="fa-solid fa-chart-line text-neutral-400 text-sm mb-1 block"></i><p class="text-[8px] text-neutral-500">Value</p></div>
-                    <div class="p-2 bg-white/80 backdrop-blur rounded-xl border border-neutral-100"><i class="fa-solid fa-code text-neutral-400 text-sm mb-1 block"></i><p class="text-[8px] text-neutral-500">Build</p></div>
+                <div class="tag bg-accent-50 text-accent-600 mx-auto mb-8"><i class="fa-solid fa-flag-checkered text-[10px]"></i> Penutup</div>
+                <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-8">
+                    Dari Chatbot Ngawur ke <span class="gradient-text">AI yang Benar-Benar Membantu</span>
+                </h2>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-10 max-w-2xl mx-auto">
+                    <div class="p-3 bg-neutral-50 rounded-xl border border-neutral-100"><i class="fa-solid fa-robot text-neutral-400 text-sm mb-2 block"></i><p class="text-[10px] text-neutral-500">Masalah Chatbot</p></div>
+                    <div class="p-3 bg-neutral-50 rounded-xl border border-neutral-100"><i class="fa-solid fa-microchip text-neutral-400 text-sm mb-2 block"></i><p class="text-[10px] text-neutral-500">RAG Technology</p></div>
+                    <div class="p-3 bg-neutral-50 rounded-xl border border-neutral-100"><i class="fa-solid fa-code-compare text-neutral-400 text-sm mb-2 block"></i><p class="text-[10px] text-neutral-500">Vector DB vs PI</p></div>
+                    <div class="p-3 bg-neutral-50 rounded-xl border border-neutral-100"><i class="fa-solid fa-chart-line text-neutral-400 text-sm mb-2 block"></i><p class="text-[10px] text-neutral-500">Business Value</p></div>
+                    <div class="p-3 bg-neutral-50 rounded-xl border border-neutral-100 col-span-2 md:col-span-1"><i class="fa-solid fa-code text-neutral-400 text-sm mb-2 block"></i><p class="text-[10px] text-neutral-500">Implementasi</p></div>
                 </div>
-                <div class="inline-flex items-center gap-4 bg-dark text-white px-10 py-5 rounded-2xl shadow-2xl shadow-neutral-900/20">
+                <div class="inline-flex items-center gap-4 bg-dark text-white px-10 py-5 rounded-2xl">
                     <i class="fa-solid fa-laptop-code text-accent-400 text-xl"></i>
                     <div class="text-left"><p class="font-bold text-lg">Mari Kita Praktik</p><p class="text-neutral-400 text-sm">Sekarang saatnya bangun bersama</p></div>
                 </div>
-                <div class="mt-8 flex items-center justify-center gap-6">
+                <div class="mt-10 flex items-center justify-center gap-6">
                     <img src="https://image.web.id/images/codepolitan-logoc787963e27f753de.png" alt="Codepolitan" class="h-5 opacity-50">
                     <span class="text-neutral-200">x</span>
                     <img src="https://pageindex.ai/_next/image?url=%2Fstatic%2Fimages%2Flogo.png&w=48&q=75" alt="PageIndex" class="h-5 opacity-50">
@@ -725,9 +786,13 @@
     </main>
 
     <div class="fixed bottom-0 left-0 right-0 z-40 h-20 flex items-center justify-between px-6 md:px-10 bg-white/80 backdrop-blur-xl border-t border-neutral-100">
-        <button onclick="prevSlide()" id="prevBtn" class="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium text-neutral-500 hover:border-neutral-300 hover:text-dark transition-all disabled:opacity-30 disabled:cursor-not-allowed" disabled><i class="fa-solid fa-arrow-left text-xs"></i><span class="hidden sm:inline">Sebelumnya</span></button>
+        <button onclick="prevSlide()" id="prevBtn" class="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium text-neutral-500 hover:border-neutral-300 hover:text-dark transition-all disabled:opacity-30 disabled:cursor-not-allowed" disabled>
+            <i class="fa-solid fa-arrow-left text-xs"></i><span class="hidden sm:inline">Sebelumnya</span>
+        </button>
         <div class="flex items-center gap-1.5" id="dotsContainer"></div>
-        <button onclick="nextSlide()" id="nextBtn" class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-dark text-white text-sm font-medium hover:bg-neutral-800 transition-all"><span class="hidden sm:inline">Selanjutnya</span><i class="fa-solid fa-arrow-right text-xs"></i></button>
+        <button onclick="nextSlide()" id="nextBtn" class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-dark text-white text-sm font-medium hover:bg-neutral-800 transition-all">
+            <span class="hidden sm:inline">Selanjutnya</span><i class="fa-solid fa-arrow-right text-xs"></i>
+        </button>
     </div>
 
     <script>
