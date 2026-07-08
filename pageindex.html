@@ -42,6 +42,7 @@
         .arch-card{transition:all .3s ease;border:2px solid transparent}
         .arch-card:hover{border-color:#f97316;transform:scale(1.03)}
         ::-webkit-scrollbar{width:0;height:0}
+        .slide-img{position:absolute;border-radius:24px;object-fit:cover;pointer-events:none;opacity:0.12;filter:blur(1px)}
     </style>
 </head>
 <body class="bg-white text-dark font-inter overflow-hidden h-screen w-screen relative">
@@ -77,9 +78,12 @@
                 <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] mb-6">
                     AI Assistant yang <span class="gradient-text">Benar-Benar Mengerti</span> Bisnis Kamu
                 </h1>
-                <p class="text-lg md:text-xl text-neutral-500 font-light max-w-2xl mx-auto mb-10 leading-relaxed">
+                <p class="text-lg md:text-xl text-neutral-500 font-light max-w-2xl mx-auto mb-8 leading-relaxed">
                     Dari Chatbot Ngawur ke AI yang Jawab Berdasarkan Data Perusahaan Sendiri
                 </p>
+                <div class="flex justify-center mb-8">
+                    <img src="https://pageindex.ai/static/images/new-homepage/Illustration-mcp.svg" alt="MCP Illustration" class="w-64 md:w-80 h-auto">
+                </div>
                 <div class="flex items-center justify-center gap-4">
                     <div class="flex items-center gap-2 text-sm text-neutral-400">
                         <img src="https://pageindex.ai/_next/image?url=%2Fstatic%2Fimages%2Flogo.png&w=48&q=75" alt="PageIndex" class="h-5">
@@ -95,7 +99,8 @@
         </section>
 
         <!-- SLIDE 2: MASALAH NYATA -->
-        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="2">
+        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative overflow-hidden" data-slide="2">
+            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80" alt="" class="slide-img w-80 h-96 -right-10 top-1/2 -translate-y-1/2 opacity-[0.10]">
             <div class="max-w-5xl mx-auto w-full">
                 <div class="tag bg-red-50 text-red-500 mb-6">
                     <i class="fa-solid fa-triangle-exclamation text-[10px]"></i>
@@ -125,7 +130,8 @@
         </section>
 
         <!-- SLIDE 3: KENAPA CHATBOT GAGAL -->
-        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="3">
+        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative overflow-hidden" data-slide="3">
+            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80" alt="" class="slide-img w-72 h-72 -left-10 bottom-10 opacity-[0.10]">
             <div class="max-w-5xl mx-auto w-full">
                 <div class="tag bg-red-50 text-red-500 mb-6"><i class="fa-solid fa-xmark text-[10px]"></i> Akar Masalah</div>
                 <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Kenapa Chatbot Gagal</h2>
@@ -156,7 +162,8 @@
         </section>
 
         <!-- SLIDE 4: SOLUSI -->
-        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="4">
+        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative overflow-hidden" data-slide="4">
+            <img src="https://images.unsplash.com/photo-1677756119517-756a188d2d94?auto=format&fit=crop&w=800&q=80" alt="" class="slide-img w-80 h-80 -right-10 -top-10 opacity-[0.08]">
             <div class="absolute top-1/3 left-0 w-72 h-72 bg-green-50 rounded-full blur-3xl opacity-40"></div>
             <div class="max-w-5xl mx-auto w-full relative z-10">
                 <div class="tag bg-green-50 text-green-600 mb-6"><i class="fa-solid fa-lightbulb text-[10px]"></i> Solusi</div>
@@ -192,7 +199,8 @@
         </section>
 
         <!-- SLIDE 5: APA ITU RAG -->
-        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="5">
+        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative overflow-hidden" data-slide="5">
+            <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80" alt="" class="slide-img w-72 h-72 -left-10 -top-10 opacity-[0.08]">
             <div class="max-w-5xl mx-auto w-full">
                 <div class="tag bg-accent-50 text-accent-600 mb-6"><i class="fa-solid fa-microchip text-[10px]"></i> Teknologi</div>
                 <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-2">Apa Itu <span class="gradient-text">RAG</span>?</h2>
@@ -231,7 +239,8 @@
         </section>
 
         <!-- SLIDE 6: ARSITEKTUR RAG -->
-        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="6">
+        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative overflow-hidden" data-slide="6">
+            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" alt="" class="slide-img w-80 h-80 -right-10 bottom-10 opacity-[0.08]">
             <div class="max-w-5xl mx-auto w-full">
                 <div class="tag bg-accent-50 text-accent-600 mb-6"><i class="fa-solid fa-cubes text-[10px]"></i> Arsitektur</div>
                 <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Arsitektur RAG</h2>
@@ -279,7 +288,8 @@
         </section>
 
         <!-- SLIDE 7: STEP 1 - INDEXING -->
-        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="7">
+        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative overflow-hidden" data-slide="7">
+            <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=800&q=80" alt="" class="slide-img w-72 h-80 -left-10 -bottom-10 opacity-[0.08]">
             <div class="max-w-5xl mx-auto w-full">
                 <div class="tag bg-blue-50 text-blue-600 mb-6"><i class="fa-solid fa-1 text-[10px]"></i> Step 1</div>
                 <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Indexing: Bangun Knowledge Base</h2>
@@ -330,7 +340,8 @@
         </section>
 
         <!-- SLIDE 8: STEP 2 - RETRIEVAL -->
-        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="8">
+        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative overflow-hidden" data-slide="8">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="" class="slide-img w-80 h-80 -right-10 -top-10 opacity-[0.08]">
             <div class="max-w-5xl mx-auto w-full">
                 <div class="tag bg-purple-50 text-purple-600 mb-6"><i class="fa-solid fa-2 text-[10px]"></i> Step 2</div>
                 <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Retrieval: Cari Konteks Relevan</h2>
@@ -382,7 +393,8 @@
         </section>
 
         <!-- SLIDE 9: STEP 3 & 4 - AUGMENTASI & GENERASI -->
-        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="9">
+        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative overflow-hidden" data-slide="9">
+            <img src="https://images.unsplash.com/photo-1684369176170-463e84248b70?auto=format&fit=crop&w=800&q=80" alt="" class="slide-img w-72 h-72 -left-10 top-10 opacity-[0.08]">
             <div class="max-w-5xl mx-auto w-full">
                 <div class="flex items-center gap-3 mb-6">
                     <div class="tag bg-accent-50 text-accent-600"><i class="fa-solid fa-3 text-[10px]"></i> Step 3</div>
@@ -431,7 +443,8 @@
         </section>
 
         <!-- SLIDE 10: MANFAAT RAG -->
-        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="10">
+        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative overflow-hidden" data-slide="10">
+            <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=800&q=80" alt="" class="slide-img w-80 h-80 -right-10 bottom-10 opacity-[0.08]">
             <div class="absolute bottom-0 right-0 w-80 h-80 bg-green-50 rounded-full blur-3xl opacity-30"></div>
             <div class="max-w-5xl mx-auto w-full relative z-10">
                 <div class="tag bg-green-50 text-green-600 mb-6"><i class="fa-solid fa-star text-[10px]"></i> Keunggulan</div>
@@ -473,7 +486,8 @@
         </section>
 
         <!-- SLIDE 11: VECTOR DB -->
-        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="11">
+        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative overflow-hidden" data-slide="11">
+            <img src="https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&w=800&q=80" alt="" class="slide-img w-72 h-80 -left-10 -top-10 opacity-[0.08]">
             <div class="max-w-5xl mx-auto w-full">
                 <div class="tag bg-neutral-100 text-neutral-500 mb-6"><i class="fa-solid fa-database text-[10px]"></i> Pendekatan Tradisional</div>
                 <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Vector DB: Cara Lama</h2>
@@ -517,7 +531,8 @@
         </section>
 
         <!-- SLIDE 12: MASALAH VECTOR DB -->
-        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="12">
+        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative overflow-hidden" data-slide="12">
+            <img src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?auto=format&fit=crop&w=800&q=80" alt="" class="slide-img w-80 h-80 -right-10 top-10 opacity-[0.08]">
             <div class="max-w-5xl mx-auto w-full">
                 <div class="tag bg-red-50 text-red-500 mb-6"><i class="fa-solid fa-bug text-[10px]"></i> Problem</div>
                 <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Masalah Vector DB</h2>
@@ -543,270 +558,303 @@
                         <div class="flex-1"><h3 class="font-semibold text-sm mb-1">Biaya Infrastruktur</h3><p class="text-neutral-500 text-sm">Vector DB punya biaya sendiri di luar biaya LLM</p></div>
                         <div class="hidden md:block w-24 h-2 bg-red-100 rounded-full overflow-hidden"><div class="h-full bg-red-400 rounded-full" style="width:70%"></div></div>
                     </div>
-                    <div class="flex items-center gap-6 p-5 bg-white rounded-2xl border border-neutral-100 card-hover">
-                        <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-eye-slash text-red-400"></i></div>
-                        <div class="flex-1"><h3 class="font-semibold text-sm mb-1">Traceability Buruk</h3><p class="text-neutral-500 text-sm">Susah melacak jawaban berasal dari halaman mana</p></div>
-                        <div class="hidden md:block w-24 h-2 bg-red-100 rounded-full overflow-hidden"><div class="h-full bg-red-400 rounded-full" style="width:80%"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 13: PAGEINDEX SOLUTION -->
+        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative overflow-hidden" data-slide="13">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80" alt="" class="slide-img w-80 h-80 -left-10 bottom-10 opacity-[0.08]">
+            <div class="absolute top-1/3 right-0 w-72 h-72 bg-accent-50 rounded-full blur-3xl opacity-40"></div>
+            <div class="max-w-5xl mx-auto w-full relative z-10">
+                <div class="tag bg-accent-50 text-accent-600 mb-6"><i class="fa-solid fa-rocket text-[10px]"></i> Pendekatan Baru</div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Ada Cara yang <span class="gradient-text">Lebih Sederhana</span></h2>
+                <p class="text-neutral-500 text-lg mb-12 max-w-2xl">Bagaimana kalau AI bisa langsung baca dokumen utuh tanpa perlu chunking dan vector DB?</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-red-50/50 rounded-2xl p-6 border border-red-100">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center"><i class="fa-solid fa-xmark text-red-500"></i></div>
+                            <h3 class="font-bold text-sm text-red-700">Cara Lama</h3>
+                        </div>
+                        <ul class="space-y-2 text-sm text-neutral-600">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-[4px] mt-2 text-red-300"></i>Chunk dokumen jadi potongan kecil</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-[4px] mt-2 text-red-300"></i>Generate embedding untuk setiap chunk</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-[4px] mt-2 text-red-300"></i>Setup dan maintain vector database</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-[4px] mt-2 text-red-300"></i>Konteks hilang saat di-chunk</li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-50/50 rounded-2xl p-6 border border-green-100">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center"><i class="fa-solid fa-check text-green-600"></i></div>
+                            <h3 class="font-bold text-sm text-green-700">Cara Baru dengan PageIndex</h3>
+                        </div>
+                        <ul class="space-y-2 text-sm text-neutral-600">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-[4px] mt-2 text-green-400"></i>Dokumen tetap utuh, tidak di-chunk</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-[4px] mt-2 text-green-400"></i>AI langsung akses dokumen melalui MCP</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-[4px] mt-2 text-green-400"></i>Tidak perlu vector database</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-circle text-[4px] mt-2 text-green-400"></i>Konteks lengkap terjaga</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SLIDE 13: PAGEINDEX -->
-        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="13">
-            <div class="absolute top-1/4 right-1/4 w-80 h-80 bg-accent-50 rounded-full blur-3xl opacity-40"></div>
-            <div class="max-w-5xl mx-auto w-full relative z-10">
-                <div class="flex items-center gap-3 mb-6">
-                    <img src="https://pageindex.ai/_next/image?url=%2Fstatic%2Fimages%2Flogo.png&w=48&q=75" alt="PageIndex" class="h-5">
-                    <div class="tag bg-accent-50 text-accent-600"><i class="fa-solid fa-star text-[10px]"></i> Pendekatan Baru</div>
-                </div>
-                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-2">PageIndex: Vectorless RAG</h2>
-                <p class="text-neutral-400 text-lg mb-12">RAG Tanpa Vector Database</p>
+        <!-- SLIDE 14: APA ITU MCP -->
+        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative overflow-hidden" data-slide="14">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="" class="slide-img w-80 h-80 -right-10 -top-10 opacity-[0.08]">
+            <div class="max-w-5xl mx-auto w-full">
+                <div class="tag bg-accent-50 text-accent-600 mb-6"><i class="fa-solid fa-plug text-[10px]"></i> Teknologi</div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-2">Apa Itu <span class="gradient-text">MCP</span>?</h2>
+                <p class="text-neutral-400 text-base mb-12">Model Context Protocol</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     <div class="space-y-5">
-                        <div class="flex items-start gap-4"><div class="w-8 h-8 rounded-lg bg-accent-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-ban text-accent-500 text-xs"></i></div><div><h3 class="font-semibold text-sm">Tanpa Vector Database</h3><p class="text-neutral-500 text-sm mt-1">Eliminasi kompleksitas infrastruktur vector DB</p></div></div>
-                        <div class="flex items-start gap-4"><div class="w-8 h-8 rounded-lg bg-accent-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-ban text-accent-500 text-xs"></i></div><div><h3 class="font-semibold text-sm">Tanpa Chunking</h3><p class="text-neutral-500 text-sm mt-1">Dokumen tetap utuh, tidak dipotong-potong</p></div></div>
-                        <div class="flex items-start gap-4"><div class="w-8 h-8 rounded-lg bg-accent-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-sitemap text-accent-500 text-xs"></i></div><div><h3 class="font-semibold text-sm">Tree Structure Hierarkis</h3><p class="text-neutral-500 text-sm mt-1">Hierarki dokumen dipertahankan untuk pemahaman lebih baik</p></div></div>
-                        <div class="flex items-start gap-4"><div class="w-8 h-8 rounded-lg bg-accent-100 flex items-center justify-center shrink-0"><i class="fa-solid fa-brain text-accent-500 text-xs"></i></div><div><h3 class="font-semibold text-sm">LLM Reasoning Langsung</h3><p class="text-neutral-500 text-sm mt-1">Reasoning langsung over tree structure</p></div></div>
+                        <div class="p-5 bg-neutral-50 rounded-2xl border border-neutral-100">
+                            <p class="text-sm text-neutral-600 leading-relaxed">MCP adalah protokol standar terbuka yang memungkinkan model AI <strong>terhubung langsung ke sumber data</strong>. Bayangkan seperti USB-C untuk AI — satu protokol universal untuk mengakses berbagai sumber informasi.</p>
+                        </div>
+                        <div class="p-5 bg-accent-50 rounded-2xl border border-accent-100">
+                            <p class="text-sm text-accent-700 leading-relaxed font-medium"><i class="fa-solid fa-quote-left mr-2 opacity-50"></i>Dengan MCP, AI tidak perlu semua data di-download atau di-embed. AI cukup "meminta" data yang dibutuhkan saat ditanya.<i class="fa-solid fa-quote-right ml-2 opacity-50"></i></p>
+                        </div>
                     </div>
                     <div class="bg-neutral-50 rounded-2xl p-6 border border-neutral-100">
-                        <div class="text-center mb-5"><span class="text-[10px] font-semibold uppercase tracking-widest text-neutral-400">Tree Structure</span></div>
-                        <div class="flex flex-col items-center gap-2">
-                            <div class="bg-accent-500 text-white text-xs font-semibold px-5 py-2.5 rounded-xl">Dokumen Utuh</div>
-                            <div class="w-px h-4 bg-neutral-300"></div>
-                            <div class="flex gap-3">
-                                <div class="bg-accent-100 text-accent-700 text-xs font-medium px-4 py-2 rounded-lg">Bab 1</div>
-                                <div class="bg-accent-100 text-accent-700 text-xs font-medium px-4 py-2 rounded-lg">Bab 2</div>
-                                <div class="bg-accent-100 text-accent-700 text-xs font-medium px-4 py-2 rounded-lg">Bab 3</div>
+                        <div class="flex items-center gap-2 mb-5">
+                            <div class="w-3 h-3 rounded-full bg-red-300"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-300"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-300"></div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-center gap-4">
+                                <div class="bg-accent-100 rounded-xl px-4 py-3 text-center"><i class="fa-solid fa-brain text-accent-600 text-lg block mb-1"></i><span class="text-[10px] font-semibold text-accent-700">AI Model</span></div>
+                                <div class="flex-1 border-t-2 border-dashed border-accent-200 relative"><span class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-neutral-50 px-2 text-[9px] text-accent-500 font-bold">MCP</span></div>
+                                <div class="bg-green-100 rounded-xl px-4 py-3 text-center"><i class="fa-solid fa-file-lines text-green-600 text-lg block mb-1"></i><span class="text-[10px] font-semibold text-green-700">Dokumen</span></div>
                             </div>
-                            <div class="w-px h-4 bg-neutral-300"></div>
-                            <div class="flex gap-2">
-                                <div class="bg-white text-neutral-500 text-[10px] font-medium px-3 py-1.5 rounded-md border border-neutral-200">Hal 1</div>
-                                <div class="bg-white text-neutral-500 text-[10px] font-medium px-3 py-1.5 rounded-md border border-neutral-200">Hal 2</div>
-                                <div class="bg-white text-neutral-500 text-[10px] font-medium px-3 py-1.5 rounded-md border border-neutral-200">Hal 3</div>
-                                <div class="bg-white text-neutral-500 text-[10px] font-medium px-3 py-1.5 rounded-md border border-neutral-200">Hal 4</div>
-                                <div class="bg-white text-neutral-500 text-[10px] font-medium px-3 py-1.5 rounded-md border border-neutral-200">Hal 5</div>
+                            <div class="bg-white rounded-xl p-4 border border-neutral-100">
+                                <p class="text-[10px] font-mono text-neutral-500 mb-2">// AI meminta data via MCP</p>
+                                <p class="text-[10px] font-mono text-accent-600">→ tools.read_document("price-list.pdf")</p>
+                                <p class="text-[10px] font-mono text-green-600 mt-1">← { content: "...harga Produk X: Rp 2.500.000..." }</p>
                             </div>
                         </div>
-                        <div class="mt-5 p-3 bg-green-50 rounded-lg border border-green-100 text-center"><p class="text-green-700 text-xs font-medium"><i class="fa-solid fa-check mr-1"></i>Lebih simple, lebih akurat, lebih mudah di-maintain</p></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SLIDE 14: PERBANDINGAN -->
-        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="14">
+        <!-- SLIDE 15: PAGEINDEX CARA KERJA -->
+        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative overflow-hidden" data-slide="15">
+            <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=800&q=80" alt="" class="slide-img w-72 h-80 -left-10 top-10 opacity-[0.08]">
             <div class="max-w-5xl mx-auto w-full">
-                <div class="tag bg-accent-50 text-accent-600 mb-6"><i class="fa-solid fa-code-compare text-[10px]"></i> Perbandingan</div>
-                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-12">Vector DB vs PageIndex</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-0 relative vs-divider">
-                    <div class="bg-red-50/50 rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none p-6 md:p-8 border border-red-100">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center"><i class="fa-solid fa-database text-red-400"></i></div>
-                            <div><h3 class="font-bold text-sm">Vector Database</h3><p class="text-[10px] text-red-400 font-medium uppercase tracking-wider">Cara Lama</p></div>
-                        </div>
-                        <ul class="space-y-3">
-                            <li class="flex items-start gap-3 text-sm text-neutral-600"><i class="fa-solid fa-xmark text-red-400 mt-0.5 shrink-0"></i>Pecah dokumen jadi chunk kecil</li>
-                            <li class="flex items-start gap-3 text-sm text-neutral-600"><i class="fa-solid fa-xmark text-red-400 mt-0.5 shrink-0"></i>Convert ke vector embedding</li>
-                            <li class="flex items-start gap-3 text-sm text-neutral-600"><i class="fa-solid fa-xmark text-red-400 mt-0.5 shrink-0"></i>Simpan di database terpisah</li>
-                            <li class="flex items-start gap-3 text-sm text-neutral-600"><i class="fa-solid fa-xmark text-red-400 mt-0.5 shrink-0"></i>Cari berdasarkan similarity</li>
-                            <li class="flex items-start gap-3 text-sm text-neutral-600"><i class="fa-solid fa-xmark text-red-400 mt-0.5 shrink-0"></i>Butuh infrastructure tambahan</li>
-                        </ul>
-                        <div class="mt-6 p-3 bg-red-100/50 rounded-lg text-center"><span class="text-red-600 text-xs font-bold">3 KOMPONEN DIBUTUHKAN</span></div>
+                <div class="tag bg-green-50 text-green-600 mb-6"><i class="fa-solid fa-gears text-[10px]"></i> Cara Kerja</div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">PageIndex: RAG Tanpa Vector DB</h2>
+                <p class="text-neutral-500 text-lg mb-12">Lebih sederhana, lebih akurat, lebih cepat di-deploy</p>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4 mb-10">
+                    <div class="bg-white rounded-2xl p-5 border border-neutral-100 text-center w-full md:w-44 card-hover">
+                        <i class="fa-solid fa-cloud-arrow-up text-3xl text-blue-400 mb-3 block"></i>
+                        <p class="text-xs font-semibold mb-1">Upload Dokumen</p>
+                        <p class="text-[10px] text-neutral-400">PDF, DOCX, URL website</p>
                     </div>
-                    <div class="bg-green-50/50 rounded-b-2xl md:rounded-r-2xl md:rounded-bl-none p-6 md:p-8 border border-green-100">
-                        <div class="flex items-center gap-3 mb-6">
-                            <img src="https://pageindex.ai/_next/image?url=%2Fstatic%2Fimages%2Flogo.png&w=48&q=75" alt="PageIndex" class="h-10">
-                            <div><h3 class="font-bold text-sm">PageIndex</h3><p class="text-[10px] text-green-500 font-medium uppercase tracking-wider">Cara Baru</p></div>
-                        </div>
-                        <ul class="space-y-3">
-                            <li class="flex items-start gap-3 text-sm text-neutral-600"><i class="fa-solid fa-check text-green-500 mt-0.5 shrink-0"></i>Pertahankan struktur dokumen utuh</li>
-                            <li class="flex items-start gap-3 text-sm text-neutral-600"><i class="fa-solid fa-check text-green-500 mt-0.5 shrink-0"></i>Bangun tree hierarchy</li>
-                            <li class="flex items-start gap-3 text-sm text-neutral-600"><i class="fa-solid fa-check text-green-500 mt-0.5 shrink-0"></i>Reasoning langsung di cloud</li>
-                            <li class="flex items-start gap-3 text-sm text-neutral-600"><i class="fa-solid fa-check text-green-500 mt-0.5 shrink-0"></i>Cari berdasarkan semantic understanding</li>
-                            <li class="flex items-start gap-3 text-sm text-neutral-600"><i class="fa-solid fa-check text-green-500 mt-0.5 shrink-0"></i>Semua handled by PageIndex</li>
-                        </ul>
-                        <div class="mt-6 p-3 bg-green-100/50 rounded-lg text-center"><span class="text-green-600 text-xs font-bold">CUKUP 1 SERVICE</span></div>
+                    <i class="fa-solid fa-arrow-right flow-arrow hidden md:block"></i>
+                    <i class="fa-solid fa-arrow-down flow-arrow md:hidden"></i>
+                    <div class="bg-white rounded-2xl p-5 border border-neutral-100 text-center w-full md:w-44 card-hover">
+                        <i class="fa-solid fa-plug text-3xl text-accent-400 mb-3 block"></i>
+                        <p class="text-xs font-semibold mb-1">PageIndex Index</p>
+                        <p class="text-[10px] text-neutral-400">Otomatis via MCP server</p>
+                    </div>
+                    <i class="fa-solid fa-arrow-right flow-arrow hidden md:block"></i>
+                    <i class="fa-solid fa-arrow-down flow-arrow md:hidden"></i>
+                    <div class="bg-white rounded-2xl p-5 border border-neutral-100 text-center w-full md:w-44 card-hover">
+                        <i class="fa-solid fa-comments text-3xl text-purple-400 mb-3 block"></i>
+                        <p class="text-xs font-semibold mb-1">Tanya Apapun</p>
+                        <p class="text-[10px] text-neutral-400">AI cari & jawab dari dokumen</p>
+                    </div>
+                    <i class="fa-solid fa-arrow-right flow-arrow hidden md:block"></i>
+                    <i class="fa-solid fa-arrow-down flow-arrow md:hidden"></i>
+                    <div class="bg-green-50 rounded-2xl p-5 border border-green-100 text-center w-full md:w-44 card-hover">
+                        <i class="fa-solid fa-check-circle text-3xl text-green-500 mb-3 block"></i>
+                        <p class="text-xs font-semibold mb-1 text-green-700">Jawaban Akurat</p>
+                        <p class="text-[10px] text-green-400">Dengan sumber jelas</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-neutral-50 rounded-xl border border-neutral-100">
+                        <div class="flex items-center gap-2 mb-2"><i class="fa-solid fa-circle-info text-blue-400 text-xs"></i><h4 class="text-xs font-semibold">Tanpa Chunking</h4></div>
+                        <p class="text-[11px] text-neutral-500 leading-relaxed">Dokumen tetap utuh. Tidak ada informasi yang terpotong atau kehilangan konteks</p>
+                    </div>
+                    <div class="p-4 bg-neutral-50 rounded-xl border border-neutral-100">
+                        <div class="flex items-center gap-2 mb-2"><i class="fa-solid fa-circle-info text-accent-400 text-xs"></i><h4 class="text-xs font-semibold">Tanpa Vector DB</h4></div>
+                        <p class="text-[11px] text-neutral-500 leading-relaxed">Tidak perlu setup Pinecone, Weaviate, atau database apapun. Langsung pakai</p>
+                    </div>
+                    <div class="p-4 bg-neutral-50 rounded-xl border border-neutral-100">
+                        <div class="flex items-center gap-2 mb-2"><i class="fa-solid fa-circle-info text-green-400 text-xs"></i><h4 class="text-xs font-semibold">Tanpa Embedding Manual</h4></div>
+                        <p class="text-[11px] text-neutral-500 leading-relaxed">PageIndex menangani semua proses indexing di belakang layar secara otomatis</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SLIDE 15: KEUNGGULAN PAGEINDEX -->
-        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="15">
-            <div class="absolute bottom-0 right-0 w-96 h-96 bg-accent-50 rounded-full blur-3xl opacity-30"></div>
-            <div class="max-w-5xl mx-auto w-full relative z-10">
-                <div class="flex items-center gap-3 mb-6">
-                    <img src="https://pageindex.ai/_next/image?url=%2Fstatic%2Fimages%2Flogo.png&w=48&q=75" alt="PageIndex" class="h-5">
-                    <div class="tag bg-accent-50 text-accent-600"><i class="fa-solid fa-trophy text-[10px]"></i> Keunggulan</div>
-                </div>
-                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Kenapa PageIndex Lebih Praktis</h2>
-                <p class="text-neutral-500 text-lg mb-12">Fokus ke bisnis, bukan ke infrastruktur</p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100">
-                        <div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center mb-4"><i class="fa-solid fa-plug-circle-xmark text-accent-500"></i></div>
-                        <h3 class="font-semibold text-sm mb-2">No Vector DB</h3>
-                        <p class="text-neutral-400 text-xs leading-relaxed">Gak perlu setup dan maintain database terpisah</p>
-                    </div>
-                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100">
-                        <div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center mb-4"><i class="fa-solid fa-scissors text-accent-500"></i></div>
-                        <h3 class="font-semibold text-sm mb-2">No Chunking</h3>
-                        <p class="text-neutral-400 text-xs leading-relaxed">Dokumen tetap utuh, konteks tidak hilang</p>
-                    </div>
-                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100">
-                        <div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center mb-4"><i class="fa-solid fa-sitemap text-accent-500"></i></div>
-                        <h3 class="font-semibold text-sm mb-2">Tree Structure</h3>
-                        <p class="text-neutral-400 text-xs leading-relaxed">Hierarki dokumen dipertahankan utuh</p>
-                    </div>
-                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100">
-                        <div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center mb-4"><i class="fa-solid fa-eye text-accent-500"></i></div>
-                        <h3 class="font-semibold text-sm mb-2">Traceable</h3>
-                        <p class="text-neutral-400 text-xs leading-relaxed">Bisa lihat jawaban dari halaman berapa</p>
-                    </div>
-                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100">
-                        <div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center mb-4"><i class="fa-solid fa-rocket text-accent-500"></i></div>
-                        <h3 class="font-semibold text-sm mb-2">Fast Setup</h3>
-                        <p class="text-neutral-400 text-xs leading-relaxed">Upload dokumen, langsung bisa chat</p>
-                    </div>
-                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100">
-                        <div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center mb-4"><i class="fa-solid fa-piggy-bank text-accent-500"></i></div>
-                        <h3 class="font-semibold text-sm mb-2">Cost Effective</h3>
-                        <p class="text-neutral-400 text-xs leading-relaxed">Satu service untuk semua kebutuhan RAG</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SLIDE 16: USE CASE -->
-        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="16">
+        <!-- SLIDE 16: PERBANDINGAN -->
+        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative overflow-hidden" data-slide="16">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" alt="" class="slide-img w-72 h-72 -right-10 bottom-10 opacity-[0.08]">
             <div class="max-w-5xl mx-auto w-full">
-                <div class="tag bg-accent-50 text-accent-600 mb-6"><i class="fa-solid fa-industry text-[10px]"></i> Implementasi</div>
-                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Use Case di Berbagai Industri</h2>
-                <p class="text-neutral-500 text-lg mb-12">Apapun industrinya, RAG bisa diterapkan</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100 flex items-start gap-5">
-                        <div class="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-industry text-blue-500 text-xl"></i></div>
-                        <div><h3 class="font-bold text-sm mb-2">Manufacturing</h3><p class="text-neutral-500 text-xs leading-relaxed mb-2">AI assistant untuk katalog produk dan spesifikasi teknis</p><span class="text-[10px] text-blue-500 font-medium">Customer tanya detail produk 24/7</span></div>
+                <div class="tag bg-accent-50 text-accent-600 mb-6"><i class="fa-solid fa-scale-balanced text-[10px]"></i> Perbandingan</div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Vector DB vs PageIndex</h2>
+                <p class="text-neutral-500 text-lg mb-12">Head to head: mana yang lebih efisien?</p>
+                <div class="vs-divider grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-red-50/50 rounded-2xl p-6 border border-red-100">
+                        <h3 class="font-bold text-sm text-red-700 mb-4 text-center"><i class="fa-solid fa-database mr-2"></i>Vector DB (Tradisional)</h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-circle-xmark text-red-400 text-xs w-4"></i><span class="text-neutral-600">Perlu chunking strategy</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-circle-xmark text-red-400 text-xs w-4"></i><span class="text-neutral-600">Setup embedding model</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-circle-xmark text-red-400 text-xs w-4"></i><span class="text-neutral-600">Deploy vector database</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-circle-xmark text-red-400 text-xs w-4"></i><span class="text-neutral-600">Konteks bisa hilang</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-circle-xmark text-red-400 text-xs w-4"></i><span class="text-neutral-600">Maintenance kompleks</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-circle-xmark text-red-400 text-xs w-4"></i><span class="text-neutral-600">Biaya infrastruktur tinggi</span></div>
+                        </div>
                     </div>
-                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100 flex items-start gap-5">
-                        <div class="w-14 h-14 rounded-2xl bg-purple-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-briefcase text-purple-500 text-xl"></i></div>
-                        <div><h3 class="font-bold text-sm mb-2">Professional Services</h3><p class="text-neutral-500 text-xs leading-relaxed mb-2">Knowledge base untuk konsultan dan lawyer</p><span class="text-[10px] text-purple-500 font-medium">Akses cepat ke dokumen dan regulasi</span></div>
-                    </div>
-                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100 flex items-start gap-5">
-                        <div class="w-14 h-14 rounded-2xl bg-green-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-heart-pulse text-green-500 text-xl"></i></div>
-                        <div><h3 class="font-bold text-sm mb-2">Healthcare</h3><p class="text-neutral-500 text-xs leading-relaxed mb-2">AI assistant untuk informasi obat dan prosedur</p><span class="text-[10px] text-green-500 font-medium">Referensi cepat untuk tenaga medis</span></div>
-                    </div>
-                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100 flex items-start gap-5">
-                        <div class="w-14 h-14 rounded-2xl bg-accent-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-graduation-cap text-accent-500 text-xl"></i></div>
-                        <div><h3 class="font-bold text-sm mb-2">Education</h3><p class="text-neutral-500 text-xs leading-relaxed mb-2">Tutor AI berdasarkan materi kursus</p><span class="text-[10px] text-accent-500 font-medium">Jawaban berdasarkan kurikulum resmi</span></div>
+                    <div class="bg-green-50/50 rounded-2xl p-6 border border-green-100">
+                        <h3 class="font-bold text-sm text-green-700 mb-4 text-center"><i class="fa-solid fa-bolt mr-2"></i>PageIndex (MCP)</h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-green-500 text-xs w-4"></i><span class="text-neutral-600">Tanpa chunking</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-green-500 text-xs w-4"></i><span class="text-neutral-600">Embedding otomatis</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-green-500 text-xs w-4"></i><span class="text-neutral-600">Tanpa database terpisah</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-green-500 text-xs w-4"></i><span class="text-neutral-600">Dokumen tetap utuh</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-green-500 text-xs w-4"></i><span class="text-neutral-600">Update tinggal upload ulang</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-green-500 text-xs w-4"></i><span class="text-neutral-600">Hemat biaya infrastruktur</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SLIDE 17: BUSINESS VALUE & IMPLEMENTASI -->
-        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative" data-slide="17">
-            <div class="max-w-5xl mx-auto w-full">
-                <div class="tag bg-green-50 text-green-600 mb-6"><i class="fa-solid fa-chart-line text-[10px]"></i> Value & Build</div>
-                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-10">ROI dan Implementasi</h2>
-                <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
-                    <div class="lg:col-span-3 space-y-4">
-                        <div class="flex items-center gap-5 p-4 bg-white rounded-2xl border border-neutral-100">
-                            <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-gauge-high text-blue-500"></i></div>
-                            <div class="flex-1"><h3 class="font-semibold text-sm">Efisiensi Operasional</h3><p class="text-neutral-400 text-xs">Kurangi beban CS 40-60%, jawab rutin otomatis</p></div>
-                        </div>
-                        <div class="flex items-center gap-5 p-4 bg-white rounded-2xl border border-neutral-100">
-                            <div class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-arrow-trend-up text-green-500"></i></div>
-                            <div class="flex-1"><h3 class="font-semibold text-sm">Peningkatan Sales</h3><p class="text-neutral-400 text-xs">Response cepat = konversi tinggi, 24/7 tanpa kehilangan lead</p></div>
-                        </div>
-                        <div class="flex items-center gap-5 p-4 bg-white rounded-2xl border border-neutral-100">
-                            <div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center shrink-0"><i class="fa-solid fa-coins text-accent-500"></i></div>
-                            <div class="flex-1"><h3 class="font-semibold text-sm">Cost Reduction</h3><p class="text-neutral-400 text-xs">Kurangi headcount CS, kurangi training cost, scale tanpa biaya proporsional</p></div>
-                        </div>
+        <!-- SLIDE 17: MULAI SEKARANG -->
+        <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative overflow-hidden" data-slide="17">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="" class="slide-img w-80 h-80 -left-10 -bottom-10 opacity-[0.08]">
+            <div class="absolute top-1/4 left-0 w-96 h-96 bg-accent-50 rounded-full blur-3xl opacity-40"></div>
+            <div class="max-w-4xl mx-auto w-full relative z-10 text-center">
+                <div class="tag bg-accent-50 text-accent-600 mx-auto mb-8"><i class="fa-solid fa-play text-[10px]"></i> Ayo Mulai</div>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Mulai dalam <span class="gradient-text">5 Menit</span></h2>
+                <p class="text-neutral-500 text-lg mb-12 max-w-2xl mx-auto">Tidak perlu setup kompleks. Upload dokumen, hubungkan ke AI, dan selesai.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100 text-center">
+                        <div class="w-12 h-12 rounded-full bg-accent-100 flex items-center justify-center mx-auto mb-4 text-accent-600 font-bold">1</div>
+                        <h3 class="font-semibold text-sm mb-2">Sign Up</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">Buat akun PageIndex gratis</p>
                     </div>
-                    <div class="lg:col-span-2">
-                        <div class="bg-neutral-50 rounded-2xl p-5 border border-neutral-100 h-full">
-                            <h3 class="font-bold text-sm mb-4 flex items-center gap-2"><i class="fa-solid fa-layer-group text-accent-500"></i>Tech Stack</h3>
-                            <div class="space-y-2.5">
-                                <div class="flex items-center gap-3 p-2.5 bg-white rounded-lg border border-neutral-100">
-                                    <i class="fa-brands fa-python text-green-500 text-sm w-5 text-center"></i>
-                                    <span class="text-xs font-medium">Flask (Python)</span>
-                                </div>
-                                <div class="flex items-center gap-3 p-2.5 bg-white rounded-lg border border-neutral-100">
-                                    <i class="fa-brands fa-css3-alt text-blue-500 text-sm w-5 text-center"></i>
-                                    <span class="text-xs font-medium">Tailwind CSS</span>
-                                </div>
-                                <div class="flex items-center gap-3 p-2.5 bg-white rounded-lg border border-neutral-100">
-                                    <img src="https://pageindex.ai/_next/image?url=%2Fstatic%2Fimages%2Flogo.png&w=48&q=75" alt="PI" class="h-4 w-5 object-contain">
-                                    <span class="text-xs font-medium">PageIndex</span>
-                                </div>
-                                <div class="flex items-center gap-3 p-2.5 bg-white rounded-lg border border-neutral-100">
-                                    <i class="fa-brands fa-github text-neutral-500 text-sm w-5 text-center"></i>
-                                    <span class="text-xs font-medium">Ngrok + GitHub</span>
-                                </div>
-                            </div>
-                            <div class="mt-4 p-3 bg-accent-50 rounded-lg border border-accent-100 text-center">
-                                <p class="text-accent-700 text-[10px] font-semibold">Dari konsep ke production dalam beberapa jam</p>
-                            </div>
-                        </div>
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100 text-center">
+                        <div class="w-12 h-12 rounded-full bg-accent-100 flex items-center justify-center mx-auto mb-4 text-accent-600 font-bold">2</div>
+                        <h3 class="font-semibold text-sm mb-2">Upload Dokumen</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">Drag & drop file PDF, DOCX, atau URL</p>
                     </div>
+                    <div class="card-hover bg-white rounded-2xl p-6 border border-neutral-100 text-center">
+                        <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4 text-green-600 font-bold">3</div>
+                        <h3 class="font-semibold text-sm mb-2">Tanya Apapun</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">AI langsung jawab dari data kamu</p>
+                    </div>
+                </div>
+                <div class="inline-flex items-center gap-3 bg-dark text-white px-8 py-4 rounded-2xl font-semibold text-sm hover:bg-neutral-800 transition-colors cursor-pointer">
+                    <span>Coba PageIndex Sekarang</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
                 </div>
             </div>
         </section>
 
         <!-- SLIDE 18: CLOSING -->
         <section class="slide flex-col items-center justify-center h-full px-6 md:px-16 relative overflow-hidden" data-slide="18">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" alt="" class="slide-img w-full h-full left-0 top-0 rounded-none opacity-[0.06]">
             <div class="absolute inset-0 opacity-[0.03]" style="background-image:radial-gradient(circle at 1px 1px,#000 1px,transparent 0);background-size:40px 40px"></div>
-            <div class="absolute top-1/3 left-1/4 w-96 h-96 bg-accent-100 rounded-full blur-3xl opacity-20"></div>
-            <div class="absolute bottom-1/4 right-1/4 w-72 h-72 bg-accent-50 rounded-full blur-3xl opacity-40"></div>
-            <div class="relative z-10 max-w-4xl mx-auto text-center">
-                <div class="tag bg-accent-50 text-accent-600 mx-auto mb-8"><i class="fa-solid fa-flag-checkered text-[10px]"></i> Penutup</div>
-                <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-8">
-                    Dari Chatbot Ngawur ke <span class="gradient-text">AI yang Benar-Benar Membantu</span>
+            <div class="absolute top-1/4 right-0 w-96 h-96 bg-accent-100 rounded-full blur-3xl opacity-20"></div>
+            <div class="absolute bottom-1/4 left-0 w-80 h-80 bg-green-50 rounded-full blur-3xl opacity-30"></div>
+            <div class="relative z-10 max-w-3xl mx-auto text-center">
+                <div class="tag bg-accent-50 text-accent-600 mx-auto mb-8">
+                    <i class="fa-solid fa-heart text-[10px]"></i>
+                    Terima Kasih
+                </div>
+                <h2 class="text-4xl md:text-6xl font-bold tracking-tight leading-[1.05] mb-6">
+                    AI yang <span class="gradient-text">Mengerti Bisnis Kamu</span> Bukan Lagi Mimpi
                 </h2>
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-10 max-w-2xl mx-auto">
-                    <div class="p-3 bg-neutral-50 rounded-xl border border-neutral-100"><i class="fa-solid fa-robot text-neutral-400 text-sm mb-2 block"></i><p class="text-[10px] text-neutral-500">Masalah Chatbot</p></div>
-                    <div class="p-3 bg-neutral-50 rounded-xl border border-neutral-100"><i class="fa-solid fa-microchip text-neutral-400 text-sm mb-2 block"></i><p class="text-[10px] text-neutral-500">RAG Technology</p></div>
-                    <div class="p-3 bg-neutral-50 rounded-xl border border-neutral-100"><i class="fa-solid fa-code-compare text-neutral-400 text-sm mb-2 block"></i><p class="text-[10px] text-neutral-500">Vector DB vs PI</p></div>
-                    <div class="p-3 bg-neutral-50 rounded-xl border border-neutral-100"><i class="fa-solid fa-chart-line text-neutral-400 text-sm mb-2 block"></i><p class="text-[10px] text-neutral-500">Business Value</p></div>
-                    <div class="p-3 bg-neutral-50 rounded-xl border border-neutral-100 col-span-2 md:col-span-1"><i class="fa-solid fa-code text-neutral-400 text-sm mb-2 block"></i><p class="text-[10px] text-neutral-500">Implementasi</p></div>
+                <p class="text-lg text-neutral-500 font-light max-w-xl mx-auto mb-10 leading-relaxed">
+                    Dengan RAG dan PageIndex, setiap perusahaan bisa punya asisten AI yang benar-benar tahu tentang produk dan layanan mereka.
+                </p>
+                <div class="flex items-center justify-center gap-6 mb-10">
+                    <div class="flex items-center gap-3 bg-white rounded-2xl px-6 py-4 border border-neutral-100 shadow-sm">
+                        <img src="https://pageindex.ai/_next/image?url=%2Fstatic%2Fimages%2Flogo.png&w=48&q=75" alt="PageIndex" class="h-6">
+                        <span class="text-sm font-semibold">PageIndex</span>
+                    </div>
+                    <span class="text-neutral-300 text-xl">×</span>
+                    <div class="flex items-center gap-3 bg-white rounded-2xl px-6 py-4 border border-neutral-100 shadow-sm">
+                        <img src="https://image.web.id/images/codepolitan-logoc787963e27f753de.png" alt="Codepolitan" class="h-6">
+                        <span class="text-sm font-semibold">Codepolitan</span>
+                    </div>
                 </div>
-                <div class="inline-flex items-center gap-4 bg-dark text-white px-10 py-5 rounded-2xl">
-                    <i class="fa-solid fa-laptop-code text-accent-400 text-xl"></i>
-                    <div class="text-left"><p class="font-bold text-lg">Mari Kita Praktik</p><p class="text-neutral-400 text-sm">Sekarang saatnya bangun bersama</p></div>
-                </div>
-                <div class="mt-10 flex items-center justify-center gap-6">
-                    <img src="https://image.web.id/images/codepolitan-logoc787963e27f753de.png" alt="Codepolitan" class="h-5 opacity-50">
-                    <span class="text-neutral-200">x</span>
-                    <img src="https://pageindex.ai/_next/image?url=%2Fstatic%2Fimages%2Flogo.png&w=48&q=75" alt="PageIndex" class="h-5 opacity-50">
+                <div class="flex items-center justify-center gap-6 text-sm text-neutral-400">
+                    <a href="#" class="hover:text-accent-500 transition-colors flex items-center gap-2"><i class="fa-solid fa-globe text-xs"></i> pageindex.ai</a>
+                    <a href="#" class="hover:text-accent-500 transition-colors flex items-center gap-2"><i class="fa-brands fa-github text-xs"></i> GitHub</a>
+                    <a href="#" class="hover:text-accent-500 transition-colors flex items-center gap-2"><i class="fa-brands fa-discord text-xs"></i> Discord</a>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <div class="fixed bottom-0 left-0 right-0 z-40 h-20 flex items-center justify-between px-6 md:px-10 bg-white/80 backdrop-blur-xl border-t border-neutral-100">
-        <button onclick="prevSlide()" id="prevBtn" class="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-neutral-200 text-sm font-medium text-neutral-500 hover:border-neutral-300 hover:text-dark transition-all disabled:opacity-30 disabled:cursor-not-allowed" disabled>
-            <i class="fa-solid fa-arrow-left text-xs"></i><span class="hidden sm:inline">Sebelumnya</span>
-        </button>
-        <div class="flex items-center gap-1.5" id="dotsContainer"></div>
-        <button onclick="nextSlide()" id="nextBtn" class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-dark text-white text-sm font-medium hover:bg-neutral-800 transition-all">
-            <span class="hidden sm:inline">Selanjutnya</span><i class="fa-solid fa-arrow-right text-xs"></i>
-        </button>
-    </div>
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 bg-white/90 backdrop-blur-xl rounded-full px-4 py-2.5 border border-neutral-100 shadow-lg shadow-neutral-200/50" id="dotsContainer"></div>
 
     <script>
-        let currentSlide=1;const totalSlides=18;
-        const dotsContainer=document.getElementById('dotsContainer');
-        for(let i=1;i<=totalSlides;i++){const d=document.createElement('button');d.className=`dot w-2 h-2 rounded-full bg-neutral-200 ${i===1?'active':''}`;d.onclick=()=>goToSlide(i);d.title=`Slide ${i}`;dotsContainer.appendChild(d)}
-        function goToSlide(n){if(n<1||n>totalSlides)return;const s=document.querySelectorAll('.slide'),d=document.querySelectorAll('.dot');s.forEach(sl=>{sl.classList.remove('active');sl.style.opacity='0';sl.style.transform='translateY(20px)'});d.forEach(dt=>dt.classList.remove('active'));currentSlide=n;setTimeout(()=>{s[currentSlide-1].classList.add('active');s[currentSlide-1].style.opacity='1';s[currentSlide-1].style.transform='translateY(0)'},50);d[currentSlide-1].classList.add('active');document.getElementById('slideCounter').textContent=String(currentSlide).padStart(2,'0')+' / '+String(totalSlides).padStart(2,'0');document.getElementById('progressBar').style.width=((currentSlide/totalSlides)*100)+'%';document.getElementById('prevBtn').disabled=currentSlide===1;const nb=document.getElementById('nextBtn');if(currentSlide===totalSlides){nb.innerHTML='<i class="fa-solid fa-rotate-left text-xs"></i><span class="hidden sm:inline">Kembali ke Awal</span>'}else{nb.innerHTML='<span class="hidden sm:inline">Selanjutnya</span><i class="fa-solid fa-arrow-right text-xs"></i>'}}
-        function nextSlide(){if(currentSlide===totalSlides)goToSlide(1);else goToSlide(currentSlide+1)}
-        function prevSlide(){goToSlide(currentSlide-1)}
-        document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){e.preventDefault();nextSlide()}else if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();prevSlide()}else if(e.key==='Home'){e.preventDefault();goToSlide(1)}else if(e.key==='End'){e.preventDefault();goToSlide(totalSlides)}else if(e.key==='f'||e.key==='F'){toggleFullscreen()}});
-        let wt;document.addEventListener('wheel',e=>{e.preventDefault();clearTimeout(wt);wt=setTimeout(()=>{if(e.deltaY>0)nextSlide();else prevSlide()},80)},{passive:false});
-        let ty=0;document.addEventListener('touchstart',e=>{ty=e.touches[0].clientY});document.addEventListener('touchend',e=>{const d=ty-e.changedTouches[0].clientY;if(Math.abs(d)>50){if(d>0)nextSlide();else prevSlide()}});
-        function toggleFullscreen(){if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(()=>{});else document.exitFullscreen().catch(()=>{})}
-        const fs=document.querySelector('.slide.active');if(fs){fs.style.opacity='1';fs.style.transform='translateY(0)'}
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+        let isTransitioning = false;
+
+        const dotsContainer = document.getElementById('dotsContainer');
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('button');
+            dot.className = 'dot w-2 h-2 rounded-full bg-neutral-200 cursor-pointer';
+            dot.onclick = () => goToSlide(i);
+            dotsContainer.appendChild(dot);
+        }
+        const dots = dotsContainer.querySelectorAll('.dot');
+
+        function updateUI() {
+            slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+            dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+            document.getElementById('slideCounter').textContent = String(currentSlide + 1).padStart(2, '0') + ' / ' + String(totalSlides).padStart(2, '0');
+            document.getElementById('progressBar').style.width = ((currentSlide + 1) / totalSlides * 100) + '%';
+        }
+
+        function goToSlide(index) {
+            if (isTransitioning || index === currentSlide || index < 0 || index >= totalSlides) return;
+            isTransitioning = true;
+            slides[currentSlide].classList.remove('active');
+            currentSlide = index;
+            updateUI();
+            setTimeout(() => { isTransitioning = false; }, 500);
+        }
+
+        function nextSlide() { goToSlide(currentSlide + 1); }
+        function prevSlide() { goToSlide(currentSlide - 1); }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+            else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+        });
+
+        let wheelTimeout;
+        document.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            clearTimeout(wheelTimeout);
+            wheelTimeout = setTimeout(() => { e.deltaY > 0 ? nextSlide() : prevSlide(); }, 50);
+        }, { passive: false });
+
+        let touchStartY = 0;
+        document.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; });
+        document.addEventListener('touchend', (e) => {
+            const diff = touchStartY - e.changedTouches[0].clientY;
+            if (Math.abs(diff) > 50) { diff > 0 ? nextSlide() : prevSlide(); }
+        });
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) { document.documentElement.requestFullscreen(); }
+            else { document.exitFullscreen(); }
+        }
+
+        updateUI();
     </script>
 </body>
 </html>
